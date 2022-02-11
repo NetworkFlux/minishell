@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:01:25 by npinheir          #+#    #+#             */
-/*   Updated: 2021/12/13 08:16:35 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/11 15:04:58 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# include <string.h>
 
 # include "minishell_struct.h"
 # include "../libft/include/libft.h"
