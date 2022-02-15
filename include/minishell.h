@@ -1,43 +1,38 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 14:01:25 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/11 15:04:58 by npinheir         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <unistd.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-# include <string.h>
-
-# include "minishell_struct.h"
 # include "../libft/include/libft.h"
 
-# define MAXCOM 1000
-# define MAXLIST 100
+typedef struct SINGLE_CMD
+{
+	char	*s_cmd;
+	char	*ex_cmd;
+	char	*options;
+	char	**args;
+	size_t	nb_args;
+}s_cmd_t;
 
-int		ft_proces_str(char *str, char **parsed);
-void	ft_exec_com(char **parsed);
+typedef struct FULL_CMD
+{
+	char	*f_cmd;
+	size_t	nb_scmd;
+	s_cmd_t	*alls_cmd;
+}f_cmd_t;
 
-// Commands
-void	ft_echo(char *str);
-void	ft_pwd(void);
-void	ft_cd(char *str);
-void	ft_env(char **env);
+// main
+char	*take_input(void);
 
-// Minishell tils
-int		ft_error(int argc);
-void	ft_init_shell(void);
-char	*ft_clean_arg(char *parsed);;
+// inits
+f_cmd_t	*init_full_cmd(char *cmd);
 
+// parse
+void	parse(f_cmd_t *f_cmd);
+
+//utils
+void	clean_commands(f_cmd_t *f_cmd);
 
 #endif
