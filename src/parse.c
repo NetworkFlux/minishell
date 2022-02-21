@@ -5,7 +5,7 @@ void	parse(f_cmd_t *f_cmd)
 	char	**split_cmd;
 	size_t	i;
 
-	split_cmd = ft_split(f_cmd->f_cmd, '|');
+	split_cmd = ft_split_quote(f_cmd->f_cmd, '|');
 	i = 0;
 	while (i < f_cmd->nb_scmd)
 	{

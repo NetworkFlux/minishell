@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 23:35:02 by npinheir          #+#    #+#             */
-/*   Updated: 2021/12/09 10:29:59 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:28:30 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_itoa(int n);
 char	*ft_strcpy(char *dest, const char *src);
 char	**ft_split(char const *s, char c);
+char	**ft_split_quote(char const *s, char c);
 
 // integer return function
 
@@ -74,6 +75,7 @@ int		ft_lstsize(t_list *lst);
 int		get_next_line(int fd, char **line);
 int		ft_intlen(int n);
 int		ft_isspace(int c);
+int		countwords_quote(char const *s, char c);
 
 // long integer return functions
 
