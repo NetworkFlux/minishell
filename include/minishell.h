@@ -13,7 +13,7 @@ typedef struct SINGLE_CMD
 	char	*ex_cmd;
 	char	*options;
 	char	**args;
-	size_t	nb_args;
+	int		nb_args;
 }s_cmd_t;
 
 typedef struct FULL_CMD
@@ -31,8 +31,12 @@ f_cmd_t	*init_full_cmd(char *cmd);
 
 // parse
 void	parse(f_cmd_t *f_cmd);
+void	parse_scom(s_cmd_t *f_cmd);
 
 //utils
 void	clean_commands(f_cmd_t *f_cmd);
+char	*first_word(char *str);
+char	*skip_word(char *str);
+void	print_cmd(s_cmd_t s_cmd);
 
 #endif
