@@ -7,7 +7,7 @@ void	parse_scom(s_cmd_t *s_cmd)
 	temp = s_cmd->s_cmd;
 	s_cmd->ex_cmd = first_word(temp);
 	temp = skip_word(temp);
-	if (temp[0] == '-')
+	if (temp && temp[0] == '-')
 	{
 		s_cmd->options = first_word(temp);
 		temp = skip_word(temp);

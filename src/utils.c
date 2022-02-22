@@ -26,9 +26,9 @@ char	*skip_word(char *str)
 
 	i = 0;
 	j = 0;
-	if (str[i] == ' ')
+	if (str[i] && str[i] == ' ')
 		i++;
-	while (str[i] != ' ')
+	while (str[i] && str[i] != ' ')
 		i++;
 	res = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!res)
@@ -51,24 +51,19 @@ char	*first_word(char *str)
 
 	i = 0;
 	j = 0;
-	if (str[0] == ' ')
-	{
-		j = 1;
+	while (str[i] && str[i] == ' ')
 		i++;
-	}
-	while (str[i] != ' ')
+	j = i;
+	while (str[i] && str[i] != ' ')
 		i++;
 	res = malloc(sizeof(char) * (i - j + 1));
 	if (!res)
 		return (NULL);
+	res[i - j] = '\0';
 	i = j;
 	j = 0;
-	while (str[i] != ' ')
-	{
-		res[j] = str[i++];
-		j++;
-	}
-	res[j] = '\0';
+	while (res[j] && str[i] && str[i] != ' ')
+		res[j++] = str[i++];
 	return (res);
 }
 
