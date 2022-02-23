@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtok.c                                           :+:      :+:    :+:   */
+/*   strtok.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 11:20:16 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/23 11:20:16 by fcaquard         ###   ########.fr       */
+/*   Created: 2022/02/23 21:51:13 by fcaquard          #+#    #+#             */
+/*   Updated: 2022/02/23 22:20:17 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_isdelimiter(int c)
+/* TODO
+	same error as in shell for `>>>>` and `<<<<<`
+	find a way to link a token and its type (delimiter, option, ...)
+	find a way to link a token to its command (multiple tokens between delimiter)
+	find a way to link a command to the full input
+	test with parenthesis 
+*/
+
+static int	is_delimiter(int c)
 {
 	if (c == '|' || c == '>' || c == '<')
 		return (1);
@@ -20,7 +28,7 @@ static int	ft_isdelimiter(int c)
 }
 
 // check block start ' " (
-static	int is_block_start(char c)
+static int	is_block_start(char c)
 {
 	if (
 		(unsigned char) c == '\''
@@ -30,10 +38,13 @@ static	int is_block_start(char c)
 	return (0);
 }
 
-// returns 0 when no blockend is found
-static	size_t	find_block_end(char *input, char target, size_t position)
+// returns 0 when no blockend is not found / end position on success
+static size_t	find_block_end(char *input, size_t position)
 {
-	if (target == '(')
+	char	target;
+
+	target = input[position];
+	if (input[position] == '(')
 		target = ')';
 	position++;
 	while (input && input[position])
@@ -45,7 +56,8 @@ static	size_t	find_block_end(char *input, char target, size_t position)
 	return (0);
 }
 
-static	int	find_token_end(char *input, size_t position)
+// returns 0 when no end is not found / end position on success
+static size_t	find_token_end(char *input, size_t position)
 {
 	while (input && input[position])
 	{
@@ -58,9 +70,8 @@ static	int	find_token_end(char *input, size_t position)
 	return (0);
 }
 
-// returns 0 if not a delimiter
-// returns end if is a delimiter
-static int	find_delimiter_end(char *input, size_t start)
+// returns 0 when end delimiter is not found / end position on success
+static size_t	find_delimiter_end(char *input, size_t start)
 {
 	size_t	len;
 
@@ -74,8 +85,7 @@ static int	find_delimiter_end(char *input, size_t start)
 		}
 		if (len <= 2)
 			return (start);
-		ft_putendl_fd("bash: syntax error near unexpected token `|'", 1);
-		return (0);
+		printf("bash: syntax error near unexpected token `|'\n");
 	}
 	else if ((unsigned char) input[start] == '>')
 	{
@@ -86,8 +96,7 @@ static int	find_delimiter_end(char *input, size_t start)
 		}
 		if (len <= 2)
 			return (start);
-		ft_putendl_fd("bash: syntax error near unexpected token `>'", 1);
-		return (0);
+		printf("bash: syntax error near unexpected token `>'\n");
 	}
 	else if ((unsigned char) input[start] == '<')
 	{
@@ -98,12 +107,12 @@ static int	find_delimiter_end(char *input, size_t start)
 		}
 		if (len <= 3)
 			return (start);
-		ft_putendl_fd("bash: syntax error near unexpected token `<'", 1);
-		return (0);
+		printf("bash: syntax error near unexpected token `<'\n");
 	}
 	return (0);
 }
 
+// checks if the ' " ( are closed
 int	is_input_incomplete(char *input)
 {
 	size_t	i;
@@ -114,7 +123,7 @@ int	is_input_incomplete(char *input)
 	{
 		if (is_block_start(input[i]))
 		{	
-			res = find_block_end(input, input[i], i);
+			res = find_block_end(input, i);
 			if (res == 0)
 				return (1);
 			i = res;
@@ -124,9 +133,10 @@ int	is_input_incomplete(char *input)
 	return (0);
 }
 
+// extracts token from string
 static char	*tokenize(char *input, size_t start, size_t end)
 {
-	char *token;
+	char	*token;
 	size_t	i;
 
 	i = 0;
@@ -139,107 +149,157 @@ static char	*tokenize(char *input, size_t start, size_t end)
 	return (token);
 }
 
-
-static	int	parse_param(char *input, size_t *start, int *is_command, f_cmd_t *f_cmd)
+static int	parse_param(f_cmd_t *f_cmd, size_t *start, int *is_command)
 {
-	(void)f_cmd;
 	size_t	end;
-	char	*token;
 
-	end = find_token_end(input, *start);
+	end = find_token_end(f_cmd->f_cmd, *start);
 	if (end == 0)
-	{
-		printf("find token bad output\n");
-		return (1);
-	}
+		return (0);
 	else
 	{
-		token = tokenize(input, *start, end);
-		if (!token)
-			return (1);
+		f_cmd->tokens[f_cmd->token_index] = tokenize(f_cmd->f_cmd, *start, end);
+		if (!f_cmd->tokens[f_cmd->token_index])
+			return (0);
 		if (*is_command)
 			printf("is_command ");
-		printf("param: %s\n", token);
+		printf("param: %s\n", f_cmd->tokens[f_cmd->token_index]);
 		*is_command = 0;
+		f_cmd->token_index++;
 		end++;
 	}
 	*start = end;
-	return (0);
+	return (1);
 }
 
-static	int parse_delimiter(char *input, size_t *start, int *is_command, f_cmd_t *f_cmd)
+static int	parse_delimiter(f_cmd_t *f_cmd, size_t *start, int *is_command)
 {
-	(void)f_cmd;
 	size_t	end;
-	char	*token;
 
-	end = find_delimiter_end(input, *start);
+	end = find_delimiter_end(f_cmd->f_cmd, *start);
 	if (end == 0)
-		return (1);
+		return (0);
 	else
 	{
-		token = tokenize(input, *start, end);
-		if (!token)
-			return (1);
-		printf("delimiter: %s\n", token);
+		f_cmd->tokens[f_cmd->token_index] = tokenize(f_cmd->f_cmd, *start, end);
+		if (!f_cmd->tokens[f_cmd->token_index])
+			return (0);
+		printf("delimiter: %s\n", f_cmd->tokens[f_cmd->token_index]);
 		*is_command = 1;
+		f_cmd->token_index++;
 	}
 	*start = end;
-	return (0);
+	return (1);
 }
 
-static	int parse_block(char *input, size_t *start, int *is_command, f_cmd_t *f_cmd)
+static int	parse_block(f_cmd_t *f_cmd, size_t *start, int *is_command)
 {
-	(void)f_cmd;
 	size_t	end;
-	char	*token;
 
-	end = find_block_end(input, input[*start], *start);
+	end = find_block_end(f_cmd->f_cmd, *start);
 	if (end == 0)
-	{
-		printf("error blockend\n");
-		return (1);
-	}
+		return (0);
 	else
 	{
-		// tokenize block
-		token = tokenize(input, *start + 1, end);
-		if (!token)
-			return (1);
+		f_cmd->tokens[f_cmd->token_index] = tokenize(f_cmd->f_cmd, *start + 1, end);
+		if (!f_cmd->tokens[f_cmd->token_index])
+			return (0);
 		if (*is_command)
 			printf("is_command ");
-		printf("block: %s\n", token);
+		printf("block: %s\n", f_cmd->tokens[f_cmd->token_index]);
 		*is_command = 0;
+		f_cmd->token_index++;
 		end++;
 	}
 	*start = end;
-	return (0);
+	return (1);
 }
 
-// returns 1 on incomplete input
-int	ft_strtok(char *input, size_t start, f_cmd_t *f_cmd)
+// splits the input into tokens
+static int	ft_strtok(f_cmd_t *f_cmd, size_t start)
 {
-	int is_command;
+	int	is_command;
 
 	is_command = 1;
-	while (start < ft_strlen(input))
+	while (start < ft_strlen(f_cmd->f_cmd))
 	{
-		while (input && ft_isspace(input[start]))
+		while (f_cmd->f_cmd && ft_isspace(f_cmd->f_cmd[start]))
 			start++;
-		if (is_block_start(input[start])) 
+		if (is_block_start(f_cmd->f_cmd[start]))
 		{
-			if (parse_block(input, &start, &is_command, f_cmd))
-				return (1);
+			if (!parse_block(f_cmd, &start, &is_command))
+				return (0);
 		}
-		else if(ft_isdelimiter(input[start]))
+		else if (is_delimiter(f_cmd->f_cmd[start]))
 		{
-			if (parse_delimiter(input, &start, &is_command, f_cmd))
-				return (1);
+			if (!parse_delimiter(f_cmd, &start, &is_command))
+			{
+				printf("Error delimiter\n");
+				return (0);
+			}
 		}
 		else
 		{
-			if (parse_param(input, &start, &is_command, f_cmd))
-				return (1);
+			if (!parse_param(f_cmd, &start, &is_command))
+				return (0);
+		}
+	}
+	return (1);
+}
+
+// before parsing, count input's tokens
+static size_t	count_tokens(f_cmd_t *f_cmd, size_t start, size_t count)
+{
+	while (start < ft_strlen(f_cmd->f_cmd))
+	{
+		while (f_cmd->f_cmd && ft_isspace(f_cmd->f_cmd[start]))
+			start++;
+		if (is_block_start(f_cmd->f_cmd[start]))
+		{
+			start = find_block_end(f_cmd->f_cmd, start);
+			if (start++ == 0)
+				return (0);
+		}
+		else if (is_delimiter(f_cmd->f_cmd[start]))
+		{
+			start = find_delimiter_end(f_cmd->f_cmd, start);
+			if (start == 0)
+				return (0);
+		}
+		else
+		{
+			start = find_token_end(f_cmd->f_cmd, start);
+			if (start++ == 0)
+				return (0);
+		}
+		count++;
+	}
+	return (count);
+}
+
+int	parse_alt(f_cmd_t *f_cmd)
+{
+	f_cmd->nb_scmd = count_tokens(f_cmd, 0, 0);
+	if (!f_cmd->nb_scmd)
+		printf("Error while counting tokens (pre-parsing)\n");
+	if (f_cmd->nb_scmd > 0)
+	{
+		f_cmd->tokens = malloc(sizeof(char *) * f_cmd->nb_scmd);
+		if (!f_cmd->tokens)
+			return (1);
+		if (!ft_strtok(f_cmd, 0))
+		{
+			printf("Error while parsing\n");
+		}
+		else
+		{
+			// DEBUG
+			size_t i = 0;
+			while (f_cmd->tokens[i] && i < f_cmd->nb_scmd)
+			{
+				printf("debug: %s\n", f_cmd->tokens[i]);
+				i++;
+			}
 		}
 	}
 	return (0);

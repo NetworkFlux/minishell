@@ -21,6 +21,8 @@ typedef struct FULL_CMD
 	char	*f_cmd;
 	size_t	nb_scmd;
 	s_cmd_t	*alls_cmd;
+	size_t	token_index;
+	char	**tokens;
 }f_cmd_t;
 
 // main
@@ -34,7 +36,7 @@ f_cmd_t	*init_full_cmd(char *cmd);
 void	parse(f_cmd_t *f_cmd);
 void	parse_scom(s_cmd_t *f_cmd);
 // parsing alternative test
-int		ft_strtok(char *input, size_t start, f_cmd_t *f_cmd);
+int		parse_alt(f_cmd_t *f_cmd);
 //utils
 void	clean_commands(f_cmd_t *f_cmd);
 char	*first_word(char *str);
