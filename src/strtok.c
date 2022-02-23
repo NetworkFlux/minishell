@@ -63,29 +63,44 @@ static	int	find_token_end(char *input, size_t position)
 // returns end if is a delimiter
 static int	find_delimiter_end(char *input, size_t start)
 {
+	size_t	len;
+
+	len = 0;
 	if ((unsigned char) input[start] == '|')
 	{
-		if (input[start + 1] && input[start + 1] == '|')
+		while (input[start] && input[start] == '|')
 		{
-			return (start + 2);
+			start++;
+			len++;
 		}
-		return (start + 1);
+		if (len <= 2)
+			return (start);
+		ft_putendl_fd("bash: syntax error near unexpected token `|'", 1);
+		return (0);
 	}
 	else if ((unsigned char) input[start] == '>')
 	{
-		if (input[start + 1] && input[start + 1] == '>')
+		while (input[start] && input[start] == '>')
 		{
-			return (start + 2);
+			start++;
+			len++;
 		}
-		return (start + 1);
+		if (len <= 2)
+			return (start);
+		ft_putendl_fd("bash: syntax error near unexpected token `>'", 1);
+		return (0);
 	}
 	else if ((unsigned char) input[start] == '<')
 	{
-		if (input[start + 1] && input[start + 1] == '<')
+		while (input[start] && input[start] == '<')
 		{
-			return (start + 2);
+			start++;
+			len++;
 		}
-		return (start + 1);
+		if (len <= 3)
+			return (start);
+		ft_putendl_fd("bash: syntax error near unexpected token `<'", 1);
+		return (0);
 	}
 	return (0);
 }
@@ -157,6 +172,7 @@ static int	ft_strtok(char *input, f_cmd_t *f_cmd)
 			if (end == 0)
 			{
 				printf("error blockend\n");
+				return (1);
 			}
 			else
 			{
@@ -177,7 +193,8 @@ static int	ft_strtok(char *input, f_cmd_t *f_cmd)
 
 			if (end == 0)
 			{
-				printf("error delimiter\n");
+				// printf("error delimiter\n");
+				return (1);
 			}
 			else
 			{
@@ -186,7 +203,7 @@ static int	ft_strtok(char *input, f_cmd_t *f_cmd)
 					return (1);
 				printf("delimiter: ");
 				is_command = 1;
-				end++;
+				// end++;
 			}
 		}
 		else // word (if first or after a delimiter == command)
