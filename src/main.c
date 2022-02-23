@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/23 15:32:31 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:41:15 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static	char *total_input(char *cmd, char *completion)
 	j = 0;
 	total = malloc(sizeof(char) * (ft_strlen(cmd) + ft_strlen(completion)) + 1);
 	if (!total)
+	{
+		free(cmd);
+		free(completion);
 		return (NULL);
+	}
 	while (cmd && cmd[i])
 		total[j++] = cmd[i++];
 	i = 0;
@@ -48,6 +52,8 @@ char	*take_input(void)
 			completion = readline("> ");
 			cmd = total_input(cmd, completion);
 		}
+		if (!cmd)
+			return (NULL);
 		add_history(cmd);
 	}
 	return (cmd);
@@ -67,6 +73,8 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		cmd = take_input();
+		if (!cmd)
+			return (1);
 		f_cmd = init_full_cmd(cmd);
 		// parse(f_cmd);
 		parse_strtok(f_cmd);

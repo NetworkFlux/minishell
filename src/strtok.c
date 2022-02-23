@@ -204,7 +204,7 @@ static int	ft_strtok(char *input, f_cmd_t *f_cmd)
 				// printf("token start: %c / end: %c\n", input[start], input[end]);
 				if (is_command)
 					printf("is_command ");
-				printf("word: ");
+				printf("param: ");
 				is_command = 0;
 				end++;
 			}
