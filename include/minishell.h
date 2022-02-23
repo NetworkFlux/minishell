@@ -34,8 +34,7 @@ f_cmd_t	*init_full_cmd(char *cmd);
 void	parse(f_cmd_t *f_cmd);
 void	parse_scom(s_cmd_t *f_cmd);
 // parsing alternative test
-int		parse_strtok(f_cmd_t *f_cmd);
-
+int		ft_strtok(char *input, size_t start, f_cmd_t *f_cmd);
 //utils
 void	clean_commands(f_cmd_t *f_cmd);
 char	*first_word(char *str);

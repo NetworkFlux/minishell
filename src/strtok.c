@@ -55,7 +55,6 @@ static	int	find_token_end(char *input, size_t position)
 	}
 	if (input[position] == '\0')
 		return (position);
-	printf("return 0\n");
 	return (0);
 }
 
@@ -140,100 +139,108 @@ static char	*tokenize(char *input, size_t start, size_t end)
 	return (token);
 }
 
-// returns 1 on incomplete input
-static int	ft_strtok(char *input, f_cmd_t *f_cmd)
+
+static	int	parse_param(char *input, size_t *start, int *is_command, f_cmd_t *f_cmd)
 {
 	(void)f_cmd;
-
-	char	*token;
-	int		is_command;
-	size_t	start;
 	size_t	end;
+	char	*token;
 
-	start = 0;
-	is_command = 1;
-	while (start < ft_strlen(input))
+	end = find_token_end(input, *start);
+	if (end == 0)
 	{
-		// printf("START: %ld / [%c] \n", start, input[start]);
-		if (is_input_incomplete(input))
-		{
-			printf("error input\n");
-			return (1);
-		}
-		while (input && ft_isspace(input[start]))
-			start++;
-
-		// block "" '' ()
-		 // (if first or after a delimiter == command)
-		if (is_block_start(input[start])) 
-		{
-			// printf("is_block: %c\n", input[start]);
-			end = find_block_end(input, input[start], start);
-			if (end == 0)
-			{
-				printf("error blockend\n");
-				return (1);
-			}
-			else
-			{
-				// tokenize block
-				token = tokenize(input, start + 1, end);
-				if (!token)
-					return (1);
-				if (is_command)
-					printf("is_command ");
-				printf("block: ");
-				is_command = 0;
-				end++;
-			}
-		}
-		else if(ft_isdelimiter(input[start]))
-		{
-			end = find_delimiter_end(input, start);
-
-			if (end == 0)
-			{
-				// printf("error delimiter\n");
-				return (1);
-			}
-			else
-			{
-				token = tokenize(input, start, end);
-				if (!token)
-					return (1);
-				printf("delimiter: ");
-				is_command = 1;
-				// end++;
-			}
-		}
-		else // word (if first or after a delimiter == command)
-		{
-			end = find_token_end(input, start);
-			if (end == 0)
-			{
-				printf("find token bad output\n");
-			}
-			else
-			{
-				token = tokenize(input, start, end);
-				if (!token)
-					return (1);
-				// printf("token start: %c / end: %c\n", input[start], input[end]);
-				if (is_command)
-					printf("is_command ");
-				printf("param: ");
-				is_command = 0;
-				end++;
-			}
-		}
-		printf("|%s|\n", token);
-		start = end;
+		printf("find token bad output\n");
+		return (1);
 	}
+	else
+	{
+		token = tokenize(input, *start, end);
+		if (!token)
+			return (1);
+		if (*is_command)
+			printf("is_command ");
+		printf("param: %s\n", token);
+		*is_command = 0;
+		end++;
+	}
+	*start = end;
 	return (0);
 }
 
-int parse_strtok(f_cmd_t *f_cmd)
+static	int parse_delimiter(char *input, size_t *start, int *is_command, f_cmd_t *f_cmd)
 {
-	ft_strtok(f_cmd->f_cmd, f_cmd);
+	(void)f_cmd;
+	size_t	end;
+	char	*token;
+
+	end = find_delimiter_end(input, *start);
+	if (end == 0)
+		return (1);
+	else
+	{
+		token = tokenize(input, *start, end);
+		if (!token)
+			return (1);
+		printf("delimiter: %s\n", token);
+		*is_command = 1;
+	}
+	*start = end;
+	return (0);
+}
+
+static	int parse_block(char *input, size_t *start, int *is_command, f_cmd_t *f_cmd)
+{
+	(void)f_cmd;
+	size_t	end;
+	char	*token;
+
+	end = find_block_end(input, input[*start], *start);
+	if (end == 0)
+	{
+		printf("error blockend\n");
+		return (1);
+	}
+	else
+	{
+		// tokenize block
+		token = tokenize(input, *start + 1, end);
+		if (!token)
+			return (1);
+		if (*is_command)
+			printf("is_command ");
+		printf("block: %s\n", token);
+		*is_command = 0;
+		end++;
+	}
+	*start = end;
+	return (0);
+}
+
+// returns 1 on incomplete input
+int	ft_strtok(char *input, size_t start, f_cmd_t *f_cmd)
+{
+	int is_command;
+
+	is_command = 1;
+	while (start < ft_strlen(input))
+	{
+		while (input && ft_isspace(input[start]))
+			start++;
+		if (is_block_start(input[start])) 
+		{
+			if (parse_block(input, &start, &is_command, f_cmd))
+				return (1);
+		}
+		else if(ft_isdelimiter(input[start]))
+		{
+			if (parse_delimiter(input, &start, &is_command, f_cmd))
+				return (1);
+		}
+		else
+		{
+			if (parse_param(input, &start, &is_command, f_cmd))
+				return (1);
+		}
+	}
 	return (0);
 }
