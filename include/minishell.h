@@ -27,11 +27,14 @@ typedef struct FULL_CMD
 char	*take_input(void);
 
 // inits
+int		is_input_incomplete(char *input);
 f_cmd_t	*init_full_cmd(char *cmd);
 
 // parse
 void	parse(f_cmd_t *f_cmd);
 void	parse_scom(s_cmd_t *f_cmd);
+// parsing alternative test
+int		parse_strtok(f_cmd_t *f_cmd);
 
 //utils
 void	clean_commands(f_cmd_t *f_cmd);

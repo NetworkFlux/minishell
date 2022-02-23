@@ -3,24 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/15 06:52:34 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/23 15:32:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// concats previous input with new input
+static	char *total_input(char *cmd, char *completion)
+{
+	char *total;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	total = malloc(sizeof(char) * (ft_strlen(cmd) + ft_strlen(completion)) + 1);
+	if (!total)
+		return (NULL);
+	while (cmd && cmd[i])
+		total[j++] = cmd[i++];
+	i = 0;
+	while (completion && completion[i])
+		total[j++] = completion[i++]; 
+	total[(ft_strlen(cmd) + ft_strlen(completion))] = '\0';
+	return (total);
+}
+
 char	*take_input(void)
 {
 	char	*cmd;
+	char	*completion;
 
 	cmd = readline("minishell => ");
 	if (!ft_strlen(cmd))
 		cmd = take_input();
 	else
+	{
+		while (cmd && is_input_incomplete(cmd))
+		{
+			completion = readline("> ");
+			cmd = total_input(cmd, completion);
+		}
 		add_history(cmd);
+	}
 	return (cmd);
 }
 
@@ -39,7 +68,8 @@ int	main(int argc, char **argv)
 	{
 		cmd = take_input();
 		f_cmd = init_full_cmd(cmd);
-		parse(f_cmd);
+		// parse(f_cmd);
+		parse_strtok(f_cmd);
 	}
 	return (0);
 }

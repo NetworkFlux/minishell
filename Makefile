@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
+#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/02/15 09:42:53 by npinheir         ###   ########.fr        #
+#    Updated: 2022/02/23 15:30:09 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ INC_DIR = ./include/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES = main.c inits.c parse.c utils.c
+SRC_FILES = main.c inits.c parse.c utils.c strtok.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
