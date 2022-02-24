@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:44:22 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 16:47:45 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/24 18:33:56 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,28 @@ size_t	find_block_end(char *input, size_t position)
 	return (0);
 }
 
-int	parse_block(s_cmd_t *s_cmd, size_t *start, int *is_command)
+int	parse_block(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
 {
 	size_t	end;
+	char	*token;
 
 	end = find_block_end(s_cmd->s_cmd, *start);
 	if (end == 0)
 		return (0);
 	else
 	{
-		s_cmd->tokens[s_cmd->itoken] = tokenize(s_cmd->s_cmd, *start + 1, end);
-		if (!s_cmd->tokens[s_cmd->itoken])
+		// start + 1 so we remove the quotes 
+		token = tokenize(s_cmd->s_cmd, *start + 1, end);
+		if (!token)
 			return (0);
 		if (*is_command)
-			printf("is_command ");
-		printf("block: %s\n", s_cmd->tokens[s_cmd->itoken]);
+			s_cmd->exec = token;
+		else
+		{
+			s_cmd->tokens[*i] = token;
+			(*i)++;
+		}
 		*is_command = 0;
-		s_cmd->itoken++;
 		end++;
 	}
 	*start = end;
