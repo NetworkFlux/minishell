@@ -6,51 +6,53 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:41:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 10:50:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:00:21 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	count_commands(f_cmd_t *f_cmd, int *is_command, int end_value)
+/*
+static void	count_commands(s_cmd_t *s_cmd, int *is_command, int end_value)
 {
 	if (*is_command)
-		f_cmd->ncmd++;
+		s_cmd->ncmd++;
 	*is_command = end_value;
 }
+*/
 
 // before parsing, count input's tokens
-int	count_input(f_cmd_t *f_cmd, size_t start)
+int	count_input(s_cmd_t *s_cmd, size_t start)
 {
-	int	is_command;
+	/*int	is_command;
 
-	is_command = 1;
-	while (start < ft_strlen(f_cmd->f_cmd))
+	is_command = 1;*/
+	while (start < ft_strlen(s_cmd->s_cmd))
 	{
-		while (f_cmd->f_cmd && ft_isspace(f_cmd->f_cmd[start]))
+		while (s_cmd->s_cmd && ft_isspace(s_cmd->s_cmd[start]))
 			start++;
-		if (is_block_start(f_cmd->f_cmd[start]))
+		if (is_block_start(s_cmd->s_cmd[start]))
 		{
-			start = find_block_end(f_cmd->f_cmd, start);
+			start = find_block_end(s_cmd->s_cmd, start);
 			if (start++ == 0)
 				return (0);
-			count_commands(f_cmd, &is_command, 0);
+			// count_commands(s_cmd, &is_command, 0);
 		}
-		else if (is_delimiter(f_cmd->f_cmd[start]))
+		else if (is_delimiter(s_cmd->s_cmd[start]))
 		{
-			start = find_delimiter_end(f_cmd->f_cmd, start);
+			start = find_delimiter_end(s_cmd->s_cmd, start);
 			if (start == 0)
 				return (0);
-			count_commands(f_cmd, &is_command, 1);
+			// count_commands(s_cmd, &is_command, 1);
 		}
 		else
 		{
-			start = find_param_end(f_cmd->f_cmd, start);
+			start = find_param_end(s_cmd->s_cmd, start);
 			if (start++ == 0)
 				return (0);
-			count_commands(f_cmd, &is_command, 0);
+			// count_commands(s_cmd, &is_command, 0);
 		}
-		f_cmd->ntokens++;
+		s_cmd->ntokens++;
 	}
 	return (1);
 }
