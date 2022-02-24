@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 11:09:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:19:59 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int	parse_alt(f_cmd_t *f_cmd)
 	{
 		printf("Error while counting tokens (pre-parsing)\n");
 	}
-	printf("tk: %ld / cmd: %ld\n", f_cmd->ntokens, f_cmd->ncmd);
-	if (f_cmd->ntokens > 0)
+	else
 	{
+		printf("tk: %ld / cmd: %ld\n", f_cmd->ntokens, f_cmd->ncmd);
 		f_cmd->tokens = malloc(sizeof(char *) * f_cmd->ntokens);
 		if (!f_cmd->tokens)
 			return (1);
@@ -78,7 +78,7 @@ int	parse_alt(f_cmd_t *f_cmd)
 		{
 			while (f_cmd->tokens[i] && i < f_cmd->ntokens)
 			{
-				printf("debug: %s\n", f_cmd->tokens[i]);
+				printf(">>debug: %s\n", f_cmd->tokens[i]);
 				i++;
 			}
 		}
