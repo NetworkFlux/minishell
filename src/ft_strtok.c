@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 14:19:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/24 18:44:19 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,59 +29,65 @@ char	*tokenize(char *input, size_t start, size_t end)
 }
 
 // splits the input into tokens
-static int	ft_strtok(f_cmd_t *f_cmd, size_t start, int is_command)
-{
-	while (start < ft_strlen(f_cmd->f_cmd))
+static int	ft_strtok(s_cmd_t *s_cmd, size_t start, int is_command)
+{	
+	size_t	i;
+
+	i = 0;
+	while (start < ft_strlen(s_cmd->s_cmd))
 	{
-		while (f_cmd->f_cmd && ft_isspace(f_cmd->f_cmd[start]))
+		while (s_cmd->s_cmd && ft_isspace(s_cmd->s_cmd[start]))
 			start++;
-		if (is_block_start(f_cmd->f_cmd[start]))
+		if (is_block_start(s_cmd->s_cmd[start]))
 		{
-			if (!parse_block(f_cmd, &start, &is_command))
+			if (!parse_block(s_cmd, &start, &is_command, &i))
 				return (0);
 		}
-		else if (is_delimiter(f_cmd->f_cmd[start]))
-		{
-			if (!parse_delimiter(f_cmd, &start, &is_command))
-				return (0);
-		}
+		// else if (is_delimiter(s_cmd->s_cmd[start]))
+		// {
+		// 	if (!parse_delimiter(s_cmd, &start, &is_command, &i))
+		// 		return (0);
+		// }
 		else
 		{
-			if (!parse_param(f_cmd, &start, &is_command))
+			if (!parse_param(s_cmd, &start, &is_command, &i))
 				return (0);
 		}
 	}
 	return (1);
 }
 
-// i = debug variable
 int	parse_alt(f_cmd_t *f_cmd)
 {
 	size_t	i;
+	s_cmd_t	*current;
 
 	i = 0;
-	if (!count_input(f_cmd, 0) || f_cmd->ntokens == 0 || f_cmd->ncmd == 0)
+	while (i < f_cmd->nb_scmd && f_cmd->s_cmd[i])
 	{
-		printf("Error while counting tokens (pre-parsing)\n");
-	}
-	else
-	{
-		printf("tk: %ld / cmd: %ld\n", f_cmd->ntokens, f_cmd->ncmd);
-		f_cmd->tokens = malloc(sizeof(char *) * f_cmd->ntokens);
-		if (!f_cmd->tokens)
-			return (1);
-		if (!ft_strtok(f_cmd, 0, 1))
-		{
-			printf("Error while parsing\n");
-		}
+		current = f_cmd->s_cmd[i];
+		if (!count_input(current, 0) || current->ntokens == 0)
+			printf("Error while counting tokens (pre-parsing)\n");
 		else
 		{
-			while (f_cmd->tokens[i] && i < f_cmd->ntokens)
+			current->tokens = malloc(sizeof(char *) * current->ntokens);
+			if (!current->tokens)
+				return (0);
+			if (!ft_strtok(f_cmd->s_cmd[i], 0, 1))
+				printf("Error while parsing\n");
+			else
 			{
-				printf(">>debug: %s\n", f_cmd->tokens[i]);
-				i++;
+				// debug
+				size_t o = 0;
+				printf("exec: %s\n", current->exec);
+				while (o < current->ntokens && current->tokens[o])
+				{
+					printf("tk[%ld]: %s\n", o, current->tokens[o]);
+					o++;
+				}
 			}
 		}
+		i++;
 	}
-	return (0);
+	return (1);
 }

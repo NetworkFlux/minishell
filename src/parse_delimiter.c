@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:43:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 14:18:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/24 18:46:55 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,21 @@ size_t	find_delimiter_end(char *input, size_t start)
 	return (0);
 }
 
-int	parse_delimiter(f_cmd_t *f_cmd, size_t *start, int *is_command)
+// not used for now
+int	parse_delimiter(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
 {
 	size_t	end;
 
-	end = find_delimiter_end(f_cmd->f_cmd, *start);
+	end = find_delimiter_end(s_cmd->s_cmd, *start);
 	if (end == 0)
 		return (0);
 	else
 	{
-		f_cmd->tokens[f_cmd->itoken] = tokenize(f_cmd->f_cmd, *start, end);
-		if (!f_cmd->tokens[f_cmd->itoken])
+		s_cmd->tokens[*i] = tokenize(s_cmd->s_cmd, *start, end);
+		if (!s_cmd->tokens[*i])
 			return (0);
-		printf("delimiter: %s\n", f_cmd->tokens[f_cmd->itoken]);
+		printf("delimiter: %s\n", s_cmd->tokens[*i]);
 		*is_command = 1;
-		f_cmd->itoken++;
 	}
 	*start = end;
 	return (1);
