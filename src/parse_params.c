@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 18:34:03 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:45:38 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,8 @@ int	parse_param(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
 		if (*is_command)
 			s_cmd->exec = token;
 		else
-		{
-			s_cmd->tokens[*i] = token;
-			(*i)++;
-		}
+			s_cmd->tokens[(*i)++]->token = token;
 		*is_command = 0;
-		end++;
 	}
 	*start = end;
 	return (1);

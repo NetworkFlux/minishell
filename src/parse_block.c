@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:44:22 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 18:33:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:45:47 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ int	is_block_start(char c)
 		|| (unsigned char) c == '(')
 		return (1);
 	return (0);
+}
+
+static void	block_type(char c, t_token *token)
+{
+	if ((unsigned char) c == '\'')
+		token->type = singleq;
+	else if ((unsigned char) c == '"')
+		token->type = doubleq;
+	else if ((unsigned char) c == '(')
+		token->type = paranthesis;
 }
 
 // returns 0 when no blockend is not found / end position on success
@@ -51,18 +61,17 @@ int	parse_block(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
 		return (0);
 	else
 	{
-		// start + 1 so we remove the quotes 
+		block_type(s_cmd->s_cmd[*start], s_cmd->tokens[*i]);
+		// +1 so we remove the starting quote
 		token = tokenize(s_cmd->s_cmd, *start + 1, end);
 		if (!token)
 			return (0);
 		if (*is_command)
 			s_cmd->exec = token;
 		else
-		{
-			s_cmd->tokens[*i] = token;
-			(*i)++;
-		}
+			s_cmd->tokens[(*i)++]->token = token;
 		*is_command = 0;
+		// +1 so we start after the last quote
 		end++;
 	}
 	*start = end;

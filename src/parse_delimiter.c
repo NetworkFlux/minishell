@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:43:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 18:46:55 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 11:21:44 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ size_t	find_delimiter_end(char *input, size_t start)
 	return (0);
 }
 
+/*
 // not used for now
 int	parse_delimiter(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
 {
@@ -77,9 +78,9 @@ int	parse_delimiter(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
 		s_cmd->tokens[*i] = tokenize(s_cmd->s_cmd, *start, end);
 		if (!s_cmd->tokens[*i])
 			return (0);
-		printf("delimiter: %s\n", s_cmd->tokens[*i]);
 		*is_command = 1;
 	}
 	*start = end;
 	return (1);
 }
+*/

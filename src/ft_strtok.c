@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/24 18:44:19 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 12:56:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,43 @@ static int	ft_strtok(s_cmd_t *s_cmd, size_t start, int is_command)
 int	parse_alt(f_cmd_t *f_cmd)
 {
 	size_t	i;
+	size_t	k;
 	s_cmd_t	*current;
 
 	i = 0;
 	while (i < f_cmd->nb_scmd && f_cmd->s_cmd[i])
 	{
+		k = 0;
 		current = f_cmd->s_cmd[i];
-		if (!count_input(current, 0) || current->ntokens == 0)
+		if (!count_input(current, 0))
 			printf("Error while counting tokens (pre-parsing)\n");
 		else
 		{
-			current->tokens = malloc(sizeof(char *) * current->ntokens);
+			// printf("%ld / %ld / %s\n", current->ntokens, i, current->s_cmd);
+			f_cmd->s_cmd[i]->tokens = malloc(sizeof(char *) * current->ntokens);
 			if (!current->tokens)
 				return (0);
+			while (k < current->ntokens)
+			{
+				f_cmd->s_cmd[i]->tokens[k] = malloc(sizeof(t_token));
+				if (!f_cmd->s_cmd[i]->tokens[k])
+				{
+					printf("NIGHTMARE!\n");
+					return (0);
+				}
+				k++;
+			}
 			if (!ft_strtok(f_cmd->s_cmd[i], 0, 1))
 				printf("Error while parsing\n");
 			else
 			{
 				// debug
 				size_t o = 0;
-				printf("exec: %s\n", current->exec);
+				printf("# exec: %s\n", current->exec);
 				while (o < current->ntokens && current->tokens[o])
 				{
-					printf("tk[%ld]: %s\n", o, current->tokens[o]);
+					// | the pipes are just there to see if there's no spaces around
+					printf("# tk[%ld]: |%s| %d\n", o, current->tokens[o]->token, current->tokens[o]->type);
 					o++;
 				}
 			}

@@ -19,13 +19,35 @@ typedef struct REDIRECTION
 	char	**inin_args;
 }	redir_t;
 
+typedef	enum	s_blocktype
+{
+	singleq = 0,
+	doubleq = 1,
+	paranthesis = 2
+}	e_blocktype;
+
+typedef	enum	s_exectype
+{
+	builtin = 0,
+	extrenal = 1,
+	path = 2
+}	e_exectype;
+
+typedef	struct s_token
+{
+	char		*token;
+	e_blocktype	type;
+}	t_token;
+
+
 typedef struct SINGLE_CMD
 {
-	char	*s_cmd;		// single command
-	char	*exec;		// program to be called
-	char 	**tokens;	// list of tokens following
-	size_t	ntokens;	// number of tokens (size of tokens array)
-	redir_t	redir;
+	char		*s_cmd;		// single command
+	char		*exec;		// program to be called
+	e_exectype	type;
+	t_token		**tokens;	// list of tokens following
+	size_t		ntokens;	// number of tokens (size of tokens array)
+	redir_t		redir;
 }	s_cmd_t;
 
 typedef struct FULL_CMD
