@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 10:13:13 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:10:53 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ f_cmd_t	*init_full_cmd(char *cmd)
 	{
 		res->s_cmd[i]->s_cmd = remove_spaces(cmd_split[i]);
 		res->s_cmd[i]->redir = init_redir();
+		res->s_cmd[i]->ntokens = 0;
 		if (!res->s_cmd[i]->redir)
 			return (NULL);
 		i++;

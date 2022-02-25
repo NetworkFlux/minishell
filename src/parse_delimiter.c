@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:43:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 11:21:44 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:09:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	is_delimiter(int c)
 	return (0);
 }
 
+/*
 // returns 0 when end delimiter is not found / end position on success
 // commented redirection delimiters
 size_t	find_delimiter_end(char *input, size_t start)
@@ -63,6 +64,7 @@ size_t	find_delimiter_end(char *input, size_t start)
 	// }
 	return (0);
 }
+*/
 
 /*
 // not used for now

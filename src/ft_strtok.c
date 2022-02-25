@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 15:54:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:59:13 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,25 @@ static int	ft_strtok(s_cmd_t *s_cmd, size_t start, int is_command)
 	i = 0;
 	while (start < ft_strlen(s_cmd->s_cmd))
 	{
-		while (s_cmd->s_cmd && ft_isspace(s_cmd->s_cmd[start]))
+		while (s_cmd->s_cmd[start] && ft_isspace(s_cmd->s_cmd[start]))
 			start++;
-		if (is_block_start(s_cmd->s_cmd[start]))
+		if (s_cmd->s_cmd[start])
 		{
-			if (!parse_block(s_cmd, &start, &is_command, &i))
-				return (0);
-		}
-		// else if (is_delimiter(s_cmd->s_cmd[start]))
-		// {
-		// 	if (!parse_delimiter(s_cmd, &start, &is_command, &i))
-		// 		return (0);
-		// }
-		else
-		{
-			if (!parse_param(s_cmd, &start, &is_command, &i))
-				return (0);
+			if (is_block_start(s_cmd->s_cmd[start]))
+			{
+				if (!parse_block(s_cmd, &start, &is_command, &i))
+					return (0);
+			}
+			// else if (is_delimiter(s_cmd->s_cmd[start]))
+			// {
+			// 	if (!parse_delimiter(s_cmd, &start, &is_command, &i))
+			// 		return (0);
+			// }
+			else
+			{
+				if (!parse_param(s_cmd, &start, &is_command, &i))
+					return (0);
+			}
 		}
 	}
 	return (1);
@@ -75,6 +78,7 @@ int	parse_alt(f_cmd_t *f_cmd)
 		}
 		else
 		{
+			printf("ntokens: %ld\n", current->ntokens);
 			f_cmd->s_cmd[i]->tokens = malloc(sizeof(char *) * current->ntokens);
 			if (!current->tokens)
 				return (clear_all(f_cmd));
@@ -99,9 +103,10 @@ int	parse_alt(f_cmd_t *f_cmd)
 				while (o < current->ntokens && current->tokens[o])
 				{
 					// | the pipes are just there to see if there's no spaces around
-					printf("# tk[%ld]: |%s|\n", o, current->tokens[o]->token);
+					printf("# tk[%ld]: |%s| type:%d\n", o, current->tokens[o]->token, current->tokens[o]->type);
 					o++;
 				}
+				print_redir(f_cmd->s_cmd[i], i + 1);
 			}
 		}
 		i++;

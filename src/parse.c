@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 void	parse_scom(s_cmd_t *s_cmd)
 {
 	char	*temp;
@@ -43,3 +43,4 @@ void	parse(f_cmd_t *f_cmd)
 		i++;
 	}
 }
+*/

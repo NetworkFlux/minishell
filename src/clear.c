@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 16:40:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:13:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,14 @@ void	clear_on_kill(void)
 
 	clear.sa_flags = SA_SIGINFO;
 	clear.sa_sigaction = test;
-
-
 	// CTRL+C SIGINT
-	// should also do CTRL+\ SIGQUIT
+	// CTRL+\ (qwerty) CTRL+* (on azerty) SIGQUIT
 	if (sigaction(SIGINT, &clear, NULL) == -1)
-	{
-		printf("sigaction NONO\n");
-	}
+		printf("SIGINT ERROR\n");
 	else
-	{
-		printf("sigaction OKOK\n");
-	}
+		printf("SIGINT OK\n");
+	if (sigaction(SIGQUIT, &clear, NULL) == -1)
+		printf("SIGQUIT ERROR\n");
+	else
+		printf("SIGQUIT OK\n");
 }

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:44:22 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 13:45:47 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 18:19:00 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	block_type(char c, t_token *token)
 	else if ((unsigned char) c == '"')
 		token->type = doubleq;
 	else if ((unsigned char) c == '(')
-		token->type = paranthesis;
+		token->type = parenthesis;
 }
 
 // returns 0 when no blockend is not found / end position on success

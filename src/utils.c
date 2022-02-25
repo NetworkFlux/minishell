@@ -1,48 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
+/*   Updated: 2022/02/25 11:22:45 by npinheir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	print_cmd(s_cmd_t s_cmd)
+void	print_redir(s_cmd_t	*s_cmd, size_t j)
 {
-	int	i;
+	size_t	i;
 
+	printf("Current string without redir : %s\n", s_cmd->s_cmd);
+
+	printf("Out redir in simple command %ld : %ld\n", j, s_cmd->redir->out);
 	i = 0;
-	printf("FULL COMMAND : %s\n", s_cmd.s_cmd);
-	printf("Exectuable command : %s\n", s_cmd.ex_cmd);
-	printf("Options : %s\n", s_cmd.options);
-	printf("Number of arguments : %d\n", s_cmd.nb_args);
-	printf("Arguments :\n");
-	while (i < s_cmd.nb_args)
+	while (i < s_cmd->redir->out)
 	{
-		printf("Argument %d: %s\n", i, s_cmd.args[i]);
+		printf("Out target %ld : %s\n", i + 1, s_cmd->redir->out_args[i]);
+		i++;
+	}
+	printf("In redir in simple command %ld : %ld\n", j, s_cmd->redir->in);
+	i = 0;
+	while (i < s_cmd->redir->in)
+	{
+		printf("In target %ld : %s\n", i + 1, s_cmd->redir->in_args[i]);
+		i++;
+	}
+	printf("Out out redir in simple command %ld : %ld\n", j, s_cmd->redir->outout);
+	i = 0;
+	while (i < s_cmd->redir->outout)
+	{
+		printf("Out out target %ld : %s\n", i + 1, s_cmd->redir->outout_args[i]);
+		i++;
+	}	
+	printf("In in redir in simple command %ld : %ld\n", j, s_cmd->redir->inin);
+	i = 0;
+	while (i < s_cmd->redir->inin)
+	{
+		printf("In in target %ld : %s\n", i + 1, s_cmd->redir->inin_args[i]);
 		i++;
 	}
 }
 
-char	*skip_word(char *str)
-{
-	char	*res;
-
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (str[i] && str[i] == ' ')
-		i++;
-	while (str[i] && str[i] != ' ')
-		i++;
-	res = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!res)
-		return (NULL);
-	i++;
-	while (str[i])
-	{
-		res[j] = str[i++];
-		j++;
-	}
-	res[j] = '\0';
-	return (res);
-}
-
+// Retourne le primier mot d'un str
 char	*first_word(char *str)
 {
 	char	*res;
@@ -62,34 +68,58 @@ char	*first_word(char *str)
 	res[i - j] = '\0';
 	i = j;
 	j = 0;
-	while (res[j] && str[i] && str[i] != ' ')
+	while (str[i] && str[i] != ' ')
 		res[j++] = str[i++];
 	return (res);
 }
 
-void	clean_commands(f_cmd_t *f_cmd)
+// Return 1 if the caracter at index index is between simple or double quotes
+int	is_in_quote(const char *s, int index)
 {
-	size_t	i;
+	int	i;
+	int	s_quote;
+	int	d_quote;
+
+	i = 0;
+	s_quote = 0;
+	d_quote = 0;
+	while (i < index)
+	{
+		if (s[i] == 39)
+		{
+			if (!d_quote)
+				s_quote = !s_quote;
+		}
+		else if (s[i] == '"')
+		{
+			if (!s_quote)
+				d_quote = !d_quote;
+		}
+		i++;
+	}
+	return (s_quote || d_quote);
+}
+
+// Removes spaces if str starts spaces
+char	*remove_spaces(char *str)
+{
 	size_t	j;
 	size_t	k;
 	char	*temp;
 
-	i = 0;
-	while (i < f_cmd->nb_scmd)
+	j = 0;
+	k = 0;
+	while (str[j] && str[j] == ' ')
+		j++;
+	temp = malloc(sizeof(char) * ft_strlen(str) + 1 - j);
+	if (!temp)
+		return (NULL);
+	while (str[j])
 	{
-		temp = f_cmd->alls_cmd[i].s_cmd;
-		j = 0;
-		k = 0;
-		while (f_cmd->alls_cmd[i].s_cmd[j])
-		{
-			if (f_cmd->alls_cmd[i].s_cmd[0] == ' ')
-				j++;
-			temp[k] = f_cmd->alls_cmd[i].s_cmd[j];
-			j++;
-			k++;
-		}
-		temp[k] = '\0';
-		f_cmd->alls_cmd[i].s_cmd = temp;
-		i++;
+		temp[k] = str[j];
+		j++;
+		k++;
 	}
+	temp[k] = '\0';
+	return (temp);
 }

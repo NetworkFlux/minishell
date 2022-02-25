@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/02/25 14:18:03 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/02/25 19:06:27 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,20 @@ INC_DIR = ./include/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES = inits.c parse_block.c parse_count.c parse_params.c ft_strtok.c main.c parse.c parse_delimiter.c parse_verify.c utils.c clear.c
+SRC_FILES = main.c		\
+	init.c				\
+	parse_block.c		\
+	parse_count.c		\
+	parse_params.c		\
+	ft_strtok.c			\
+	parse.c				\
+	parse_delimiter.c	\
+	parse_verify.c		\
+	utils.c				\
+	clear.c				\
+	parse_redir.c		\
+	parse_redir2.c		\
+
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
