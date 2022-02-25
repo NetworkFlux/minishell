@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 22:36:02 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,40 +60,40 @@ static int	ft_strtok(t_scmd *s_cmd, size_t start, int is_command)
 	return (1);
 }
 
-int	parse_alt(t_fcmd *f_cmd)
+int	parse_alt(void)
 {
 	size_t	i;
 	size_t	k;
 	t_scmd	*current;
 
 	i = 0;
-	while (i < f_cmd->nb_scmd && f_cmd->s_cmd[i])
+	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 	{
 		k = 0;
-		current = f_cmd->s_cmd[i];
+		current = g_fcmd->s_cmd[i];
 		if (!count_input(current, 0))
 		{
 			printf("Error while counting tokens (pre-parsing)\n");
-			return (clear_all(f_cmd));
+			return (clear_all());
 		}
 		else
 		{
 			printf("ntokens: %ld\n", current->ntokens);
-			f_cmd->s_cmd[i]->tokens = malloc(sizeof(char *) * current->ntokens);
+			g_fcmd->s_cmd[i]->tokens = malloc(sizeof(char *) * current->ntokens);
 			if (!current->tokens)
-				return (clear_all(f_cmd));
+				return (clear_all());
 			while (k < current->ntokens)
 			{
-				f_cmd->s_cmd[i]->tokens[k] = malloc(sizeof(t_token));
-				if (!f_cmd->s_cmd[i]->tokens[k])
-					return (clear_all(f_cmd));
-				f_cmd->s_cmd[i]->tokens[k]->type = undefined;
+				g_fcmd->s_cmd[i]->tokens[k] = malloc(sizeof(t_token));
+				if (!g_fcmd->s_cmd[i]->tokens[k])
+					return (clear_all());
+				g_fcmd->s_cmd[i]->tokens[k]->type = undefined;
 				k++;
 			}
-			if (!ft_strtok(f_cmd->s_cmd[i], 0, 1))
+			if (!ft_strtok(g_fcmd->s_cmd[i], 0, 1))
 			{
 				printf("Error while parsing\n");
-				return (clear_all(f_cmd));
+				return (clear_all());
 			}
 			else
 			{
@@ -106,7 +106,7 @@ int	parse_alt(t_fcmd *f_cmd)
 					printf("# tk[%ld]: |%s| type:%d\n", o, current->tokens[o]->token, current->tokens[o]->type);
 					o++;
 				}
-				print_redir(f_cmd->s_cmd[i], i + 1);
+				print_redir(g_fcmd->s_cmd[i], i + 1);
 			}
 		}
 		i++;

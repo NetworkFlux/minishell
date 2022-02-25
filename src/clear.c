@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 23:28:09 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
-
-static void	test(int sig, siginfo_t *info, void *ucontext)
-{
-	(void) ucontext;
-	(void) info;
-	(void) sig;
-	printf("CLEARING... Needs f_cmd :/ \n");
-	// clear_all(fcmd);
-	exit (0);
-}
 
 static void	clear_redir(t_redir *redir)
 {
@@ -39,31 +29,47 @@ static void	clear_redir(t_redir *redir)
 	free(redir);
 }
 
-int	clear_all(t_fcmd *fcmd)
+int	clear_all(void)
 {
 	size_t	i;
 
-	if (fcmd->s_cmd)
+	if (g_fcmd)
 	{
-		if (fcmd->s_cmd[0])
+		if(g_fcmd->s_cmd)
 		{
-			i = 0;
-			while (i < fcmd->nb_scmd)
+			if (g_fcmd->s_cmd[0])
 			{
-				if (fcmd->s_cmd[i]->tokens)
-					free(fcmd->s_cmd[i]->tokens);
-				if (fcmd->s_cmd[i]->redir)
-					clear_redir(fcmd->s_cmd[i]->redir);
-				free(fcmd->s_cmd[i]->exec);
-				free(fcmd->s_cmd[i]->s_cmd);
-				free(fcmd->s_cmd[i]);
-				i++;
+				i = 0;
+				while (i < g_fcmd->nb_scmd)
+				{
+					if (g_fcmd->s_cmd[i]->tokens)
+						free(g_fcmd->s_cmd[i]->tokens);
+					if (g_fcmd->s_cmd[i]->redir)
+						clear_redir(g_fcmd->s_cmd[i]->redir);
+					if (g_fcmd->s_cmd[i]->exec)
+						free(g_fcmd->s_cmd[i]->exec);
+					free(g_fcmd->s_cmd[i]->s_cmd);
+					free(g_fcmd->s_cmd[i]);
+					i++;
+				}
 			}
+			free(g_fcmd->s_cmd);
+			g_fcmd->s_cmd = NULL;
 		}
-		free(fcmd->s_cmd);
+		free (g_fcmd);
+		g_fcmd = NULL;
 	}
-	free (fcmd);
+	printf(">> ALL cleared ! <<\n");
 	return (0);
+}
+
+static void	test(int sig, siginfo_t *info, void *ucontext)
+{
+	(void) ucontext;
+	(void) info;
+	(void) sig;
+	clear_all();
+	exit (0);
 }
 
 void	clear_on_kill(void)

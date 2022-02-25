@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 23:46:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*take_input(void)
 int	main(int argc, char **argv)
 {
 	(void)argv;
-	t_fcmd	*f_cmd;
 	char	*cmd;
 
 	if (argc != 1)
@@ -81,15 +80,10 @@ int	main(int argc, char **argv)
 		cmd = take_input();
 		if (!cmd)
 			return (0);
-		f_cmd = init_full_cmd(cmd);
-		if (!f_cmd)
-			return (0);
-		else
-		{
-			parse_redir(f_cmd);
-			parse_alt(f_cmd);
-			clear_all(f_cmd);
-		}
+		init_full_cmd(cmd);
+		parse_redir();
+		parse_alt();
+		clear_all();
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 21:53:36 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 23:30:11 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	*remove_spaces(char *str)
 
 	j = 0;
 	k = 0;
+	if (!str)
+		return (NULL);
 	while (str[j] && str[j] == ' ')
 		j++;
 	temp = malloc(sizeof(char) * ft_strlen(str) + 1 - j);
@@ -121,6 +123,5 @@ char	*remove_spaces(char *str)
 		k++;
 	}
 	temp[k] = '\0';
-	free(str);
 	return (temp);
 }
