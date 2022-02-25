@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 12:56:20 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 15:54:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,28 @@ int	parse_alt(f_cmd_t *f_cmd)
 		k = 0;
 		current = f_cmd->s_cmd[i];
 		if (!count_input(current, 0))
+		{
 			printf("Error while counting tokens (pre-parsing)\n");
+			return (clear_all(f_cmd));
+		}
 		else
 		{
-			// printf("%ld / %ld / %s\n", current->ntokens, i, current->s_cmd);
 			f_cmd->s_cmd[i]->tokens = malloc(sizeof(char *) * current->ntokens);
 			if (!current->tokens)
-				return (0);
+				return (clear_all(f_cmd));
 			while (k < current->ntokens)
 			{
 				f_cmd->s_cmd[i]->tokens[k] = malloc(sizeof(t_token));
 				if (!f_cmd->s_cmd[i]->tokens[k])
-				{
-					printf("NIGHTMARE!\n");
-					return (0);
-				}
+					return (clear_all(f_cmd));
+				f_cmd->s_cmd[i]->tokens[k]->type = undefined;
 				k++;
 			}
 			if (!ft_strtok(f_cmd->s_cmd[i], 0, 1))
+			{
 				printf("Error while parsing\n");
+				return (clear_all(f_cmd));
+			}
 			else
 			{
 				// debug
@@ -96,7 +99,7 @@ int	parse_alt(f_cmd_t *f_cmd)
 				while (o < current->ntokens && current->tokens[o])
 				{
 					// | the pipes are just there to see if there's no spaces around
-					printf("# tk[%ld]: |%s| %d\n", o, current->tokens[o]->token, current->tokens[o]->type);
+					printf("# tk[%ld]: |%s|\n", o, current->tokens[o]->token);
 					o++;
 				}
 			}

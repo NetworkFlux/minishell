@@ -3,6 +3,7 @@
 
 # include <unistd.h>
 # include <stdio.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/include/libft.h"
@@ -21,17 +22,11 @@ typedef struct REDIRECTION
 
 typedef	enum	s_blocktype
 {
-	singleq = 0,
-	doubleq = 1,
-	paranthesis = 2
+	undefined = 0,
+	singleq = 1,
+	doubleq = 2,
+	paranthesis = 3
 }	e_blocktype;
-
-typedef	enum	s_exectype
-{
-	builtin = 0,
-	extrenal = 1,
-	path = 2
-}	e_exectype;
 
 typedef	struct s_token
 {
@@ -39,12 +34,10 @@ typedef	struct s_token
 	e_blocktype	type;
 }	t_token;
 
-
 typedef struct SINGLE_CMD
 {
 	char		*s_cmd;		// single command
 	char		*exec;		// program to be called
-	e_exectype	type;
 	t_token		**tokens;	// list of tokens following
 	size_t		ntokens;	// number of tokens (size of tokens array)
 	redir_t		redir;
@@ -79,6 +72,10 @@ int		is_delimiter(int c);
 int		parse_delimiter(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i);
 size_t	find_delimiter_end(char *input, size_t start);
 char	*tokenize(char *input, size_t start, size_t end);
+
+//clear
+int		clear_all(f_cmd_t *fcmd);
+void	clear_on_kill(void);
 
 
 //utils
