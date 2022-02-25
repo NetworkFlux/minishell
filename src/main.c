@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 18:24:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 20:09:40 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,42 +63,6 @@ char	*take_input(void)
 	}
 	return (cmd);
 }
-
-/*
-// creating a list of dummy s_cmd
-f_cmd_t *test(f_cmd_t *cmd)
-{
-	s_cmd_t *t;
-	s_cmd_t *s;
-	s_cmd_t *u;
-	t = malloc(sizeof(s_cmd_t) * 1);
-	if (!t)
-		return (NULL);
-	s = malloc(sizeof(s_cmd_t) * 1);
-	if (!t)
-		return (NULL);
-	u = malloc(sizeof(s_cmd_t) * 1);
-	if (!t)
-		return (NULL);
-	t->s_cmd = "echo 'bla'";
-	t->ntokens = 0;
-	t->tokens = NULL;
-	s->s_cmd = "grep  	'space and    time'";
-	s->ntokens = 0;
-	s->tokens = NULL;
-	u->s_cmd = "cat -e 'preparing stuff'";
-	u->ntokens = 0;
-	u->tokens = NULL;
-	cmd->s_cmd = malloc(sizeof(s_cmd_t *) * 3);
-	if (!cmd->s_cmd)
-		return (NULL);
-	cmd->s_cmd[0] = t;
-	cmd->s_cmd[1] = s;
-	cmd->s_cmd[2] = u;
-	cmd->nb_scmd = 3;
-	return (cmd);
-}
-*/
 
 int	main(int argc, char **argv)
 {

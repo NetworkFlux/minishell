@@ -63,7 +63,7 @@ f_cmd_t	*init_full_cmd(char *cmd);
 redir_t	*init_redir(void);;
 
 // parse redir
-void	parse_redir(f_cmd_t *f_cmd);
+int		parse_redir(f_cmd_t *f_cmd);
 int		nb_redir(char *str, char c);
 int		nb_dredir(char *str, char c);
 void	fill_redir(s_cmd_t *s_cmd);

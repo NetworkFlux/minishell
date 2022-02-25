@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 11:22:45 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:59:21 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ char	*remove_spaces(char *str)
 		k++;
 	}
 	temp[k] = '\0';
+	free(str);
 	return (temp);
 }

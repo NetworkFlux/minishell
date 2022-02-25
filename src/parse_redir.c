@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 11:38:52 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:18:40 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	fill_redir(s_cmd_t *s_cmd)
 }
 
 // Cette fonction trouve le nombre de chaque redirection et malloc les args
-void	parse_redir(f_cmd_t *f_cmd)
+int	parse_redir(f_cmd_t *f_cmd)
 {
 	size_t	i;
 
@@ -105,14 +105,19 @@ void	parse_redir(f_cmd_t *f_cmd)
 		f_cmd->s_cmd[i]->redir->outout = nb_dredir(f_cmd->s_cmd[i]->s_cmd, '>');
 		f_cmd->s_cmd[i]->redir->inin = nb_dredir(f_cmd->s_cmd[i]->s_cmd, '<');
 		f_cmd->s_cmd[i]->redir->out_args = malloc(sizeof(char *) * f_cmd->s_cmd[i]->redir->out);
+		if (!f_cmd->s_cmd[i]->redir->out_args)
+			return (clear_all(f_cmd));
 		f_cmd->s_cmd[i]->redir->in_args = malloc(sizeof(char *) * f_cmd->s_cmd[i]->redir->in);
+		if (!f_cmd->s_cmd[i]->redir->in_args)
+			return (clear_all(f_cmd));
 		f_cmd->s_cmd[i]->redir->outout_args = malloc(sizeof(char *) * f_cmd->s_cmd[i]->redir->outout);
+		if (!f_cmd->s_cmd[i]->redir->outout_args)
+			return (clear_all(f_cmd));
 		f_cmd->s_cmd[i]->redir->inin_args = malloc(sizeof(char *) * f_cmd->s_cmd[i]->redir->inin);
-		if (!f_cmd->s_cmd[i]->redir->out_args || !f_cmd->s_cmd[i]->redir->in_args
-			|| !f_cmd->s_cmd[i]->redir->outout_args || !f_cmd->s_cmd[i]->redir->inin_args)
-			return; //gerer l'erreur
+		if (!f_cmd->s_cmd[i]->redir->inin_args)
+			return (clear_all(f_cmd));
 		fill_redir(f_cmd->s_cmd[i]);
-		print_redir(f_cmd->s_cmd[i], i + 1);
 		i++;
 	}
+	return (1);
 }

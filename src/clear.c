@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 18:13:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 20:03:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,22 @@ static void	test(int sig, siginfo_t *info, void *ucontext)
 	exit (0);
 }
 
+static void	clear_redir(redir_t *redir)
+{
+	if (redir->in_args)
+		free(redir->in_args);
+	if (redir->inin_args)
+		free(redir->inin_args);
+	if (redir->out_args)
+		free(redir->out_args);
+	if (redir->outout_args)
+		free(redir->outout_args);
+	free(redir);
+}
+
 int	clear_all(f_cmd_t *fcmd)
 {
 	size_t	i;
-	size_t	j;
 
 	if (fcmd->s_cmd)
 	{
@@ -39,20 +51,11 @@ int	clear_all(f_cmd_t *fcmd)
 			while (i < fcmd->nb_scmd)
 			{
 				if (fcmd->s_cmd[i]->tokens)
-				{
-					if (fcmd->s_cmd[i]->tokens[0])
-					{
-						j = 0;
-						while (j < fcmd->s_cmd[i]->ntokens)
-						{
-							free(fcmd->s_cmd[i]->tokens[j]->token);
-							free(fcmd->s_cmd[i]->tokens[j]);
-							j++;
-						}
-						free(fcmd->s_cmd[i]->tokens);
-					}
-				}
+					free(fcmd->s_cmd[i]->tokens);
+				if (fcmd->s_cmd[i]->redir)
+					clear_redir(fcmd->s_cmd[i]->redir);
 				free(fcmd->s_cmd[i]->exec);
+				free(fcmd->s_cmd[i]->s_cmd);
 				free(fcmd->s_cmd[i]);
 				i++;
 			}
