@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:43:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 19:09:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ size_t	find_delimiter_end(char *input, size_t start)
 
 /*
 // not used for now
-int	parse_delimiter(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
+int	parse_delimiter(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i)
 {
 	size_t	end;
 

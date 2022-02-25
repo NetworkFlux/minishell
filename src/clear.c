@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 20:03:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	test(int sig, siginfo_t *info, void *ucontext)
 	exit (0);
 }
 
-static void	clear_redir(redir_t *redir)
+static void	clear_redir(t_redir *redir)
 {
 	if (redir->in_args)
 		free(redir->in_args);
@@ -39,7 +39,7 @@ static void	clear_redir(redir_t *redir)
 	free(redir);
 }
 
-int	clear_all(f_cmd_t *fcmd)
+int	clear_all(t_fcmd *fcmd)
 {
 	size_t	i;
 

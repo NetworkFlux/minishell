@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 19:59:21 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_redir(s_cmd_t	*s_cmd, size_t j)
+void	print_redir(t_scmd	*s_cmd, size_t j)
 {
 	size_t	i;
 

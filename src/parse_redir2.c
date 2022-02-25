@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 11:38:29 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		nb_redir(char *str, char c)
 
 // Ajoute chaque arg de redirection dans le tableau arg
 // et retire cette redirection de la commande simple
-void	add_dredir_arg(s_cmd_t *s_cmd, unsigned int i, int j, char c)
+void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 {
 	char	*temp_right;
 	char	*temp_left;

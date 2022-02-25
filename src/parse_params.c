@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 13:45:38 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	find_param_end(char *input, size_t position)
 	return (0);
 }
 
-int	parse_param(s_cmd_t *s_cmd, size_t *start, int *is_command, size_t *i)
+int	parse_param(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i)
 {
 	size_t	end;
 	char	*token;

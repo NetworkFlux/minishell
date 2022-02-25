@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 18:59:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*tokenize(char *input, size_t start, size_t end)
 }
 
 // splits the input into tokens
-static int	ft_strtok(s_cmd_t *s_cmd, size_t start, int is_command)
+static int	ft_strtok(t_scmd *s_cmd, size_t start, int is_command)
 {	
 	size_t	i;
 
@@ -60,11 +60,11 @@ static int	ft_strtok(s_cmd_t *s_cmd, size_t start, int is_command)
 	return (1);
 }
 
-int	parse_alt(f_cmd_t *f_cmd)
+int	parse_alt(t_fcmd *f_cmd)
 {
 	size_t	i;
 	size_t	k;
-	s_cmd_t	*current;
+	t_scmd	*current;
 
 	i = 0;
 	while (i < f_cmd->nb_scmd && f_cmd->s_cmd[i])

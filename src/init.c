@@ -6,18 +6,18 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 20:08:27 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Initialisation de la struct redir_t
-redir_t	*init_redir(void)
+// Initialisation de la struct t_redir
+t_redir	*init_redir(void)
 {
-	redir_t	*res;
+	t_redir	*res;
 
-	res = malloc(sizeof(redir_t));
+	res = malloc(sizeof(t_redir));
 	if (!res)
 		return (NULL);
 	res->out = 0;
@@ -32,27 +32,27 @@ redir_t	*init_redir(void)
 }
 
 // Initialize the big struct and fills some of its variable (f_cmd, nb_scmd, all s_cmd)
-// Verifier s_cmd_t	*s_cmd ou s_cmd_t	**s_cmd
-f_cmd_t	*init_full_cmd(char *cmd)
+// Verifier t_scmd	*s_cmd ou t_scmd	**s_cmd
+t_fcmd	*init_full_cmd(char *cmd)
 {
-	f_cmd_t	*res;
+	t_fcmd	*res;
 	size_t	i;
 	char	**cmd_split;
 
-	res = malloc(sizeof(f_cmd_t));
+	res = malloc(sizeof(t_fcmd));
 	if (!res)
 		return (NULL);
 	res->f_cmd = cmd;
 	printf("Full command : %s\n", res->f_cmd); //check
 	res->nb_scmd = countwords_quote((const char *)cmd, '|');
 	printf("Number of simple commands : %ld\n", res->nb_scmd); //check	
-	res->s_cmd = malloc(sizeof(s_cmd_t *) * res->nb_scmd);
+	res->s_cmd = malloc(sizeof(t_scmd *) * res->nb_scmd);
 	if (!res->s_cmd)
 		return (NULL);		// should free all above
 	i = 0;
 	while (i < res->nb_scmd)
 	{
-		res->s_cmd[i] = malloc(sizeof(s_cmd_t));
+		res->s_cmd[i] = malloc(sizeof(t_scmd));
 		if (!res->s_cmd[i++])
 			return (NULL);	// should free all above
 	}

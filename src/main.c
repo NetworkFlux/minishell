@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 20:09:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*take_input(void)
 int	main(int argc, char **argv)
 {
 	(void)argv;
-	f_cmd_t	*f_cmd;
+	t_fcmd	*f_cmd;
 	char	*cmd;
 
 	if (argc != 1)

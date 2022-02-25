@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 19:18:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:53:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Ajoute chaque arg de redirection dans le tableau arg
 // et retire cette redirection de la commande simple
-void	add_redir_arg(s_cmd_t *s_cmd, unsigned int i, int j, char c)
+void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 {
 	char	*temp_right;
 	char	*temp_left;
@@ -35,7 +35,7 @@ void	add_redir_arg(s_cmd_t *s_cmd, unsigned int i, int j, char c)
 }
 
 // Remplie le tableau de la redirection simple c
-void	fill_s(s_cmd_t *s_cmd, char c)
+void	fill_s(t_scmd *s_cmd, char c)
 {
 	int		i;
 	int		j;
@@ -62,7 +62,7 @@ void	fill_s(s_cmd_t *s_cmd, char c)
 }
 
 // Remplie le tableau de la redirection double (<< / >>) c
-void	fill_d(s_cmd_t *s_cmd, char c)
+void	fill_d(t_scmd *s_cmd, char c)
 {
 	int		i;
 	int		j;
@@ -84,7 +84,7 @@ void	fill_d(s_cmd_t *s_cmd, char c)
 }
 
 // Remplie le tableau d'arg pour chaque redirection
-void	fill_redir(s_cmd_t *s_cmd)
+void	fill_redir(t_scmd *s_cmd)
 {
 	fill_s(s_cmd, '>');
 	fill_s(s_cmd, '<');
@@ -93,7 +93,7 @@ void	fill_redir(s_cmd_t *s_cmd)
 }
 
 // Cette fonction trouve le nombre de chaque redirection et malloc les args
-int	parse_redir(f_cmd_t *f_cmd)
+int	parse_redir(t_fcmd *f_cmd)
 {
 	size_t	i;
 

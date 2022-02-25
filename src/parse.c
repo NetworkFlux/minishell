@@ -1,6 +1,6 @@
 #include "minishell.h"
 /*
-void	parse_scom(s_cmd_t *s_cmd)
+void	parse_scom(t_scmd *s_cmd)
 {
 	char	*temp;
 
@@ -18,7 +18,7 @@ void	parse_scom(s_cmd_t *s_cmd)
 	s_cmd->args = ft_split_quote(temp, ' ');
 }
 
-void	parse(f_cmd_t *f_cmd)
+void	parse(t_fcmd *f_cmd)
 {
 	char	**split_cmd;
 	size_t	i;
