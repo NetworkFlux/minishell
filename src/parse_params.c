@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:40:12 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:37:11 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	find_param_end(char *input, size_t position)
 	while (input && input[position])
 	{
 		if (is_delimiter(input[position])
+			|| is_block_start(input[position])
 			|| ft_isspace(input[position]))
 			return (position);
 		position++;

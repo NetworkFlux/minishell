@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:37:45 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:25:55 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_single_command
 	size_t	ntokens;
 	t_token	**tokens;
 	t_redir	*redir;
+	pid_t	child_id;
 }	t_scmd;
 
 typedef struct s_full_command
@@ -69,7 +70,7 @@ char	*take_input(void);
 int		is_input_incomplete(char *input);
 
 // init
-void	init_full_cmd(char *cmd);
+int		init_full_cmd(char *cmd);
 t_redir	*init_redir(void);
 
 // parse redir

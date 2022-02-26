@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:41:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:41:23 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:41:40 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	count_input(t_scmd *s_cmd, size_t start)
 			else
 			{
 				start = find_param_end(s_cmd->s_cmd, start);
-				if (start++ == 0)
+				if (start == 0)
 					return (0);
 			}
 			count_commands(s_cmd, &is_command, 0);

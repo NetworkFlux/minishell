@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:44:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:11:12 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static void	clear_scmd(void)
 
 int	clear_all(void)
 {
-	size_t	i;
-
 	if (g_fcmd)
 	{
 		if (g_fcmd->s_cmd)

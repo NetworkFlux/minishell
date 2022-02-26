@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:45:20 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:11:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	exec(void)
 		{
 			printf(">> EXEC: |%s|\n", g_fcmd->s_cmd[i]->exec);
 			pid = fork();
+			if (pid == -1)
+			{
+				printf("fork failed\n");
+				return ;
+			}
 			if (pid == 0)
 			{
 				printf("in child process\n");

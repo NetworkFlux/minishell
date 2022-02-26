@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:38:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:39:17 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	parse_cmd(void)
 			return (clear_all());
 		else
 		{
+			printf("ntokens: %ld\n", current->ntokens);
 			if (!token_memory_alloc(current))
 				return (0);
 			if (!ft_strtok(current, 0, 1))

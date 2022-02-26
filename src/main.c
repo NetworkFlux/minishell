@@ -6,16 +6,16 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/26 17:39:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:27:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // concats previous input with new input
-static	char *total_input(char *cmd, char *tmp)
+static char	*total_input(char *cmd, char *tmp)
 {
-	char *total;
+	char	*total;
 	size_t	i;
 	size_t	j;
 
@@ -32,7 +32,7 @@ static	char *total_input(char *cmd, char *tmp)
 		total[j++] = cmd[i++];
 	i = 0;
 	while (tmp && tmp[i])
-		total[j++] = tmp[i++]; 
+		total[j++] = tmp[i++];
 	total[(ft_strlen(cmd) + ft_strlen(tmp))] = '\0';
 	free (cmd);
 	free (tmp);
@@ -47,7 +47,7 @@ char	*take_input(void)
 	cmd = readline("minishell => ");
 	if (!ft_strlen(cmd))
 	{
-		free(cmd); // even if there's nothing \0 is malloc'd by readline
+		free(cmd);
 		cmd = take_input();
 	}
 	else
@@ -66,9 +66,9 @@ char	*take_input(void)
 
 int	main(int argc, char **argv)
 {
-	(void)argv;
 	char	*cmd;
 
+	(void)argv;
 	if (argc != 1)
 	{
 		ft_putendl_fd("Usage : ./minishell", 1);
@@ -79,13 +79,12 @@ int	main(int argc, char **argv)
 	{
 		cmd = take_input();
 		if (!cmd)
-			return (0);
+			return (1);
 		init_full_cmd(cmd);
 		parse_redir();
 		if (!parse_cmd())
-			return (0);
+			return (1);
 		print_cmd();
-		// exec();
 		clear_all();
 	}
 	return (0);
