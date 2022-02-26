@@ -6,47 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 23:30:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:30:39 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_redir(t_scmd	*s_cmd, size_t j)
-{
-	size_t	i;
-
-	printf("Current string without redir : %s\n", s_cmd->s_cmd);
-
-	printf("Out redir in simple command %ld : %ld\n", j, s_cmd->redir->out);
-	i = 0;
-	while (i < s_cmd->redir->out)
-	{
-		printf("Out target %ld : %s\n", i + 1, s_cmd->redir->out_args[i]);
-		i++;
-	}
-	printf("In redir in simple command %ld : %ld\n", j, s_cmd->redir->in);
-	i = 0;
-	while (i < s_cmd->redir->in)
-	{
-		printf("In target %ld : %s\n", i + 1, s_cmd->redir->in_args[i]);
-		i++;
-	}
-	printf("Out out redir in simple command %ld : %ld\n", j, s_cmd->redir->outout);
-	i = 0;
-	while (i < s_cmd->redir->outout)
-	{
-		printf("Out out target %ld : %s\n", i + 1, s_cmd->redir->outout_args[i]);
-		i++;
-	}	
-	printf("In in redir in simple command %ld : %ld\n", j, s_cmd->redir->inin);
-	i = 0;
-	while (i < s_cmd->redir->inin)
-	{
-		printf("In in target %ld : %s\n", i + 1, s_cmd->redir->inin_args[i]);
-		i++;
-	}
-}
 
 // Retourne le primier mot d'un str
 char	*first_word(char *str)

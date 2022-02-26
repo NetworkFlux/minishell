@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/25 23:45:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:36:13 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 
 	temp_left = ft_substr(s_cmd->s_cmd, 0, i);
 	//printf("TEMP LEFT : %s\n", temp_left);
-	temp_right = remove_spaces(ft_substr(s_cmd->s_cmd, i + 1, ft_strlen(s_cmd->s_cmd)));
+	temp = ft_substr(s_cmd->s_cmd, i + 1, ft_strlen(s_cmd->s_cmd));
+	temp_right = remove_spaces(temp);
 	//printf("TEMP RIGHT : %s\n", temp_right);
 	temp = first_word(temp_right);
 	//printf("TEMP : %s\n", temp);
@@ -46,7 +47,7 @@ void	fill_s(t_scmd *s_cmd, char c)
 	{
 		if (s_cmd->s_cmd[i] == c && s_cmd->s_cmd[i + 1] != c
 			&& !is_in_quote(s_cmd->s_cmd, i) && (ft_isalnum(s_cmd->s_cmd[i + 1])
-			|| s_cmd->s_cmd[i + 1] == ' '))
+				|| s_cmd->s_cmd[i + 1] == ' '))
 		{
 			if ((i == 0 || s_cmd->s_cmd[i - 1] != c))
 			{
@@ -72,8 +73,9 @@ void	fill_d(t_scmd *s_cmd, char c)
 	while (s_cmd->s_cmd[i])
 	{
 		if (s_cmd->s_cmd[i] == c && s_cmd->s_cmd[i + 1] == c
-			&& !is_in_quote(s_cmd->s_cmd, i) && s_cmd->s_cmd[i + 2] 
-			&& (ft_isalnum(s_cmd->s_cmd[i + 2]) || s_cmd->s_cmd[i + 2] == ' '))
+			&& !is_in_quote(s_cmd->s_cmd, i) && s_cmd->s_cmd[i + 2]
+			&& (ft_isalnum(s_cmd->s_cmd[i + 2])
+				|| s_cmd->s_cmd[i + 2] == ' '))
 		{
 			add_dredir_arg(s_cmd, i, j, c);
 			j++;
@@ -96,25 +98,24 @@ void	fill_redir(t_scmd *s_cmd)
 int	parse_redir(void)
 {
 	size_t	i;
+	t_redir	*redir;
 
 	i = 0;
 	while (i < g_fcmd->nb_scmd)
 	{
-		g_fcmd->s_cmd[i]->redir->out = nb_redir(g_fcmd->s_cmd[i]->s_cmd, '>');
-		g_fcmd->s_cmd[i]->redir->in = nb_redir(g_fcmd->s_cmd[i]->s_cmd, '<');
-		g_fcmd->s_cmd[i]->redir->outout = nb_dredir(g_fcmd->s_cmd[i]->s_cmd, '>');
-		g_fcmd->s_cmd[i]->redir->inin = nb_dredir(g_fcmd->s_cmd[i]->s_cmd, '<');
-		g_fcmd->s_cmd[i]->redir->out_args = malloc(sizeof(char *) * g_fcmd->s_cmd[i]->redir->out);
-		if (!g_fcmd->s_cmd[i]->redir->out_args)
-			return (clear_all());
-		g_fcmd->s_cmd[i]->redir->in_args = malloc(sizeof(char *) * g_fcmd->s_cmd[i]->redir->in);
-		if (!g_fcmd->s_cmd[i]->redir->in_args)
-			return (clear_all());
-		g_fcmd->s_cmd[i]->redir->outout_args = malloc(sizeof(char *) * g_fcmd->s_cmd[i]->redir->outout);
-		if (!g_fcmd->s_cmd[i]->redir->outout_args)
-			return (clear_all());
-		g_fcmd->s_cmd[i]->redir->inin_args = malloc(sizeof(char *) * g_fcmd->s_cmd[i]->redir->inin);
-		if (!g_fcmd->s_cmd[i]->redir->inin_args)
+		redir = g_fcmd->s_cmd[i]->redir;
+		redir->out = nb_redir(g_fcmd->s_cmd[i]->s_cmd, '>');
+		redir->in = nb_redir(g_fcmd->s_cmd[i]->s_cmd, '<');
+		redir->outout = nb_dredir(g_fcmd->s_cmd[i]->s_cmd, '>');
+		redir->inin = nb_dredir(g_fcmd->s_cmd[i]->s_cmd, '<');
+		redir->out_args = malloc(sizeof(char *) * redir->out);
+		redir->in_args = malloc(sizeof(char *) * redir->in);
+		redir->outout_args = malloc(sizeof(char *) * redir->outout);
+		redir->inin_args = malloc(sizeof(char *) * redir->inin);
+		if (!redir->out_args
+			|| !redir->in_args
+			|| !redir->outout_args
+			|| !redir->inin_args)
 			return (clear_all());
 		fill_redir(g_fcmd->s_cmd[i]);
 		i++;

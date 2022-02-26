@@ -6,12 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 14:03:10 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:40:12 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	is_delimiter(int c)
 {

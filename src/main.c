@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/26 14:11:31 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:39:11 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	main(int argc, char **argv)
 		parse_redir();
 		if (!parse_cmd())
 			return (0);
-		exec();
+		print_cmd();
+		// exec();
 		clear_all();
 	}
 	return (0);

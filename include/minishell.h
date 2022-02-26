@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 14:22:49 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:37:45 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ void	fill_d(t_scmd *s_cmd, char c);
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 
-void	print_redir(t_scmd	*s_cmd, size_t i);
-
 // parsing
 int		parse_cmd(void);
 int		count_input(t_scmd *s_cmd, size_t start);
@@ -105,4 +103,9 @@ void	exec(void);
 char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
+
+// debug
+void	print_cmd(void);
+void	print_redir(t_scmd	*s_cmd, size_t i);
+
 #endif
