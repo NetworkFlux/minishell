@@ -6,20 +6,20 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:43:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 21:53:36 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:03:38 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // commented redirection delimiters
-int	is_delimiter(int c)
-{
-	// if (c == '|' || c == '>' || c == '<')
-	if (c == '|')
-		return (1);
-	return (0);
-}
+// int	is_delimiter(int c)
+// {
+// 	// if (c == '|' || c == '>' || c == '<')
+// 	if (c == '|')
+// 		return (1);
+// 	return (0);
+// }
 
 /*
 // returns 0 when end delimiter is not found / end position on success

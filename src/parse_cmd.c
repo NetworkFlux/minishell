@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtok.c                                        :+:      :+:    :+:   */
+/*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 11:08:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 22:36:02 by fcaquard         ###   ########.fr       */
+/*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
+/*   Updated: 2022/02/26 14:03:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ft_strtok(t_scmd *s_cmd, size_t start, int is_command)
 	return (1);
 }
 
-int	parse_alt(void)
+int	parse_cmd(void)
 {
 	size_t	i;
 	size_t	k;

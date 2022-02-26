@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/25 22:39:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:22:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/include/libft.h"
+# include <sys/wait.h>	// waitpid
 
 typedef enum e_blocktype
 {
@@ -84,19 +85,21 @@ void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	print_redir(t_scmd	*s_cmd, size_t i);
 
 // parsing
-int		parse_alt(void);
+int		parse_cmd(void);
 int		count_input(t_scmd *s_cmd, size_t start);
 int		parse_param(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 int		parse_block(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i);
 size_t	find_block_end(char *input, size_t position);
-int		is_delimiter(int c);
 char	*tokenize(char *input, size_t start, size_t end);
 
 // memory free
 void	clear_on_kill(void);
 int		clear_all(void);
+
+// exec
+void	exec(void);
 
 // utils
 char	*remove_spaces(char *str);
