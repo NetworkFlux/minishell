@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 18:25:55 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 23:23:35 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include "../libft/include/libft.h"
 # include <sys/wait.h>	// waitpid
+# include <signal.h>
 
 typedef enum e_blocktype
 {
@@ -94,11 +95,14 @@ size_t	find_block_end(char *input, size_t position);
 char	*tokenize(char *input, size_t start, size_t end);
 
 // memory free
-void	clear_on_kill(void);
+void	clear_on_signal(void);
 int		clear_all(void);
 
 // exec
 void	exec(void);
+
+// builtins
+int		is_builtin(t_scmd *s_cmd);
 
 // utils
 char	*remove_spaces(char *str);

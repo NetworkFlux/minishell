@@ -6,15 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 18:11:12 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/26 23:21:32 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
 
 static void	clear_redir(t_redir *redir)
 {
@@ -42,6 +38,12 @@ static void	clear_scmd(void)
 			clear_redir(g_fcmd->s_cmd[i]->redir);
 		if (g_fcmd->s_cmd[i]->exec)
 			free(g_fcmd->s_cmd[i]->exec);
+		if (g_fcmd->s_cmd[i]->child_id != 0)
+		{
+			kill (g_fcmd->s_cmd[i]->child_id, SIGKILL);
+			g_fcmd->s_cmd[i]->child_id = 0;
+			printf(">> fork cleared ! <<\n");
+		}
 		free(g_fcmd->s_cmd[i]->s_cmd);
 		free(g_fcmd->s_cmd[i]);
 		i++;
@@ -66,7 +68,7 @@ int	clear_all(void)
 	return (0);
 }
 
-static void	test(int sig, siginfo_t *info, void *ucontext)
+static void	clear_signal_sent(int sig, siginfo_t *info, void *ucontext)
 {
 	(void) ucontext;
 	(void) info;
@@ -75,14 +77,14 @@ static void	test(int sig, siginfo_t *info, void *ucontext)
 	exit (0);
 }
 
-// CTRL+C SIGINT
+// Clears on signals / CTRL+C SIGINT
 // CTRL+\ (qwerty) CTRL+* (on azerty) SIGQUIT
-void	clear_on_kill(void)
+void	clear_on_signal(void)
 {
 	struct sigaction	clear;
 
 	clear.sa_flags = SA_SIGINFO;
-	clear.sa_sigaction = test;
+	clear.sa_sigaction = clear_signal_sent;
 	if (sigaction(SIGINT, &clear, NULL) == -1)
 		printf("SIGINT ERROR\n");
 	else

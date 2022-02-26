@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/02/26 17:30:51 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/02/26 22:50:04 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_FILES = main.c		\
 	parse_redir2.c		\
 	exec.c				\
 	debug.c				\
-	# parse.c				\
+	builtins_route.c	\
+	# parse.c			\
 	# parse_delimiter.c	\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
