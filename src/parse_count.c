@@ -6,12 +6,14 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:41:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 18:41:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:39:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// if token is a not a command (first word)
+// increments ntokens by 1
 static void	count_commands(t_scmd *s_cmd, int *is_command, int end_value)
 {
 	if (!*is_command)
@@ -19,7 +21,8 @@ static void	count_commands(t_scmd *s_cmd, int *is_command, int end_value)
 	*is_command = end_value;
 }
 
-// before parsing, count input's tokens
+// before parsing, in order to malloc our variables
+// count how many tokens we will have (exec not included)
 int	count_input(t_scmd *s_cmd, size_t start)
 {
 	int	is_command;

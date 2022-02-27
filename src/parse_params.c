@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 18:37:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:41:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ size_t	find_param_end(char *input, size_t position)
 	return (0);
 }
 
+/**	Looks for the end of a parameter
+	(anything that isn't a space, a blockstart
+	or a delimiter) then tokenizes it */
 int	parse_param(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i)
 {
 	size_t	end;

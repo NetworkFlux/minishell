@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 22:49:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:58:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// extracts token from string
+// extracts token from single command's string
 char	*tokenize(char *input, size_t start, size_t end)
 {
 	char	*token;
@@ -28,7 +28,7 @@ char	*tokenize(char *input, size_t start, size_t end)
 	return (token);
 }
 
-// splits the input into tokens
+// looks for the tokens start and end then executes tokenize
 static int	ft_strtok(t_scmd *s_cmd, size_t start, int is_command)
 {	
 	size_t	i;
@@ -55,6 +55,7 @@ static int	ft_strtok(t_scmd *s_cmd, size_t start, int is_command)
 	return (1);
 }
 
+// allocates memory for the token array
 static int	token_memory_alloc(t_scmd *current)
 {
 	size_t	k;
@@ -73,7 +74,11 @@ static int	token_memory_alloc(t_scmd *current)
 	}
 	return (1);
 }
-
+/** 
+	Takes every single commands and parses them on 
+	every tokens respecting the double quoted blocks,
+	single quoted and the ones between parenthesis.
+*/
 int	parse_cmd(void)
 {
 	size_t	i;
@@ -87,12 +92,13 @@ int	parse_cmd(void)
 			return (clear_all());
 		else
 		{
-			printf("ntokens: %ld\n", current->ntokens);
+			printf("<parse_cmd> ntokens: %ld\n", current->ntokens);
 			if (!token_memory_alloc(current))
 				return (0);
 			if (!ft_strtok(current, 0, 1))
 				return (clear_all());
 			is_builtin(current);
+			print_cmd(i);
 		}
 		i++;
 	}

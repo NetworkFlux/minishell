@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/26 23:21:49 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:58:39 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Usage : ./minishell", 1);
 		return (1);
 	}
-	clear_on_signal();
+	init_signals();
 	while (1)
 	{
 		cmd = take_input();
@@ -85,7 +85,6 @@ int	main(int argc, char **argv)
 		if (!parse_cmd())
 			return (1);
 		// exec();
-		print_cmd();
 		clear_all();
 	}
 	return (0);

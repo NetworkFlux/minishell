@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 23:23:35 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:57:55 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "../libft/include/libft.h"
 # include <sys/wait.h>	// waitpid
 # include <signal.h>
+#include <sys/ioctl.h>
 
 typedef enum e_blocktype
 {
@@ -95,7 +96,7 @@ size_t	find_block_end(char *input, size_t position);
 char	*tokenize(char *input, size_t start, size_t end);
 
 // memory free
-void	clear_on_signal(void);
+void	init_signals(void);
 int		clear_all(void);
 
 // exec
@@ -110,7 +111,7 @@ int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
 
 // debug
-void	print_cmd(void);
+void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
 
 #endif

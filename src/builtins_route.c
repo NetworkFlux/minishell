@@ -6,30 +6,32 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 22:57:03 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:49:44 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* if the exec is a builtin calls the appropriate function */
 static void	route_builtins(size_t i)
 {
 	if (i == 0)
-		printf("builtin: echo\n");
+		printf("<route_builtins> builtin: echo\n");
 	else if (i == 1)
-		printf("builtin: cd\n");
+		printf("<route_builtins> builtin: cd\n");
 	else if (i == 2)
-		printf("builtin: pwd\n");
+		printf("<route_builtins> builtin: pwd\n");
 	else if (i == 3)
-		printf("builtin: export\n");
+		printf("<route_builtins> builtin: export\n");
 	else if (i == 4)
-		printf("builtin: unset\n");
+		printf("<route_builtins> builtin: unset\n");
 	else if (i == 5)
-		printf("builtin: env\n");
+		printf("<route_builtins> builtin: env\n");
 	else
-		printf("builtin: exit\n");
+		printf("<route_builtins> builtin: exit\n");
 }
 
+/* checks if the single command exec is a builtin function */
 int	is_builtin(t_scmd *s_cmd)
 {
 	size_t		i;

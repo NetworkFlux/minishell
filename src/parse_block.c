@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:44:22 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/26 17:24:07 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:37:58 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	is_block_start(char c)
 	return (0);
 }
 
+// assigns a type to the block using enum
 static void	block_type(char c, t_token *token)
 {
 	if ((unsigned char) c == '\'')
@@ -51,8 +52,10 @@ size_t	find_block_end(char *input, size_t position)
 	return (0);
 }
 
-// line 67: *start + 1 so we remove the starting quote
-// line 75: end++ so we start after the last quote
+/** Looks for the end of a delimited block (single quotes,
+	double quotes or parenthesis) then tokenizes the block
+	line 67: *start + 1 so we remove the starting quote
+	line 75: end++ so we start after the last quote */
 int	parse_block(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i)
 {
 	size_t	end;
