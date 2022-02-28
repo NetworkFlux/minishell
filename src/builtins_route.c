@@ -6,21 +6,26 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 12:49:44 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 18:52:18 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* if the exec is a builtin calls the appropriate function */
-static void	route_builtins(size_t i)
+static void	route_builtins(t_scmd *scmd, size_t i)
 {
+	(void)scmd;
+
 	if (i == 0)
 		printf("<route_builtins> builtin: echo\n");
 	else if (i == 1)
 		printf("<route_builtins> builtin: cd\n");
 	else if (i == 2)
+	{
 		printf("<route_builtins> builtin: pwd\n");
+		buildins_pwd();
+	}
 	else if (i == 3)
 		printf("<route_builtins> builtin: export\n");
 	else if (i == 4)
@@ -43,7 +48,7 @@ int	is_builtin(t_scmd *s_cmd)
 	{
 		if (ft_strncmp(builtins[i], s_cmd->exec, ft_strlen(s_cmd->exec)) == 0)
 		{
-			route_builtins(i);
+			route_builtins(s_cmd, i);
 			return (1);
 		}
 		i++;

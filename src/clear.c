@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 12:51:34 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 14:18:26 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,12 @@ void	init_signals(void)
 
 	// looking to handle CTRL+D using tty and ioctl
 	int ttyslot_ = ttyslot();
-	printf("<init_signals> ttyslot: %d\n", ttyslot_);
+	printf("<init_signals> ttyslot (fd): %d\n", ttyslot_);
 	int isatty_ = isatty(ttyslot_);
 	if (isatty_)
 	{
 		char *ttyname_ = ttyname(ttyslot_);
-		printf("<init_signals> ttyname: %s\n", ttyname_);
+		printf("<init_signals> ttyname (terminal): %s\n", ttyname_);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 12:57:55 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/27 19:37:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ void	exec(void);
 
 // builtins
 int		is_builtin(t_scmd *s_cmd);
+void	buildins_pwd(void);
+
+// variables
+void	env_variables(void);
 
 // utils
 char	*remove_spaces(char *str);

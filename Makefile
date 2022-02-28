@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/02/26 22:50:04 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/02/27 19:36:55 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRC_FILES = main.c		\
 	exec.c				\
 	debug.c				\
 	builtins_route.c	\
+	builtins_pwd.c		\
+	env_variables.c		\
 	# parse.c			\
 	# parse_delimiter.c	\
 
