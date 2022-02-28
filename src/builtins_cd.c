@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_pwd.c                                     :+:      :+:    :+:   */
+/*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 14:34:27 by npinheir         ###   ########.fr       */
+/*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
+/*   Updated: 2022/02/28 14:32:37 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* prints the name of the current directory */
-// Probably not a good way to output it
-// Should test if it works alongside with `cd`
-void	buildins_pwd(t_scmd *scmd)
+void	buildins_cd(t_scmd *scmd)
 {
-	char	*res;
+	int	res;
 
-	res = NULL;
-	if (scmd->ntokens != 0)
+	if (scmd->ntokens != 1)
 	{
-		printf("<pwd> Too many arguments\n");
+		printf("<cd> No more than 1 parameter allowed\n");
 		return ;
 	}
-	printf("%s\n", getcwd(res, sizeof(res)));
-	return ;
+	res = chdir(scmd->tokens[0]->token);
+	if (res == -1)
+		printf("Directory doesn't exist.\n");
 }

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/28 15:43:48 by fcaquard         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/28 14:33:37 by npinheir         ###   ########.fr       */
+>>>>>>> 7565a75c4a8fdebece8aec25dbc21946da17ef68
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +18,7 @@
 # define MINISHELL_H
 # include <unistd.h>
 # include <stdio.h>
+# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/include/libft.h"
@@ -104,7 +109,8 @@ void	exec(void);
 
 // builtins
 int		is_builtin(t_scmd *s_cmd);
-void	buildins_pwd(void);
+void	buildins_pwd(t_scmd *scmd);
+void	buildins_cd(t_scmd *scmd);
 
 // variables
 void	env_variables(void);
