@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/28 14:31:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:05:52 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*take_input(void)
 	return (cmd);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd;
 
@@ -77,11 +77,11 @@ int	main(int argc, char **argv)
 	init_signals();
 	while (1)
 	{
-		// printf("env: |%s|\n", getenv("PWD"));
 		cmd = take_input();
 		if (!cmd)
 			return (1);
 		init_full_cmd(cmd);
+		g_fcmd->envp = envp;
 		parse_redir();
 		env_variables();
 		if (!parse_cmd())

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 14:33:28 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:01:15 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 /* if the exec is a builtin calls the appropriate function */
 static void	route_builtins(t_scmd *scmd, size_t i)
 {
-	(void)scmd;
-
 	if (i == 0)
 		printf("<route_builtins> builtin: echo\n");
 	else if (i == 1)
@@ -32,7 +30,10 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 	else if (i == 3)
 		printf("<route_builtins> builtin: export\n");
 	else if (i == 4)
+	{
 		printf("<route_builtins> builtin: unset\n");
+		builtin_unset(scmd);
+	}
 	else if (i == 5)
 		printf("<route_builtins> builtin: env\n");
 	else

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 15:44:34 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/28 19:46:59 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*get_env(char *str, size_t start, size_t end)
 	variable = ft_substr(str, start + 1, end - (start + 1));
 	if (!variable)
 		return (NULL);
-	result = getenv(variable);
+	result = get_variable_value(variable);
 	printf("<get_env> variable: |%s|\n", variable);
 	free(variable);
 	return (result);
