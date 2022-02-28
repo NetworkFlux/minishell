@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 19:37:20 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:43:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ char	*first_word(char *str);
 // debug
 void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
+void	debug_env(char *envv, char *str, char *result);
 
 #endif
