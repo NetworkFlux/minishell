@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_cd.c                                      :+:      :+:    :+:   */
+/*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/01 09:26:59 by npinheir         ###   ########.fr       */
+/*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
+/*   Updated: 2022/03/01 10:44:31 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	buildins_cd(t_scmd *scmd)
+void	buildins_echo(t_scmd *scmd)
 {
-	int	res;
+	size_t	i;
 
-	if (scmd->ntokens != 1)
+	i = 0;
+	if (scmd->tokens[0]->token[0] == '-')
+		i++;
+	ft_putstr_fd(scmd->tokens[i]->token, 1);
+	while (++i < scmd->ntokens)
 	{
-		printf("<cd> No more than 1 parameter allowed\n");
-		return ;
+		ft_putchar_fd(' ', 1);
+		ft_putstr_fd(scmd->tokens[i]->token, 1);
 	}
-	res = chdir(scmd->tokens[0]->token);
-	if (res == -1)
-		printf("Directory doesn't exist.\n");
+	if (scmd->tokens[0]->token[0] == '-')
+		ft_putchar_fd('%', 1);
+	ft_putchar_fd('\n', 1);
 }

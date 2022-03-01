@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_unset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:44:17 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 20:02:44 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/01 09:35:28 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	builtin_unset(t_scmd *scmd)
 		{
 			if (find_env_variable(g_fcmd->envp[i], scmd->tokens[0]->token) != 0)
 			{
-				g_fcmd->envp[i] = '\0';
+				g_fcmd->envp[i] = NULL;
 				return ;
 			}
 			i++;

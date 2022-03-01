@@ -49,7 +49,7 @@ void	print_cmd(size_t i)
 			printf("<print_cmd> tk[%ld]: |%s| type:%d\n", o, current->tokens[o]->token, current->tokens[o]->type);
 			o++;
 		}
-		print_redir(current, i + 1);
+		//print_redir(current, i + 1);
 		i++;
 	}
 }

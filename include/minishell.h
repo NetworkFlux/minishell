@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 19:48:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/01 09:46:22 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int		is_builtin(t_scmd *s_cmd);
 void	buildins_pwd(t_scmd *scmd);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
+void	buildins_echo(t_scmd *scmd);
 
 // variables
 void	env_variables(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 18:01:15 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/01 09:38:59 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 static void	route_builtins(t_scmd *scmd, size_t i)
 {
 	if (i == 0)
+	{
 		printf("<route_builtins> builtin: echo\n");
+		buildins_echo(scmd);
+	}
 	else if (i == 1)
 	{
 		printf("<route_builtins> builtin: cd\n");
