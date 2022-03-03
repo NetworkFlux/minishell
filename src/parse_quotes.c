@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quotes.c                                    :+:      :+:    :+:   */
+/*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:36:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 15:56:22 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:02:59 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	remove_quotes(void)
 				str = skip_quotes(str, g_fcmd->s_cmd[i]->s_cmd, 0, 0);
 				str[len] = '\0';
 				g_fcmd->s_cmd[i]->instructions = str;
-				printf("<remove_quotes> |%s|\n",g_fcmd->s_cmd[i]->instructions);
+				printf("<remove_quotes> |%s|\n", g_fcmd->s_cmd[i]->instructions);
 			}
 		}
 		i++;

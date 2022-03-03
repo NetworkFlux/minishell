@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 16:04:22 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:18:09 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	buildins_pwd(t_scmd *scmd);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
 void	buildins_echo(t_scmd *scmd);
+void	builtins_export(t_scmd *scmd);
 
 // utils
 char	*remove_spaces(char *str);
@@ -120,5 +121,6 @@ char	*first_word(char *str);
 void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
 void	debug_env(char *envv, char *str, char *result);
+void	print_envp(void);
 
 #endif

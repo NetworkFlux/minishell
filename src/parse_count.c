@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:41:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 16:01:12 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:10:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	count_input(t_scmd *s_cmd, size_t start)
 {
 	while (s_cmd->instructions[start])
 	{
-		while (s_cmd->instructions[start] && ft_isspace(s_cmd->instructions[start]))
+		while (s_cmd->instructions[start]
+			&& ft_isspace(s_cmd->instructions[start]))
 			start++;
 		if (s_cmd->instructions[start])
 		{
