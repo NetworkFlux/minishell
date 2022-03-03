@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/02 21:12:33 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:02:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,6 @@ static int	ft_strtok(t_scmd *s_cmd)
 			start++;
 		if (s_cmd->instructions[start])
 		{
-			// if (is_block_start(s_cmd->instructions[start]))
-			// {
-			// 	if (!parse_block(s_cmd, &start, &itoken))
-			// 		return (0);
-			// }
-			// else
-			// {
-			// }
 			if (!parse_param(s_cmd, &start, &itoken))
 				return (0);
 		}
@@ -71,11 +63,11 @@ static int	token_memory_alloc(t_scmd *current)
 		current->tokens[k] = malloc(sizeof(t_token));
 		if (!current->tokens[k])
 			return (clear_all());
-		current->tokens[k]->type = undefined;
 		k++;
 	}
 	return (1);
 }
+
 /** 
 	Takes every single commands and parses them on 
 	every tokens respecting the double quoted blocks,
@@ -89,29 +81,22 @@ int	parse_cmd(void)
 	i = 0;
 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 	{
-		printf("<parse_cmd> #1\n");
 		if (g_fcmd->s_cmd[i]->instructions)
 		{
-			printf("<parse_cmd> #2\n");
 			current = g_fcmd->s_cmd[i];
 			if (!count_input(current, 0))
-			{
 				return (clear_all());
-			}
 			else
 			{
-				printf("<parse_cmd> #3\n");
 				if (current->ntokens > 0)
 				{
-					printf("<parse_cmd> #4\n");
-					printf("<parse_cmd> ntokens: %ld\n", current->ntokens);
 					if (!token_memory_alloc(current))
 						return (0);
 					if (!ft_strtok(current))
 						return (clear_all());
 				}
 				is_builtin(current);
-				print_cmd(i);
+				// print_cmd(i);
 			}
 		}
 		i++;

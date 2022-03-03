@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/28 18:05:52 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:57:32 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,18 @@ int	main(int argc, char **argv, char **envp)
 		cmd = take_input();
 		if (!cmd)
 			return (1);
+		printf("<main> init_full_cmd\n");
 		init_full_cmd(cmd);
 		g_fcmd->envp = envp;
+		printf("<main> parse_redir\n");
 		parse_redir();
+		printf("<main> env_variables\n");
 		env_variables();
+		printf("<main> remove_quotes\n");
+		remove_quotes();
+		printf("<main> get_exec\n");
+		get_exec();
+		printf("<main> parse_cmd\n");
 		if (!parse_cmd())
 			return (1);
 		// exec();

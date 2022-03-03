@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/02 19:17:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:04:22 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/include/libft.h"
-# include <sys/wait.h>	// waitpid
+# include <sys/wait.h>
 # include <signal.h>
 #include <sys/ioctl.h>
-
-typedef enum e_blocktype
-{
-	undefined = 0,
-	singleq = 1,
-	doubleq = 2,
-	parenthesis = 3
-}	t_blocktype;
 
 typedef struct s_token
 {
 	char		*token;
-	t_blocktype	type;
 }	t_token;
 
 typedef struct s_redirection
@@ -88,15 +79,21 @@ void	fill_d(t_scmd *s_cmd, char c);
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 
-// parsing
+// env variables
+void	env_variables(void);
+int		find_env_variable(char *stack, char *needle);
+char	*get_variable_value(char *str);
 
+// remove quotes
+int		remove_quotes(void);
+
+// parsing
 void	get_exec(void);
 int		parse_cmd(void);
 int		count_input(t_scmd *s_cmd, size_t start);
 int		parse_param(t_scmd *s_cmd, size_t *start, size_t *i);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
-int		parse_block(t_scmd *s_cmd, size_t *start, size_t *i);
 size_t	find_block_end(char *input, size_t position);
 char	*tokenize(char *input, size_t start, size_t end);
 
@@ -113,12 +110,6 @@ void	buildins_pwd(t_scmd *scmd);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
 void	buildins_echo(t_scmd *scmd);
-
-// variables
-void	env_variables(void);
-int		find_env_variable(char *stack, char *needle);
-char	*get_variable_value(char *str);
-
 
 // utils
 char	*remove_spaces(char *str);

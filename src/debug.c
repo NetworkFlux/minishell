@@ -46,7 +46,7 @@ void	print_cmd(size_t i)
 		while (o < current->ntokens && current->tokens[o])
 		{
 			// | the pipes are just there to see if there's no spaces around
-			printf("<print_cmd> tk[%ld]: |%s| type:%d\n", o, current->tokens[o]->token, current->tokens[o]->type);
+			printf("<print_cmd> tk[%ld]: |%s|\n", o, current->tokens[o]->token);
 			o++;
 		}
 		//print_redir(current, i + 1);
