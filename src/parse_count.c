@@ -6,48 +6,38 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:41:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 12:39:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/02 20:55:19 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// if token is a not a command (first word)
-// increments ntokens by 1
-static void	count_commands(t_scmd *s_cmd, int *is_command, int end_value)
-{
-	if (!*is_command)
-		s_cmd->ntokens++;
-	*is_command = end_value;
-}
-
 // before parsing, in order to malloc our variables
 // count how many tokens we will have (exec not included)
 int	count_input(t_scmd *s_cmd, size_t start)
 {
-	int	is_command;
-
-	is_command = 1;
-	while (start < ft_strlen(s_cmd->s_cmd))
+	while (s_cmd->instructions[start])
 	{
-		while (s_cmd->s_cmd[start] && ft_isspace(s_cmd->s_cmd[start]))
+		while (s_cmd->instructions[start] && ft_isspace(s_cmd->instructions[start]))
 			start++;
-		if (s_cmd->s_cmd[start])
+		printf("start: %ld\n", start);
+		if (s_cmd->instructions[start])
 		{
-			if (is_block_start(s_cmd->s_cmd[start]))
-			{
-				start = find_block_end(s_cmd->s_cmd, start);
-				if (start++ == 0)
-					return (0);
-			}
-			else
-			{
-				start = find_param_end(s_cmd->s_cmd, start);
-				if (start == 0)
-					return (0);
-			}
-			count_commands(s_cmd, &is_command, 0);
+			// if (is_block_start(s_cmd->instructions[start]))
+			// {
+			// 	start = find_block_end(s_cmd->instructions, start);
+			// 		return (0);
+			// }
+			// else
+			// {
+			// 	printf("end: %ld\n", start);
+			// }
+			start = find_param_end(s_cmd->instructions, start);
+			if (start == 0)
+				return (0);
 		}
+		start++;
+		s_cmd->ntokens++;
 	}
 	return (1);
 }

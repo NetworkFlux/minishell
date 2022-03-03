@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
+#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/01 09:45:25 by npinheir         ###   ########.fr        #
+#    Updated: 2022/03/02 18:43:25 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LIBFT_DIR = ./libft/
 # Source files and object files
 SRC_FILES = main.c		\
 	init.c				\
+	parse_exec.c		\
 	parse_block.c		\
 	parse_count.c		\
 	parse_params.c		\

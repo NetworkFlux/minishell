@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/26 17:30:39 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/02 18:24:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,23 @@ char	*first_word(char *str)
 
 	i = 0;
 	j = 0;
-	while (str[i] && str[i] == ' ')
+	while (str[i] && ft_isspace(str[i]))
 		i++;
 	j = i;
-	while (str[i] && str[i] != ' ')
+	while (str[i] && !ft_isspace(str[i]))
 		i++;
 	res = malloc(sizeof(char) * (i - j + 1));
 	if (!res)
 		return (NULL);
-	res[i - j] = '\0';
 	i = j;
 	j = 0;
-	while (str[i] && str[i] != ' ')
-		res[j++] = str[i++];
+	while (str[i] && !ft_isspace(str[i]))
+	{
+		res[j] = str[i];
+		i++;
+		j++;
+	}
+	res[i - j] = '\0';
 	return (res);
 }
 

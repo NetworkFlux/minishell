@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:49:31 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 19:51:26 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:33:16 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,19 @@ char	*get_variable_value(char *str)
 	return (NULL);
 }
 
-// returns the start of the value (after `=`) if found
+// returns the start of the env value (after `=`) if found
 // otherwise 0
 int	find_env_variable(char *stack, char *needle)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	while (stack && needle && stack[i])
-	{
-		j = 0;
-		if (stack[i] == needle[j])
-		{
-			while (stack[i] && needle[j] 
-				&& stack[i] == needle[j])
-			{
-				i++;
-				j++;
-			}
-			if (needle[j] == '\0' && stack[i] == '=')
-				return (i + 1);
-			i -= j;
-		}
+	while (stack[i] && needle[i] 
+		&& stack[i] == needle[i])
 		i++;
-	}
+	if (needle[i] != '\0')
+		return (0);
+	if (needle[i] == '\0' && stack[i] == '=')
+		return (i + 1);
 	return (0);
 }

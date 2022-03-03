@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/01 09:46:22 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:17:16 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_single_command
 {
 	char	*s_cmd;
 	char	*exec;
+	char	*instructions;
 	size_t	ntokens;
 	t_token	**tokens;
 	t_redir	*redir;
@@ -88,12 +89,14 @@ void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 
 // parsing
+
+void	get_exec(void);
 int		parse_cmd(void);
 int		count_input(t_scmd *s_cmd, size_t start);
-int		parse_param(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i);
+int		parse_param(t_scmd *s_cmd, size_t *start, size_t *i);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
-int		parse_block(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i);
+int		parse_block(t_scmd *s_cmd, size_t *start, size_t *i);
 size_t	find_block_end(char *input, size_t position);
 char	*tokenize(char *input, size_t start, size_t end);
 

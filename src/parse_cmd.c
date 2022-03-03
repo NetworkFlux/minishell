@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 12:58:31 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:12:33 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,29 @@ char	*tokenize(char *input, size_t start, size_t end)
 }
 
 // looks for the tokens start and end then executes tokenize
-static int	ft_strtok(t_scmd *s_cmd, size_t start, int is_command)
+static int	ft_strtok(t_scmd *s_cmd)
 {	
-	size_t	i;
+	size_t	itoken;
+	size_t	start;
 
-	i = 0;
-	while (start < ft_strlen(s_cmd->s_cmd))
+	itoken = 0;
+	start = 0;
+	while (start < ft_strlen(s_cmd->instructions))
 	{
-		while (s_cmd->s_cmd[start] && ft_isspace(s_cmd->s_cmd[start]))
+		while (s_cmd->instructions[start] && ft_isspace(s_cmd->instructions[start]))
 			start++;
-		if (s_cmd->s_cmd[start])
+		if (s_cmd->instructions[start])
 		{
-			if (is_block_start(s_cmd->s_cmd[start]))
-			{
-				if (!parse_block(s_cmd, &start, &is_command, &i))
-					return (0);
-			}
-			else
-			{
-				if (!parse_param(s_cmd, &start, &is_command, &i))
-					return (0);
-			}
+			// if (is_block_start(s_cmd->instructions[start]))
+			// {
+			// 	if (!parse_block(s_cmd, &start, &itoken))
+			// 		return (0);
+			// }
+			// else
+			// {
+			// }
+			if (!parse_param(s_cmd, &start, &itoken))
+				return (0);
 		}
 	}
 	return (1);
@@ -87,18 +89,30 @@ int	parse_cmd(void)
 	i = 0;
 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 	{
-		current = g_fcmd->s_cmd[i];
-		if (!count_input(current, 0))
-			return (clear_all());
-		else
+		printf("<parse_cmd> #1\n");
+		if (g_fcmd->s_cmd[i]->instructions)
 		{
-			printf("<parse_cmd> ntokens: %ld\n", current->ntokens);
-			if (!token_memory_alloc(current))
-				return (0);
-			if (!ft_strtok(current, 0, 1))
+			printf("<parse_cmd> #2\n");
+			current = g_fcmd->s_cmd[i];
+			if (!count_input(current, 0))
+			{
 				return (clear_all());
-			is_builtin(current);
-			print_cmd(i);
+			}
+			else
+			{
+				printf("<parse_cmd> #3\n");
+				if (current->ntokens > 0)
+				{
+					printf("<parse_cmd> #4\n");
+					printf("<parse_cmd> ntokens: %ld\n", current->ntokens);
+					if (!token_memory_alloc(current))
+						return (0);
+					if (!ft_strtok(current))
+						return (clear_all());
+				}
+				is_builtin(current);
+				print_cmd(i);
+			}
 		}
 		i++;
 	}

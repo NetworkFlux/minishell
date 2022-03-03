@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:44:22 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 12:37:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/02 20:58:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ size_t	find_block_end(char *input, size_t position)
 	while (input && input[position])
 	{
 		if (input[position] == target)
-			return (position);
+			return (position + 1);
 		position++;
 	}
 	return (0);
@@ -56,25 +56,21 @@ size_t	find_block_end(char *input, size_t position)
 	double quotes or parenthesis) then tokenizes the block
 	line 67: *start + 1 so we remove the starting quote
 	line 75: end++ so we start after the last quote */
-int	parse_block(t_scmd *s_cmd, size_t *start, int *is_command, size_t *i)
+int	parse_block(t_scmd *s_cmd, size_t *start, size_t *i)
 {
 	size_t	end;
 	char	*token;
 
-	end = find_block_end(s_cmd->s_cmd, *start);
+	end = find_block_end(s_cmd->instructions, *start);
 	if (end == 0)
 		return (0);
 	else
 	{
-		block_type(s_cmd->s_cmd[*start], s_cmd->tokens[*i]);
-		token = tokenize(s_cmd->s_cmd, *start + 1, end);
+		block_type(s_cmd->instructions[*start], s_cmd->tokens[*i]);
+		token = tokenize(s_cmd->instructions, *start + 1, end);
 		if (!token)
 			return (0);
-		if (*is_command)
-			s_cmd->exec = token;
-		else
-			s_cmd->tokens[(*i)++]->token = token;
-		*is_command = 0;
+		s_cmd->tokens[(*i)++]->token = token;
 		end++;
 	}
 	*start = end;

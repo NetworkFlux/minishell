@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/27 14:18:26 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:38:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	clear_scmd(void)
 			g_fcmd->s_cmd[i]->child_id = 0;
 			printf("<clear_scmd> fork cleared\n");
 		}
+		if (g_fcmd->s_cmd[i]->instructions)
+			free(g_fcmd->s_cmd[i]->instructions);
 		free(g_fcmd->s_cmd[i]->s_cmd);
 		free(g_fcmd->s_cmd[i]);
 		i++;

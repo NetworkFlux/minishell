@@ -50,12 +50,13 @@ void	print_cmd(size_t i)
 			o++;
 		}
 		//print_redir(current, i + 1);
+		printf("--------------------------\n");
 		i++;
 	}
 }
 
 void	debug_env(char *envv, char *str, char *result)
 {
-	printf("<replace_variable> replace in : |%s| with |%s|\n", str, envv);
-	printf("<replace_variable> result: |%s|\n", result);
+	printf("<debug_env> replace in : |%s| with |%s|\n", str, envv);
+	printf("<debug_env> result: |%s|\n", result);
 }
