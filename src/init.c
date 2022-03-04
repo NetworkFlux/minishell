@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/02 19:39:18 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:23:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ int	init_full_cmd(char *cmd)
 	size_t	i;
 	char	**cmd_split;
 
-	g_fcmd = malloc(sizeof(t_fcmd));
-	if (!g_fcmd)
-		return (0);
 	g_fcmd->f_cmd = cmd;
 	g_fcmd->nb_scmd = countwords_quote((const char *)cmd, '|');
 	if (!init_smcd())

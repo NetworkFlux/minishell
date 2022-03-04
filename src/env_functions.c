@@ -6,50 +6,51 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:49:31 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/02 21:33:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:50:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// returns the desired environment variable value
-// otherwise NULL
-char	*get_variable_value(char *str)
+static	char	*fill_split(size_t start, size_t end, const char *src, char *dest)
 {
 	size_t	i;
-	size_t	start;
-	char	*value;
 
 	i = 0;
-	if (str && str[0])
+	while (start < end && src && src[start])
 	{
-		while (g_fcmd->envp[i])
-		{
-			start = find_env_variable(g_fcmd->envp[i], str);
-			if (start != 0)
-			{
-				value = ft_substr(g_fcmd->envp[i], start, ft_strlen(g_fcmd->envp[i]) - start);
-				return (value);
-			}
-			i++;
-		}
+		dest[i] = src[start];
+		start++;
+		i++;
 	}
-	return (NULL);
+	dest[i] = '\0';
+	return (dest);
 }
 
-// returns the start of the env value (after `=`) if found
-// otherwise 0
-int	find_env_variable(char *stack, char *needle)
+char	**split_first_occurence(char *str, unsigned char c)
 {
+	char	**array;
 	size_t	i;
 
 	i = 0;
-	while (stack[i] && needle[i] 
-		&& stack[i] == needle[i])
+	array = malloc(sizeof(char *) * 2);
+	if (!array)
+		return (NULL); // todo;
+	while (str && str[i])
+	{
+		if (str[i] == c)
+		{
+			array[0] = malloc(sizeof(char) * i + 1);
+			if (!array[0])
+				return (NULL); // todo: clear properly
+			array[1] = malloc(sizeof(char) * (ft_strlen(str) - i) + 1);
+			if (!array[1])
+				return (NULL); // todo: clear properly
+			array[0] = fill_split(0, i, str, array[0]);
+			array[1] = fill_split(i + 1, ft_strlen(str), str, array[1]);
+			break ;
+		}
 		i++;
-	if (needle[i] != '\0')
-		return (0);
-	if (needle[i] == '\0' && stack[i] == '=')
-		return (i + 1);
-	return (0);
+	}
+	return (array);
 }

@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/03 17:27:25 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/04 16:45:18 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SRC_FILES = main.c		\
 	init.c				\
 	parse_quotes.c		\
 	parse_exec.c		\
-	parse_count.c		\
 	parse_params.c		\
 	parse_cmd.c			\
 	parse_verify.c		\
@@ -39,6 +38,7 @@ SRC_FILES = main.c		\
 	debug.c				\
 	env_variables.c		\
 	env_functions.c  	\
+	env_list.c		  	\
 	builtins_route.c	\
 	builtins_cd.c		\
 	builtins_pwd.c		\

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 17:18:09 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:48:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 # include <sys/wait.h>
 # include <signal.h>
 #include <sys/ioctl.h>
+
+typedef	struct	s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
 
 typedef struct s_token
 {
@@ -52,10 +60,10 @@ typedef struct s_single_command
 
 typedef struct s_full_command
 {
-	char	*f_cmd;
-	size_t	nb_scmd;
-	t_scmd	**s_cmd;
-	char	**envp;
+	char			*f_cmd;
+	size_t			nb_scmd;
+	t_scmd			**s_cmd;
+	struct s_env	*envp;
 }	t_fcmd;
 
 // GLOBAL
@@ -81,8 +89,13 @@ void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 
 // env variables
 void	env_variables(void);
-int		find_env_variable(char *stack, char *needle);
-char	*get_variable_value(char *str);
+t_env	*create_env(char	**envp);
+char	**split_first_occurence(char *str, unsigned char c);
+t_env	*env_first(t_env *env);
+t_env	*env_last(t_env *env);
+t_env 	*find_env(t_env *env, char *str);
+t_env	*add_env(t_env *env, char *name, char *value);
+t_env	*remove_env(t_env *env);
 
 // remove quotes
 int		remove_quotes(void);
@@ -90,12 +103,10 @@ int		remove_quotes(void);
 // parsing
 void	get_exec(void);
 int		parse_cmd(void);
-int		count_input(t_scmd *s_cmd, size_t start);
 int		parse_param(t_scmd *s_cmd, size_t *start, size_t *i);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 size_t	find_block_end(char *input, size_t position);
-char	*tokenize(char *input, size_t start, size_t end);
 
 // memory free
 void	init_signals(void);
@@ -116,6 +127,7 @@ void	builtins_export(t_scmd *scmd);
 char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
+int		ft_strcompare(const char *str, char *test);
 
 // debug
 void	print_cmd(size_t i);

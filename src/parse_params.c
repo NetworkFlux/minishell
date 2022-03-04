@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 16:00:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:46:56 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ size_t	find_param_end(char *input, size_t position)
 	if (input[position] == '\0')
 		return (position);
 	return (0);
+}
+
+// extracts token from single command's string
+static char	*tokenize(char *input, size_t start, size_t end)
+{
+	char	*token;
+	size_t	i;
+
+	i = 0;
+	token = malloc(sizeof(char) * (end - start) + 1);
+	if (!token)
+		return (NULL);
+	token[end - start] = '\0';
+	while (input && input[start] && start < end)
+		token[i++] = input[start++];
+	return (token);
 }
 
 /**	Looks for the end of a parameter

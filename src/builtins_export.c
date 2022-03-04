@@ -6,38 +6,35 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 17:43:44 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:36:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void print_envp()
+void print_envp(void)
 {
-	size_t i;
-	
-	i = 0;
-	while (g_fcmd->envp[i])
+	g_fcmd->envp = env_first(g_fcmd->envp);
+	while (g_fcmd->envp)
 	{
-		printf("|%s|\n", g_fcmd->envp[i]);
-		i++;
+		printf("declare -x %s=\"%s\"\n", g_fcmd->envp->name, g_fcmd->envp->value);
+		if (!g_fcmd->envp->next)
+			break ;
+		g_fcmd->envp = g_fcmd->envp->next;
 	}
 }
 
 /* NOT WORKING YET */
 void	builtins_export(t_scmd *scmd)
 {
-	size_t	i;
-
-	i = 0;
+	char	**array;
+	t_env	*tmp;
 
 	if (scmd->ntokens == 0)
 	{
 		print_envp();
 		return ;
 	}
-
 	if (scmd->ntokens != 1
 		|| !scmd->tokens
 		|| !scmd->tokens[0]
@@ -46,12 +43,23 @@ void	builtins_export(t_scmd *scmd)
 		printf ("error arguments.\n");
 		return ;
 	}
-	
-	while (g_fcmd->envp[i])
+	array = split_first_occurence(scmd->tokens[0]->token, '=');
+	if (!array)
+		return ; // todo !
+	printf("name: |%s| \nva: |%s|\n", array[0], array[1]);
+	tmp = find_env(g_fcmd->envp, array[0]);
+	if (!tmp)
 	{
-		i++;
+		printf("NEW ADD\n");
+		g_fcmd->envp = add_env(g_fcmd->envp, array[0], array[1]);
+		printf("DONE ADD\n");
 	}
-	printf("i: %ld\n", i);
-	// g_fcmd->envp[i] = scmd->tokens[0]->token;
+	else
+	{
+		printf("UPDATE\n");
+		tmp->name = array[0];
+		tmp->value = array[1];
+		printf("DONE UPDATE\n");
+	}
 	print_envp();
 }

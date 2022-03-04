@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:36:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 17:02:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:37:37 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*skip_quotes(char *str, char *master, size_t i, size_t j)
+static char	*skip_quotes(char *str, char *master, size_t i, size_t j)
 {
 	size_t	jump;
 

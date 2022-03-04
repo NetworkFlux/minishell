@@ -6,27 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 17:10:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:35:34 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// extracts token from single command's string
-char	*tokenize(char *input, size_t start, size_t end)
-{
-	char	*token;
-	size_t	i;
-
-	i = 0;
-	token = malloc(sizeof(char) * (end - start) + 1);
-	if (!token)
-		return (NULL);
-	token[end - start] = '\0';
-	while (input && input[start] && start < end)
-		token[i++] = input[start++];
-	return (token);
-}
 
 // looks for the tokens start and end then executes tokenize
 static int	ft_strtok(t_scmd *s_cmd)
@@ -65,6 +49,27 @@ static int	token_memory_alloc(t_scmd *current)
 		if (!current->tokens[k])
 			return (clear_all());
 		k++;
+	}
+	return (1);
+}
+
+// before parsing, in order to malloc our variables
+// count how many tokens we will have (exec not included)
+static int	count_input(t_scmd *s_cmd, size_t start)
+{
+	while (s_cmd->instructions[start])
+	{
+		while (s_cmd->instructions[start]
+			&& ft_isspace(s_cmd->instructions[start]))
+			start++;
+		if (s_cmd->instructions[start])
+		{
+			start = find_param_end(s_cmd->instructions, start);
+			if (start == 0)
+				return (0);
+		}
+		start++;
+		s_cmd->ntokens++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/02 19:38:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:35:05 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	clear_all(void)
 			free(g_fcmd->s_cmd);
 			g_fcmd->s_cmd = NULL;
 		}
-		free (g_fcmd);
-		g_fcmd = NULL;
+		// free (g_fcmd);
+		// g_fcmd = NULL;
 	}
 	printf("<clear_all> all cleared\n");
 	return (0);
