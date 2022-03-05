@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 15:36:58 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:28:41 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ int	main(int argc, char **argv, char **envp)
 		init_full_cmd(g_fcmd->f_cmd);
 		parse_redir();
 		env_variables();
-		remove_quotes();
-		get_exec();
-		if (!parse_cmd())
-			return (1);
+		parse_cmd();
 		clear_all();
 	}
 	return (0);

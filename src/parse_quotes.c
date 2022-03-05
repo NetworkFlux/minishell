@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:36:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:02:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:52:13 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*skip_quotes(char *str, char *master, size_t i, size_t j)
+static char	*skip_quotes(char *master, char *str, size_t i, size_t j)
 {
 	size_t	jump;
 
@@ -61,29 +61,22 @@ static int	length_without_quotes(char *str)
 	return ((int)len);
 }
 
-int	remove_quotes(void)
+char	*remove_quotes(char *input)
 {
-	size_t	i;
-	char	*str;
+	char	*output;
 	int		len;
 
-	i = 0;
-	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
+	len = length_without_quotes(input);
+	if (len > -1)
 	{
-		if (g_fcmd->s_cmd[i]->s_cmd)
-		{
-			len = length_without_quotes(g_fcmd->s_cmd[i]->s_cmd);
-			if (len > -1)
-			{
-				str = malloc(sizeof(char) * len + 1);
-				if (!str)
-					error_malloc();
-				str = skip_quotes(str, g_fcmd->s_cmd[i]->s_cmd, 0, 0);
-				str[len] = '\0';
-				g_fcmd->s_cmd[i]->instructions = str;
-			}
-		}
-		i++;
+		output = malloc(sizeof(char) * len + 1);
+		if (!output)
+			error_malloc();
+		output = skip_quotes(input, output, 0, 0);
+		output[len] = '\0';
+		// g_fcmd->s_cmd[i]->instructions = output;
+		printf("<remove_quotes> |%s|\n", output);
+		return (output);
 	}
-	return (1);
+	return (NULL);
 }

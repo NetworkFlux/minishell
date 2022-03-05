@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 17:48:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:03:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	buildins_pwd(t_scmd *scmd, int fd_out)
 		printf("<pwd> Too many arguments\n");
 		return ;
 	}
-	ft_putendl_fd(getcwd(res, sizeof(res)), fd_out);
+	ft_putendl_fd(getcwd(res, sizeof(res) * ft_strlen(res)), fd_out);
 	if (fd_out > 2)
 		close(fd_out);
 	return ;

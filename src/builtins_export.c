@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 15:32:58 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:25:57 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ static int	valid_input(t_scmd *scmd)
 		print_envp();
 		return (0);
 	}
-	if (scmd->ntokens != 1
-		|| !scmd->tokens
+	if (!scmd->tokens
 		|| !scmd->tokens[0]
 		|| !scmd->tokens[0]->token)
 	{
-		printf ("error arguments.\n");
+		printf ("Error arguments.\n");
 		return (0);
 	}
 	return (1);

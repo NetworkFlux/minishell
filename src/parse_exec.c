@@ -6,12 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:25:05 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:02:47 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:27:16 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 static void	remove_exec(t_scmd *scmd, size_t end)
 {
 	char	*tmp;
@@ -31,7 +32,9 @@ static void	remove_exec(t_scmd *scmd, size_t end)
 	free (scmd->instructions);
 	scmd->instructions = tmp;
 }
+*/
 
+/*
 static void	set_exec(t_scmd *scmd, size_t start, size_t end)
 {
 	char	*exec;
@@ -50,7 +53,28 @@ static void	set_exec(t_scmd *scmd, size_t start, size_t end)
 	exec[i] = '\0';
 	scmd->exec = exec;
 }
+*/
 
+/*
+void	set_exec(t_scmd *scmd, char *str, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	scmd->exec = malloc(sizeof(char) * len + 1);
+	if (!scmd->exec)
+		error_malloc();
+	while (str && str[i] && i < len)
+	{
+		scmd->exec[i] = str[i];
+		i++;
+	}
+	scmd->exec[i] = '\0';
+	free(str);
+}
+*/
+
+/*
 void	get_exec(void)
 {
 	size_t	start;
@@ -77,3 +101,4 @@ void	get_exec(void)
 		i++;
 	}
 }
+*/

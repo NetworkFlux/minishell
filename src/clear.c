@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 15:07:04 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:52:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	clear_scmd(void)
 	}
 }
 
-static void	clear_env(void)
+void	clear_env(void)
 {
 	t_env	*tmp;
 	t_env	*current;

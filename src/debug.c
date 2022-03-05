@@ -54,3 +54,15 @@ void	print_cmd(size_t i)
 		i++;
 	}
 }
+
+void	print_tokens(t_scmd *scmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < scmd->ntokens && scmd->tokens[i])
+	{
+		printf("token[%ld]: %s\n", i, scmd->tokens[i]->token);
+		i++;
+	}
+}

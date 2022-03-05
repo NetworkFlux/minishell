@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 15:34:37 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:27:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,12 @@ t_env	*add_env(t_env *env, char *name, char *value);
 t_env	*remove_env(t_env *env);
 
 // remove quotes
-int		remove_quotes(void);
+char	*remove_quotes(char *input);
 
 // parsing
-void	get_exec(void);
+// void	get_exec(void);
 int		parse_cmd(void);
-int		parse_param(t_scmd *s_cmd, size_t *start, size_t *i);
+char	*parse_param(char *str, size_t *start);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 size_t	find_block_end(char *input, size_t position);
@@ -120,6 +120,7 @@ int		find_last_out(char *str);
 void	init_signals(void);
 int		clear_all(void);
 int		clear_exit(void);
+void	clear_env(void);
 
 // exec
 void	exec(void);
@@ -147,5 +148,6 @@ int		error_malloc(void);
 void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
 void	print_envp(void);
+void	print_tokens(t_scmd *scmd);
 
 #endif
