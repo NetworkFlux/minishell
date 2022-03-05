@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 14:58:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:49:23 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*first_word(char *str)
 		i++;
 		j++;
 	}
-	res[i - j] = '\0';
+	res[j] = '\0';
 	return (res);
 }
 

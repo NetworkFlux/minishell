@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/26 17:36:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:03:28 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int	parse_redir(void)
 		redir->in_args = malloc(sizeof(char *) * redir->in);
 		redir->outout_args = malloc(sizeof(char *) * redir->outout);
 		redir->inin_args = malloc(sizeof(char *) * redir->inin);
+		redir->last_out = find_last_out(g_fcmd->s_cmd[i]->s_cmd);
+		//printf("<redirections> Last output redirection : %d\n", redir->last_out);
 		if (!redir->out_args
 			|| !redir->in_args
 			|| !redir->outout_args

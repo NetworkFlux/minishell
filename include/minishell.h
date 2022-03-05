@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 13:47:01 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:34:37 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include "../libft/include/libft.h"
 # include <sys/wait.h>
 # include <signal.h>
-#include <sys/ioctl.h>
+# include <sys/ioctl.h>
+# include <fcntl.h>
 
 typedef	struct	s_env
 {
@@ -45,6 +46,7 @@ typedef struct s_redirection
 	char		**outout_args;
 	char		**in_args;
 	char		**inin_args;
+	int			last_out;
 }	t_redir;
 
 typedef struct s_single_command
@@ -87,6 +89,11 @@ void	fill_d(t_scmd *s_cmd, char c);
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 
+// apply redirections
+int		apply_outredir(t_scmd *scmd);
+void	create_redir_file_s(t_scmd *scmd);
+void	create_redir_file_d(t_scmd *scmd);
+
 // env variables
 void	env_variables(void);
 t_env	*create_env(char	**envp);
@@ -107,6 +114,7 @@ int		parse_param(t_scmd *s_cmd, size_t *start, size_t *i);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 size_t	find_block_end(char *input, size_t position);
+int		find_last_out(char *str);
 
 // memory free
 void	init_signals(void);
@@ -118,10 +126,10 @@ void	exec(void);
 
 // builtins
 int		is_builtin(t_scmd *s_cmd);
-void	buildins_pwd(t_scmd *scmd);
+void	buildins_pwd(t_scmd *scmd, int fd_out);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
-void	buildins_echo(t_scmd *scmd);
+void	buildins_echo(t_scmd *scmd, int fd_out);
 void	builtins_export(t_scmd *scmd);
 void	builtins_env(void);
 void	builtins_exit(void);

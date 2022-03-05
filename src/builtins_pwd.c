@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:57:55 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:48:57 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* prints the name of the current directory */
 // Probably not a good way to output it
 // Should test if it works alongside with `cd`
-void	buildins_pwd(t_scmd *scmd)
+void	buildins_pwd(t_scmd *scmd, int fd_out)
 {
 	char	*res;
 
@@ -25,6 +25,8 @@ void	buildins_pwd(t_scmd *scmd)
 		printf("<pwd> Too many arguments\n");
 		return ;
 	}
-	printf("%s\n", getcwd(res, ft_strlen(res)));
+	ft_putendl_fd(getcwd(res, sizeof(res)), fd_out);
+	if (fd_out > 2)
+		close(fd_out);
 	return ;
 }

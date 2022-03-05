@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 15:01:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:49:17 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_redir	*init_redir(void)
 	res->in_args = NULL;
 	res->outout_args = NULL;
 	res->inin_args = NULL;
+	res->last_out = 0;
 	return (res);
 }
 
