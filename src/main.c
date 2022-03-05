@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/04 19:23:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:46:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*take_input(void)
 	if (!ft_strlen(cmd))
 	{
 		free(cmd);
-		cmd = take_input();
+		take_input();
 	}
 	else
 	{
@@ -61,13 +61,12 @@ char	*take_input(void)
 			return (NULL);
 		add_history(cmd);
 	}
+	g_fcmd->f_cmd = cmd;
 	return (cmd);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*cmd;
-
 	(void)argv;
 	if (argc != 1)
 	{
@@ -81,11 +80,9 @@ int	main(int argc, char **argv, char **envp)
 	g_fcmd->envp = create_env(envp);
 	while (1)
 	{
-		cmd = take_input();
-		if (!cmd)
-			return (1);
+		take_input();
 		// printf("<main> init_full_cmd\n");
-		init_full_cmd(cmd);
+		init_full_cmd(g_fcmd->f_cmd);
 		// printf("<main> create_env\n");
 		// printf("<main> parse_redir\n");
 		parse_redir();

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:14:00 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:22:15 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 	else if (i == 5)
 		builtins_env();
 	else
-		printf("<route_builtins> builtin: exit\n");
+		builtins_exit();
 }
 
 /* checks if the single command exec is a builtin function */

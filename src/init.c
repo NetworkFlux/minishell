@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/04 19:23:03 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:39:10 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	init_smcd(void)
 	size_t	i;
 
 	i = 0;
-	g_fcmd->s_cmd = malloc(sizeof(t_scmd *) * g_fcmd->nb_scmd);
+	g_fcmd->s_cmd = malloc(sizeof(t_scmd) * g_fcmd->nb_scmd);
 	if (!g_fcmd->s_cmd)
 		return (clear_all());
 	while (i < g_fcmd->nb_scmd)
@@ -55,6 +55,20 @@ static int	init_smcd(void)
 	return (1);
 }
 
+static char	**free_split(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < g_fcmd->nb_scmd)
+	{
+		free (split[i]);
+		i++;
+	}
+	free (split);
+	return (NULL);
+}
+
 // Initialize the big struct and fills some of its variable (f_cmd, nb_scmd, all s_cmd)
 // Verifier t_scmd	*s_cmd ou t_scmd	**s_cmd
 int	init_full_cmd(char *cmd)
@@ -62,7 +76,6 @@ int	init_full_cmd(char *cmd)
 	size_t	i;
 	char	**cmd_split;
 
-	g_fcmd->f_cmd = cmd;
 	g_fcmd->nb_scmd = countwords_quote((const char *)cmd, '|');
 	if (!init_smcd())
 		return (0);
@@ -73,14 +86,20 @@ int	init_full_cmd(char *cmd)
 	while (i < g_fcmd->nb_scmd)
 	{
 		g_fcmd->s_cmd[i]->s_cmd = remove_spaces(cmd_split[i]);
-		if (!g_fcmd->s_cmd[i]->s_cmd)	// should clear cmd_split
+		if (!g_fcmd->s_cmd[i]->s_cmd)
+		{
+			free_split(cmd_split);
 			return (clear_all());
+		}
 		g_fcmd->s_cmd[i]->redir = init_redir();
-		if (!g_fcmd->s_cmd[i]->redir)	// should clear cmd_split
+		if (!g_fcmd->s_cmd[i]->redir)
+		{
+			free_split(cmd_split);
 			return (clear_all());
+		}
 		i++;
 	}
-	free (cmd_split);
+	cmd_split = free_split(cmd_split);
 	i = 0;
 	return (1);
 }

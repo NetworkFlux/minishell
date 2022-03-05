@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 11:35:34 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:43:53 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	token_memory_alloc(t_scmd *current)
 // count how many tokens we will have (exec not included)
 static int	count_input(t_scmd *s_cmd, size_t start)
 {
-	while (s_cmd->instructions[start])
+	while (s_cmd->instructions && s_cmd->instructions[start])
 	{
 		while (s_cmd->instructions[start]
 			&& ft_isspace(s_cmd->instructions[start]))

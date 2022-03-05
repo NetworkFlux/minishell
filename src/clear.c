@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:02:08 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:45:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ static void	clear_redir(t_redir *redir)
 	free(redir);
 }
 
+static	void clear_tokens(t_scmd *scmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < scmd->ntokens && scmd->tokens[i])
+	{
+		free(scmd->tokens[i]->token);
+		free(scmd->tokens[i]);
+		i++;
+	}
+	free(scmd->tokens);
+}
+
+
 /*	loops over single command in order to free its content 
 	kill command's child process if still running (pid!=0) */
 static void	clear_scmd(void)
@@ -39,8 +54,8 @@ static void	clear_scmd(void)
 			free(g_fcmd->s_cmd[i]->exec);
 		if (g_fcmd->s_cmd[i]->instructions)
 			free(g_fcmd->s_cmd[i]->instructions);
-		if (g_fcmd->s_cmd[i]->tokens)
-			free(g_fcmd->s_cmd[i]->tokens);
+		if (g_fcmd->s_cmd[i]->ntokens > 0)
+			clear_tokens(g_fcmd->s_cmd[i]);
 		if (g_fcmd->s_cmd[i]->redir)
 			clear_redir(g_fcmd->s_cmd[i]->redir);
 		if (g_fcmd->s_cmd[i]->child_id != 0)
@@ -109,10 +124,10 @@ int	clear_all(void)
 			free(g_fcmd->s_cmd);
 			g_fcmd->s_cmd = NULL;
 		}
-		// free (g_fcmd);
-		// g_fcmd = NULL;
+		free(g_fcmd->f_cmd);
+		g_fcmd->f_cmd = NULL;
 	}
-	printf("<clear_all> all cleared\n");
+	printf("<clear_all> cleared !\n");
 	return (0);
 }
 
@@ -120,6 +135,9 @@ int	clear_exit(void)
 {
 	clear_all();
 	clear_env();
+	free (g_fcmd);
+	g_fcmd = NULL;
+	printf("<clear_all> wiped !\n");
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:13:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:21:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ size_t	find_block_end(char *input, size_t position);
 // memory free
 void	init_signals(void);
 int		clear_all(void);
+int		clear_exit(void);
 
 // exec
 void	exec(void);
@@ -123,6 +124,7 @@ void	builtin_unset(t_scmd *scmd);
 void	buildins_echo(t_scmd *scmd);
 void	builtins_export(t_scmd *scmd);
 void	builtins_env(void);
+void	builtins_exit(void);
 
 // utils
 char	*remove_spaces(char *str);

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:25:05 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/03 17:02:27 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:29:15 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	get_exec(void)
 	i = 0;
 	start = 0;
 	end = 0;
-	while (g_fcmd->s_cmd && g_fcmd->s_cmd[i] && i < g_fcmd->nb_scmd)
+	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd && g_fcmd->s_cmd[i])
 	{
 		while (g_fcmd->s_cmd[i]->instructions
 			&& ft_isspace(g_fcmd->s_cmd[i]->instructions[start]))
