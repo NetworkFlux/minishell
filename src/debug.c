@@ -54,9 +54,3 @@ void	print_cmd(size_t i)
 		i++;
 	}
 }
-
-void	debug_env(char *envv, char *str, char *result)
-{
-	printf("<debug_env> replace in : |%s| with |%s|\n", str, envv);
-	printf("<debug_env> result: |%s|\n", result);
-}

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 19:49:01 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:14:00 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,19 @@
 static void	route_builtins(t_scmd *scmd, size_t i)
 {
 	if (i == 0)
-	{
-		printf("<route_builtins> builtin: echo\n");
 		buildins_echo(scmd);
-	}
 	else if (i == 1)
-	{
-		printf("<route_builtins> builtin: cd\n");
 		buildins_cd(scmd);
-	}
 	else if (i == 2)
-	{
-		printf("<route_builtins> builtin: pwd\n");
 		buildins_pwd(scmd);
-	}
 	else if (i == 3)
-	{
-		printf("<route_builtins> builtin: export\n");
 		builtins_export(scmd);
-	}
 	else if (i == 4)
-	{
-		printf("<route_builtins> builtin: unset\n");
 		builtin_unset(scmd);
-	}
 	else if (i == 5)
-		printf("<route_builtins> builtin: env\n");
+		builtins_env();
 	else
-	{
 		printf("<route_builtins> builtin: exit\n");
-	}
 }
 
 /* checks if the single command exec is a builtin function */

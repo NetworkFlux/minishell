@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 19:35:05 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:02:08 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,69 @@ static void	clear_scmd(void)
 	i = 0;
 	while (i < g_fcmd->nb_scmd)
 	{
+		free(g_fcmd->s_cmd[i]->s_cmd);
+		if (g_fcmd->s_cmd[i]->exec)
+			free(g_fcmd->s_cmd[i]->exec);
+		if (g_fcmd->s_cmd[i]->instructions)
+			free(g_fcmd->s_cmd[i]->instructions);
 		if (g_fcmd->s_cmd[i]->tokens)
 			free(g_fcmd->s_cmd[i]->tokens);
 		if (g_fcmd->s_cmd[i]->redir)
 			clear_redir(g_fcmd->s_cmd[i]->redir);
-		if (g_fcmd->s_cmd[i]->exec)
-			free(g_fcmd->s_cmd[i]->exec);
 		if (g_fcmd->s_cmd[i]->child_id != 0)
 		{
 			kill (g_fcmd->s_cmd[i]->child_id, SIGKILL);
 			g_fcmd->s_cmd[i]->child_id = 0;
 			printf("<clear_scmd> fork cleared\n");
 		}
-		if (g_fcmd->s_cmd[i]->instructions)
-			free(g_fcmd->s_cmd[i]->instructions);
-		free(g_fcmd->s_cmd[i]->s_cmd);
 		free(g_fcmd->s_cmd[i]);
 		i++;
 	}
 }
 
+static void	clear_env(void)
+{
+	t_env	*tmp;
+	t_env	*current;
+
+	current = env_first(g_fcmd->envp);
+	while (current)
+	{
+		if (!current->next)
+		{
+			free(current->name);
+			free(current->value);
+			free(current);
+			current = NULL;
+			break;
+		}
+		tmp = current;
+		current = current->next;
+		free(tmp->name);
+		free(tmp->value);
+		free(tmp);
+		tmp = NULL;
+	}
+}
+
+/*
+g_fcmd t_fcmd *
+	f_cmd	char *
+	envp	t_env * (chained list)
+		name	char *
+		value	char *
+	s_cmd	t_scmd **
+		smcd	char *
+		exec	char *
+		instructions	char *
+		tokens	t_tokens **
+			token	char *
+		redir	t_redir *
+			out_args		char **
+			out_out_args	char **
+			in_args			char **
+			in_in_args		char **
+*/
 /* dives into our command tree and tries to free everything */
 int	clear_all(void)
 {
@@ -71,6 +114,13 @@ int	clear_all(void)
 	}
 	printf("<clear_all> all cleared\n");
 	return (0);
+}
+
+int	clear_exit(void)
+{
+	clear_all();
+	clear_env();
+	exit(0);
 }
 
 /* on SIGINT signal (CTRL+C) */

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:44:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 19:47:25 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 10:45:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env	*env_last(t_env *env)
 	return (env);
 }
 
-t_env 	*find_env(t_env *env, char *name)
+t_env	*find_env(t_env *env, char *name)
 {
 	env = env_first(env);
 	while (env)
@@ -46,14 +46,14 @@ t_env 	*find_env(t_env *env, char *name)
 		env = env->next;
 	}
 	if (env->name == name)
-			return (env);
+		return (env);
 	return (NULL);
 }
 
 t_env	*add_env(t_env *env, char *name, char *value)
 {
 	t_env	*new;
-		
+
 	env = env_last(env);
 	new = malloc(sizeof(t_env) * 1);
 	if (!new)

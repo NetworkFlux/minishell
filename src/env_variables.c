@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 19:24:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:11:52 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 		end++;
 	}		
 	dest[i] = '\0';
-	debug_env(env, str, dest);
 	return (dest);
 }
 
