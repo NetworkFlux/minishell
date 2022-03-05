@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:02:52 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:10:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ size_t	find_param_end(char *input, size_t position)
 	while (input && input[position])
 	{
 		if (ft_isspace(input[position]))
-				return (position);
+			return (position);
 		else
 			position++;
 	}

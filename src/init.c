@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 14:33:18 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:01:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,20 @@ static char	**free_split(char **split)
 	return (NULL);
 }
 
-// Initialize the big struct and fills some of its variable (f_cmd, nb_scmd, all s_cmd)
+// Initialize the big struct and fills some of 
+// its variable (f_cmd, nb_scmd, all s_cmd)
 // Verifier t_scmd	*s_cmd ou t_scmd	**s_cmd
 int	init_full_cmd(char *cmd)
 {
 	size_t	i;
 	char	**cmd_split;
 
+	i = 0;
 	g_fcmd->nb_scmd = countwords_quote((const char *)cmd, '|');
-	if (!init_smcd())
-		return (0);
+	init_smcd();
 	cmd_split = ft_split_quote(cmd, '|');
 	if (!cmd_split)
 		error_malloc();
-	i = 0;
 	while (i < g_fcmd->nb_scmd)
 	{
 		g_fcmd->s_cmd[i]->s_cmd = remove_spaces(cmd_split[i]);
@@ -100,6 +100,5 @@ int	init_full_cmd(char *cmd)
 		i++;
 	}
 	cmd_split = free_split(cmd_split);
-	i = 0;
 	return (1);
 }

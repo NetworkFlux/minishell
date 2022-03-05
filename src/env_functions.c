@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:49:31 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:06:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:05:44 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	char	*fill_split(size_t start, size_t end, const char *src, char *dest)
+static char	*fill_split(size_t start, size_t end, const char *src, char *dest)
 {
 	size_t	i;
 
@@ -47,7 +47,6 @@ static char	**norminette_split(char **array, size_t i, char *str)
 	return (array);
 }
 
-
 char	**split_first_occurence(char *str, unsigned char c)
 {
 	char	**array;
@@ -67,4 +66,34 @@ char	**split_first_occurence(char *str, unsigned char c)
 		i++;
 	}
 	return (array);
+}
+
+// creates a linked list from *envp[]
+t_env	*create_env(char **envp)
+{
+	size_t	i;
+	t_env	*env;
+	t_env	*prev;
+	char	**array;
+
+	i = 0;
+	prev = NULL;
+	while (envp && envp[i])
+	{
+		env = malloc(sizeof(t_env) * 1);
+		if (!env)
+			error_malloc();
+		array = split_first_occurence(envp[i], '=');
+		env->name = array[0];
+		env->value = array[1];
+		free(array);
+		env->next = NULL;
+		env->prev = prev;
+		if (prev)
+			prev->next = env;
+		prev = env;
+		env = env->next;
+		i++;
+	}
+	return (env_first(prev));
 }

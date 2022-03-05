@@ -6,41 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:32:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:05:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// creates a linked list from *envp[]
-t_env	*create_env(char **envp)
-{
-	size_t	i;
-	t_env	*env;
-	t_env	*prev;
-	char	**array;
-
-	i = 0;
-	prev = NULL;
-	while (envp && envp[i])
-	{
-		env = malloc(sizeof(t_env) * 1);
-		if (!env)
-			error_malloc();
-		array = split_first_occurence(envp[i], '=');
-		env->name = array[0];
-		env->value = array[1];
-		free(array);
-		env->next = NULL;
-		env->prev = prev;
-		if (prev)
-			prev->next = env;
-		prev = env;
-		env = env->next;
-		i++;
-	}
-	return (env_first(prev));
-}
 
 // TODO should clear and exit;
 // returns the env value of a given word
@@ -56,11 +26,10 @@ static char	*get_env(char *str, size_t start, size_t end)
 	free(variable);
 	if (!result)
 		return (NULL);
-	// printf("<get_env> variable: |%s|\n", result->value);
 	return (result->value);
 }
 
-// norminette forces to split the function
+// norminette forces to split the function replace
 static char	*insert_var(char *dest, char *src, size_t *i, size_t j)
 {
 	while (src && src[j])

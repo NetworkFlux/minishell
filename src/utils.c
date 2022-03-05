@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 14:33:10 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:58:11 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*remove_spaces(char *str)
 }
 
 // compares 2 strings. 1 if same, 0 if not
-int		ft_strcompare(const char *str, char *test)
+int	ft_strcompare(const char *str, char *test)
 {
 	size_t	i;
 
