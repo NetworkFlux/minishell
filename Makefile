@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
+#    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/05 11:21:43 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/05 13:49:04 by npinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_FILES = main.c		\
 	builtins_export.c	\
 	builtins_env.c		\
 	builtins_exit.c		\
+	apply_redir.c
 	
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

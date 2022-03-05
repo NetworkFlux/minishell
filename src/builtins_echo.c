@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/02 21:05:09 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:12:09 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	buildins_echo(t_scmd *scmd)
+// Runs the echo command
+void	buildins_echo(t_scmd *scmd, int fd_out)
 {
 	size_t	i;
 
@@ -24,18 +25,18 @@ void	buildins_echo(t_scmd *scmd)
 	{
 		if (scmd->tokens[0]->token[0] == '-')
 			i++;
-		ft_putstr_fd(scmd->tokens[i]->token, 1);
+		ft_putstr_fd(scmd->tokens[i]->token, fd_out);
 		while (++i < scmd->ntokens)
 		{
-			ft_putchar_fd(' ', 1);
-			ft_putstr_fd(scmd->tokens[i]->token, 1);
+			ft_putchar_fd(' ', fd_out);
+			ft_putstr_fd(scmd->tokens[i]->token, fd_out);
 		}
 		if (scmd->tokens[0]->token[0] == '-')
-			ft_putchar_fd('%', 1);
-		ft_putchar_fd('\n', 1);
+			ft_putchar_fd('%', fd_out);
+		ft_putchar_fd('\n', fd_out);
 	}
 	else
-	{
-		ft_putchar_fd('\n', 1);
-	}
+		ft_putchar_fd('\n', fd_out);
+	if (fd_out > 2)
+		close(fd_out);
 }
