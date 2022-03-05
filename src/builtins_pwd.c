@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/02/28 14:34:27 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:53:06 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	buildins_pwd(t_scmd *scmd)
 		printf("<pwd> Too many arguments\n");
 		return ;
 	}
-	printf("%s\n", getcwd(res, sizeof(res)));
+	printf("%s\n", getcwd(res, ft_strlen(res)));
 	return ;
 }
