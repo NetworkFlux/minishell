@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 18:49:35 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:47:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// check block start ' "
+// checks for quotes
 int	is_block_start(char c)
 {
 	if ((unsigned char) c == '\''
@@ -21,7 +21,7 @@ int	is_block_start(char c)
 	return (0);
 }
 
-// returns 0 when no blockend is not found / end position on success
+// returns block's end's position
 size_t	find_block_end(char *input, size_t position)
 {
 	char	target;
@@ -36,23 +36,17 @@ size_t	find_block_end(char *input, size_t position)
 			return (position);
 		position++;
 	}
-	return (0);
+	return (position);
 }
 
+// looks for a space not between quotes
 size_t	find_param_end(char *input, size_t position)
 {
-	size_t	res;
-
 	while (input && input[position])
 	{
 		if (is_block_start(input[position]))
-		{
-			res = find_block_end(input, position);
-			if (res > 0 && input[res] != '\0')
-				return (res + 1);
-			return (res);
-		}
-		else if (ft_isspace(input[position]))
+			position = find_block_end(input, position);
+		if (ft_isspace(input[position]))
 			return (position);
 		else
 			position++;
@@ -62,7 +56,8 @@ size_t	find_param_end(char *input, size_t position)
 	return (0);
 }
 
-// extracts token from single command's string
+// copies the input into a token
+// returns a token (char *)
 static char	*tokenize(char *input, size_t start, size_t end)
 {
 	char	*token;
@@ -78,9 +73,8 @@ static char	*tokenize(char *input, size_t start, size_t end)
 	return (token);
 }
 
-/**	Looks for the end of a parameter
-	(anything that isn't a space, a blockstart
-	or a delimiter) then tokenizes it */
+// copies str up until it founds a space (not between quotes)
+// returns a token (char µ) and updates *start to where it stopped
 char	*parse_param(char *str, size_t *start)
 {
 	size_t	end;
@@ -94,8 +88,6 @@ char	*parse_param(char *str, size_t *start)
 		if (!token)
 			error_malloc();
 		token = remove_quotes(token);
-		// s_cmd->tokens[(*i)++]->token = token;
-		// *start = end;
 	}
 	*start = end;
 	return (token);

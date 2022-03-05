@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/05 17:48:43 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/05 19:56:21 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SRC_FILES = main.c		\
 	signals.c			\
 	init.c				\
 	parse_quotes.c		\
-	parse_exec.c		\
 	parse_params.c		\
 	parse_cmd.c			\
 	parse_verify.c		\
