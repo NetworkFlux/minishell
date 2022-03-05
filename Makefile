@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/05 11:21:43 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/05 13:47:18 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_FILES = main.c		\
 	builtins_export.c	\
 	builtins_env.c		\
 	builtins_exit.c		\
+	error_handling.c	\
 	
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

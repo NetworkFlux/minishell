@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 12:45:37 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:02:34 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static int	token_memory_alloc(t_scmd *current)
 	k = 0;
 	current->tokens = malloc(sizeof(char *) * current->ntokens);
 	if (!current->tokens)
-		return (clear_all());
+		error_malloc();
 	while (k < current->ntokens)
 	{
 		current->tokens[k] = malloc(sizeof(t_token));
 		if (!current->tokens[k])
-			return (clear_all());
+			error_malloc();
 		k++;
 	}
 	return (1);

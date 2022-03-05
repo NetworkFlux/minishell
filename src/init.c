@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 11:39:10 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:33:18 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_redir	*init_redir(void)
 
 	res = malloc(sizeof(t_redir));
 	if (!res)
-		return (NULL);
+		error_malloc();
 	res->out = 0;
 	res->in = 0;
 	res->outout = 0;
@@ -38,12 +38,12 @@ static int	init_smcd(void)
 	i = 0;
 	g_fcmd->s_cmd = malloc(sizeof(t_scmd) * g_fcmd->nb_scmd);
 	if (!g_fcmd->s_cmd)
-		return (clear_all());
+		error_malloc();
 	while (i < g_fcmd->nb_scmd)
 	{
 		g_fcmd->s_cmd[i] = malloc(sizeof(t_scmd));
 		if (!g_fcmd->s_cmd[i])
-			return (clear_all());
+			error_malloc();
 		g_fcmd->s_cmd[i]->s_cmd = NULL;
 		g_fcmd->s_cmd[i]->exec = NULL;
 		g_fcmd->s_cmd[i]->tokens = NULL;
@@ -65,7 +65,7 @@ static char	**free_split(char **split)
 		free (split[i]);
 		i++;
 	}
-	free (split);
+	free(split);
 	return (NULL);
 }
 
@@ -81,7 +81,7 @@ int	init_full_cmd(char *cmd)
 		return (0);
 	cmd_split = ft_split_quote(cmd, '|');
 	if (!cmd_split)
-		return (clear_all());
+		error_malloc();
 	i = 0;
 	while (i < g_fcmd->nb_scmd)
 	{
@@ -89,13 +89,13 @@ int	init_full_cmd(char *cmd)
 		if (!g_fcmd->s_cmd[i]->s_cmd)
 		{
 			free_split(cmd_split);
-			return (clear_all());
+			error_malloc();
 		}
 		g_fcmd->s_cmd[i]->redir = init_redir();
 		if (!g_fcmd->s_cmd[i]->redir)
 		{
 			free_split(cmd_split);
-			return (clear_all());
+			error_malloc();
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:21:20 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 13:47:01 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
 int		ft_strcompare(const char *str, char *test);
+
+// error handling
+int		error_malloc(void);
 
 // debug
 void	print_cmd(size_t i);

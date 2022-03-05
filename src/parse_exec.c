@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:25:05 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:29:15 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:02:47 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	remove_exec(t_scmd *scmd, size_t end)
 	i = 0;
 	tmp = malloc(sizeof(char) * (ft_strlen(scmd->instructions) - end) + 1);
 	if (!tmp)
-		return ; // should clear and exit program (malloc error)
+		error_malloc();
 	while (scmd->instructions[end])
 	{
 		tmp[i] = scmd->instructions[end];
@@ -40,7 +40,7 @@ static void	set_exec(t_scmd *scmd, size_t start, size_t end)
 	i = 0;
 	exec = malloc(sizeof(char) * (end - start) + 1);
 	if (!exec)
-		return ; // should clear and exit program (malloc error)
+		error_malloc();
 	while (scmd->instructions[start] && start < end)
 	{
 		exec[i] = scmd->instructions[start];
