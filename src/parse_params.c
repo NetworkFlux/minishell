@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:45:23 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 16:46:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:02:52 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	parse_param(t_scmd *s_cmd, size_t *start, size_t *i)
 	{
 		token = tokenize(s_cmd->instructions, *start, end);
 		if (!token)
-			return (0);
+			error_malloc();
 		s_cmd->tokens[(*i)++]->token = token;
 	}
 	*start = end;

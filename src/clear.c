@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:45:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:32:59 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void	clear_scmd(void)
 	i = 0;
 	while (i < g_fcmd->nb_scmd)
 	{
-		free(g_fcmd->s_cmd[i]->s_cmd);
 		if (g_fcmd->s_cmd[i]->exec)
 			free(g_fcmd->s_cmd[i]->exec);
 		if (g_fcmd->s_cmd[i]->instructions)
@@ -62,8 +61,9 @@ static void	clear_scmd(void)
 		{
 			kill (g_fcmd->s_cmd[i]->child_id, SIGKILL);
 			g_fcmd->s_cmd[i]->child_id = 0;
-			printf("<clear_scmd> fork cleared\n");
+			printf("<clear_scmd> fork cleared\n"); // todo
 		}
+		free(g_fcmd->s_cmd[i]->s_cmd);
 		free(g_fcmd->s_cmd[i]);
 		i++;
 	}
@@ -124,6 +124,7 @@ int	clear_all(void)
 			free(g_fcmd->s_cmd);
 			g_fcmd->s_cmd = NULL;
 		}
+		g_fcmd->nb_scmd = 0;
 		free(g_fcmd->f_cmd);
 		g_fcmd->f_cmd = NULL;
 	}

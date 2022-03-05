@@ -6,7 +6,11 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/05 13:56:49 by npinheir         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/05 14:33:10 by fcaquard         ###   ########.fr       */
+>>>>>>> 457aecb1078473f5c28cb21c29bb7315e408256c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +98,7 @@ char	*remove_spaces(char *str)
 	return (temp);
 }
 
+// compares 2 strings. 1 if same, 0 if not
 int		ft_strcompare(const char *str, char *test)
 {
 	size_t	i;

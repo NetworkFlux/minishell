@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 11:46:07 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:02:22 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*total_input(char *cmd, char *tmp)
 	{
 		free(cmd);
 		free(tmp);
-		return (NULL);
+		error_malloc();
 	}
 	while (cmd && cmd[i])
 		total[j++] = cmd[i++];
@@ -58,7 +58,7 @@ char	*take_input(void)
 			cmd = total_input(cmd, tmp);
 		}
 		if (!cmd)
-			return (NULL);
+			error_malloc();
 		add_history(cmd);
 	}
 	g_fcmd->f_cmd = cmd;
@@ -76,26 +76,18 @@ int	main(int argc, char **argv, char **envp)
 	init_signals();
 	g_fcmd = malloc(sizeof(t_fcmd));
 	if (!g_fcmd)
-		return (0);
+		error_malloc();
 	g_fcmd->envp = create_env(envp);
 	while (1)
 	{
 		take_input();
-		// printf("<main> init_full_cmd\n");
 		init_full_cmd(g_fcmd->f_cmd);
-		// printf("<main> create_env\n");
-		// printf("<main> parse_redir\n");
 		parse_redir();
-		// printf("<main> env_variables\n");
 		env_variables();
-		// printf("<main> remove_quotes\n");
 		remove_quotes();
-		// printf("<main> get_exec\n");
 		get_exec();
-		// printf("<main> parse_cmd\n");
 		if (!parse_cmd())
 			return (1);
-		// exec();
 		clear_all();
 	}
 	return (0);

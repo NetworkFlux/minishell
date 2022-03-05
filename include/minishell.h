@@ -6,7 +6,11 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/05 15:08:31 by npinheir         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/05 13:47:01 by fcaquard         ###   ########.fr       */
+>>>>>>> 457aecb1078473f5c28cb21c29bb7315e408256c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +143,9 @@ char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
 int		ft_strcompare(const char *str, char *test);
+
+// error handling
+int		error_malloc(void);
 
 // debug
 void	print_cmd(size_t i);

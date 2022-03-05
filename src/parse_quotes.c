@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:36:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/04 11:37:37 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:02:58 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ int	remove_quotes(void)
 			{
 				str = malloc(sizeof(char) * len + 1);
 				if (!str)
-					return (0);
+					error_malloc();
 				str = skip_quotes(str, g_fcmd->s_cmd[i]->s_cmd, 0, 0);
 				str[len] = '\0';
 				g_fcmd->s_cmd[i]->instructions = str;
-				printf("<remove_quotes> |%s|\n", g_fcmd->s_cmd[i]->instructions);
 			}
 		}
 		i++;

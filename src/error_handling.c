@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_unset.c                                   :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 17:44:17 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 13:58:37 by fcaquard         ###   ########.fr       */
+/*   Created: 2022/03/05 10:46:28 by fcaquard          #+#    #+#             */
+/*   Updated: 2022/03/05 14:35:41 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// set the desired env variable to \0 if found
-void	builtin_unset(t_scmd *scmd)
+// prints / clear all / exit(0)
+int	error_malloc(void)
 {
-	t_env	*tmp;
-
-	if (scmd->ntokens != 1
-		|| !scmd->tokens
-		|| !scmd->tokens[0]
-		|| !scmd->tokens[0]->token)
-	{
-		return ;
-	}
-	tmp = find_env(g_fcmd->envp, scmd->tokens[0]->token);
-	if (tmp)
-		g_fcmd->envp = remove_env(tmp);
+	printf("Memory allocation failed.\n");
+	clear_exit();
+	return (0);
 }

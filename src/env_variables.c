@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 11:11:52 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:32:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*create_env(char **envp)
 	{
 		env = malloc(sizeof(t_env) * 1);
 		if (!env)
-			return (NULL); // todo: clear properly
+			error_malloc();
 		array = split_first_occurence(envp[i], '=');
 		env->name = array[0];
 		env->value = array[1];
@@ -82,7 +82,7 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 	dest = malloc(sizeof(char) * ft_strlen(str) - (end - start) \
 		+ ft_strlen(env) + 1);
 	if (!dest)
-		return (NULL);
+		error_malloc();
 	while (str && str[i] && i < start)
 	{
 		dest[i] = str[i];
@@ -96,6 +96,7 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 		end++;
 	}		
 	dest[i] = '\0';
+	free(str);
 	return (dest);
 }
 
