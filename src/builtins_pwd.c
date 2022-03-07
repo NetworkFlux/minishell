@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 18:03:20 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:46:43 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	buildins_pwd(t_scmd *scmd, int fd_out)
 	char	*res;
 
 	res = NULL;
-	if (scmd->ntokens != 0)
+	if (scmd->ntokens != 1)
 	{
 		printf("<pwd> Too many arguments\n");
 		return ;

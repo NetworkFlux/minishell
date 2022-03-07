@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 15:12:09 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:53:30 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,18 @@ void	buildins_echo(t_scmd *scmd, int fd_out)
 {
 	size_t	i;
 
-	i = 0;
-	if (scmd->tokens 
-		&& scmd->tokens[0]
-		&& scmd->tokens[0]->token
-		&& scmd->tokens[0]->token[0])
+	i = 1;
+	if (scmd->tokens && scmd->tokens[1])
 	{
-		if (scmd->tokens[0]->token[0] == '-')
+		if (scmd->tokens[1][0] == '-')
 			i++;
-		ft_putstr_fd(scmd->tokens[i]->token, fd_out);
+		ft_putstr_fd(scmd->tokens[i], fd_out);
 		while (++i < scmd->ntokens)
 		{
 			ft_putchar_fd(' ', fd_out);
-			ft_putstr_fd(scmd->tokens[i]->token, fd_out);
+			ft_putstr_fd(scmd->tokens[i], fd_out);
 		}
-		if (scmd->tokens[0]->token[0] == '-')
+		if (scmd->tokens[1][0] == '-')
 			ft_putchar_fd('%', fd_out);
 		ft_putchar_fd('\n', fd_out);
 	}

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 17:49:17 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:23:16 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	init_smcd(void)
 		if (!g_fcmd->s_cmd[i])
 			error_malloc();
 		g_fcmd->s_cmd[i]->s_cmd = NULL;
-		g_fcmd->s_cmd[i]->exec = NULL;
 		g_fcmd->s_cmd[i]->tokens = NULL;
 		g_fcmd->s_cmd[i]->instructions = NULL;
 		g_fcmd->s_cmd[i]->ntokens = 0;
