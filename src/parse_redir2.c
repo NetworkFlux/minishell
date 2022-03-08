@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 14:40:16 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/07 09:53:59 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,25 @@ int		find_last_out(char *str)
 		i++;
 	}
 	return (res);
+}
+
+// Find if the redirection files have acces rights
+int		redir_files_ok(t_scmd *scmd)
+{
+	if (scmd->redir->last_out == 1 && acces(scmd->redir->out_args[scmd->redir->out], W_OK) < 0)
+	{
+			printf("%s : Pernission denied\n",scmd->redir->out_args[scmd->redir->out]);
+			scmd->redir->last_out = 0;
+	}
+	else if (scmd->redir->last_out == 2 && acces(scmd->redir->outout_args[scmd->redir->outout], W_OK) < 0)
+	{
+			printf("%s : Pernission denied\n",scmd->redir->outout_args[scmd->redir->outout]);
+			scmd->redir->last_out = 0;
+	}
+	if (scmd->redir->in && acces(scmd->redir->in_args[scmd->redir->in], R_OK) < 0)
+	{
+		printf("%s : Pernission denied\n",scmd->redir->in_args[scmd->redir->in]);
+		scmd->redir->last_out = 0;
+	}
+	return (scmd->redir->last_out);
 }
