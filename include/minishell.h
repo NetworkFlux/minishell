@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 19:27:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/07 09:54:21 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	fill_s(t_scmd *s_cmd, char c);
 void	fill_d(t_scmd *s_cmd, char c);
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
+int		redir_files_ok(t_scmd *scmd);
 
 // apply redirections
 int		apply_outredir(t_scmd *scmd);
@@ -131,8 +132,9 @@ void	buildins_pwd(t_scmd *scmd, int fd_out);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
 void	buildins_echo(t_scmd *scmd, int fd_out);
+int		is_option_ok(char *str);
 void	builtins_export(t_scmd *scmd);
-void	builtins_env(void);
+void	builtins_env(int fd_out);
 void	builtins_exit(void);
 
 // utils
