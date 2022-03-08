@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 10:48:50 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:00:46 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	buildins_echo(t_scmd *scmd, int fd_out)
 	size_t	i;
 
 	i = 1;
+	if (redir_files_ok(scmd) < 0)
+		return;
 	if (scmd->tokens && scmd->tokens[1])
 	{
 		if (scmd->tokens[1][0] == '-')

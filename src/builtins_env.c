@@ -6,16 +6,18 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:10:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/07 09:09:10 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:17:24 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtins_env(int fd_out)
+void	builtins_env(t_scmd *scmd, int fd_out)
 {
 	g_fcmd->envp = env_first(g_fcmd->envp);
 
+	if (redir_files_ok(scmd) < 0)
+		return;
 	while (g_fcmd->envp)
 	{
 		ft_putstr_fd(g_fcmd->envp->name, fd_out);

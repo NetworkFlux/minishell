@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/08 10:45:24 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:03:02 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 /* if the exec is a builtin and files pernissions are ok, calls the appropriate function */
 static void	route_builtins(t_scmd *scmd, size_t i)
 {
-	if (!redir_files_ok(scmd))
-		return;
 	if (i == 0)
 		buildins_echo(scmd, apply_outredir(scmd));
 	else if (i == 1)
@@ -28,7 +26,7 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 	else if (i == 4)
 		builtin_unset(scmd);
 	else if (i == 5)
-		builtins_env(apply_outredir(scmd));
+		builtins_env(scmd, apply_outredir(scmd));
 	else if (i == 6)
 		builtins_exit();
 	else if (i == 7)
