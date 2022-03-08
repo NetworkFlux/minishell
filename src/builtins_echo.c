@@ -6,11 +6,22 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 11:00:46 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:32:11 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	buildins_cat(t_scmd *scmd, int fd_out, char **fd_in)
+{
+	(void)scmd;
+	size_t	i;
+
+	i = 0;
+	while (fd_in[i])
+		ft_putendl_fd(fd_in[i++], fd_out);
+	// PAS OUBLIER DE FREE FD_IN
+}
 
 int		is_option_ok(char *str)
 {

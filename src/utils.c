@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/05 17:49:23 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:15:05 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,43 @@ int	ft_strcompare(const char *str, char *test)
 	if (str[i] != test[i])
 		return (0);
 	return (1);
+}
+
+size_t	charsslen(int fd)
+{
+	size_t	res;
+	char	*line;
+
+	res = 0;
+	while (get_next_line(fd, &line) > 0)
+		res++;
+	close(fd);
+	return (res + 1);
+}
+
+char	**realloc_heredoc(char **tab, size_t res_len, char *input)
+{
+	char	**res;
+	size_t	i;
+
+	i = 0;
+	res = malloc(sizeof(char *) * (res_len + 1));
+	if (!res)
+		return (NULL); // gere l'erreur
+	while (i < res_len - 1)
+	{
+		res[i] = malloc(sizeof(char) * (ft_strlen(tab[i]) + 1));
+		if (!res[i])
+			return (NULL); // gerer l'erreur
+		res[i] = tab[i];
+		res[i][ft_strlen(tab[i])] = '\0';
+		i++;
+	}
+	res[i] = malloc(sizeof(char) * (ft_strlen(input) + 1));
+	if (!res[i])
+			return (NULL); // gerer l'erreur
+	res[i] = input;
+	res[i++][ft_strlen(input)] = '\0';
+	res[i] = NULL;
+	return (res);
 }

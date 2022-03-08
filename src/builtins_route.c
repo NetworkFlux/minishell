@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/08 11:03:02 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:41:33 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 		builtins_exit();
 	else if (i == 7)
 		buildins_echo(scmd, apply_outredir(scmd));
+	else if (i == 8)
+		buildins_cat(scmd, apply_outredir(scmd), apply_inredir(scmd));
 }
 
 /* checks if the single command exec is a builtin function */
 static int	is_builtin(t_scmd *s_cmd)
 {
 	size_t		i;
-	const char	*builtins[7] = {"cd",
-		"pwd", "export", "unset", "env", "exit", "echo"};
+	const char	*builtins[8] = {"cd",
+		"pwd", "export", "unset", "env", "exit", "echo", "cat"};
 
 	i = 0;
-	while (i < 7 && builtins[i])
+	while (i < 8 && builtins[i])
 	{
 		if (ft_strcompare(builtins[i], s_cmd->tokens[0]))
 		{

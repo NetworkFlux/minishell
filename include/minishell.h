@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/08 11:03:21 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:04:16 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_redirection
 	char		**in_args;
 	char		**inin_args;
 	int			last_out;
+	int			last_in;
 }	t_redir;
 
 typedef struct s_single_command
@@ -88,11 +89,16 @@ void	fill_d(t_scmd *s_cmd, char c);
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 int		redir_files_ok(t_scmd *scmd);
+int		find_last_in(char *str);
+int		find_last_out(char *str);
 
 // apply redirections
 int		apply_outredir(t_scmd *scmd);
 void	create_redir_file_s(t_scmd *scmd);
 void	create_redir_file_d(t_scmd *scmd);
+char	**apply_inredir(t_scmd *scmd);
+char	**get_fdin_data(t_scmd *scmd, int fd);
+char	**apply_heredoc(t_scmd *scmd);
 
 // env variables
 void	env_variables(void);
@@ -136,11 +142,16 @@ void	builtins_export(t_scmd *scmd);
 void	builtins_env(t_scmd *scmd, int fd_out);
 void	builtins_exit(void);
 
+void	buildins_cat(t_scmd *scmd, int fd_out, char **fd_in);
+
+
 // utils
 char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
 int		ft_strcompare(const char *str, char *test);
+size_t	charsslen(int fd);
+char	**realloc_heredoc(char **tab, size_t res_len, char *input);
 
 // error handling
 int		error_malloc(void);
