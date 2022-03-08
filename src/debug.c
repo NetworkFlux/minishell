@@ -42,11 +42,11 @@ void	print_cmd(size_t i)
 	{
 		current = g_fcmd->s_cmd[i];
 		size_t o = 0;
-		printf("<print_cmd> exec: %s\n", current->exec);
+		printf("<print_cmd> exec: %s\n", current->tokens[0]);
 		while (o < current->ntokens && current->tokens[o])
 		{
 			// | the pipes are just there to see if there's no spaces around
-			printf("<print_cmd> tk[%ld]: |%s|\n", o, current->tokens[o]->token);
+			printf("<print_cmd> tk[%ld]: |%s|\n", o, current->tokens[o]);
 			o++;
 		}
 		//print_redir(current, i + 1);
@@ -62,7 +62,7 @@ void	print_tokens(t_scmd *scmd)
 	i = 0;
 	while (i < scmd->ntokens && scmd->tokens[i])
 	{
-		printf("token[%ld]: %s\n", i, scmd->tokens[i]->token);
+		printf("token[%ld]: %s\n", i, scmd->tokens[i]);
 		i++;
 	}
 }

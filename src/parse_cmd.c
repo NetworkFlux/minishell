@@ -6,14 +6,14 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 19:55:32 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:57:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // looks for the tokens start and end then executes tokenize
-static int	ft_strtok(t_scmd *s_cmd, char *str, int is_exec)
+static int	ft_strtok(t_scmd *s_cmd, char *str)
 {	
 	int	itoken;
 	size_t	start;
@@ -30,10 +30,7 @@ static int	ft_strtok(t_scmd *s_cmd, char *str, int is_exec)
 			tmp = parse_param(str, &start);
 			if (tmp)
 			{
-				if (is_exec-- == 1)
-					s_cmd->exec = tmp;
-				else
-					s_cmd->tokens[itoken++]->token = tmp;
+				s_cmd->tokens[itoken++] = tmp;
 			}
 		}
 		if (str[start] != '\0')
@@ -45,21 +42,15 @@ static int	ft_strtok(t_scmd *s_cmd, char *str, int is_exec)
 // allocates memory for the token array
 static int	token_memory_alloc(t_scmd *current)
 {
-	size_t	i;
+	// size_t	i;
 
-	i = 0;
+	// i = 0;
 	if (current->ntokens > 0)
 	{
-		current->tokens = malloc(sizeof(char *) * current->ntokens);
+		current->tokens = malloc(sizeof(char *) * current->ntokens + 1);
 		if (!current->tokens)
 			error_malloc();
-		while (i < current->ntokens)
-		{
-			current->tokens[i] = malloc(sizeof(t_token));
-			if (!current->tokens[i])
-				error_malloc();
-			i++;
-		}
+		current->tokens[current->ntokens] = '\0';
 	}
 	return (1);
 }
@@ -69,9 +60,6 @@ static int	token_memory_alloc(t_scmd *current)
 // updates scmd->ntokens directly 
 static int	count_input(char *str, size_t start, size_t	*ntokens)
 {
-	int is_exec;
-
-	is_exec = 1;
 	while (str && str[start])
 	{
 		while (str[start]
@@ -82,10 +70,7 @@ static int	count_input(char *str, size_t start, size_t	*ntokens)
 			start = find_param_end(str, start);
 			if (start == 0)
 				return (0);
-			if (!is_exec)
-				(*ntokens)++;
-			else
-				is_exec = 0;
+			(*ntokens)++;
 		}
 		if (str[start])
 			start++;
@@ -114,11 +99,10 @@ int	parse_cmd(void)
 				printf("%ld Tokens\n", g_fcmd->s_cmd[i]->ntokens);
 				if (!token_memory_alloc(g_fcmd->s_cmd[i]))
 					return (0);
-				if (!ft_strtok(g_fcmd->s_cmd[i], g_fcmd->s_cmd[i]->s_cmd, 1))
+				if (!ft_strtok(g_fcmd->s_cmd[i], g_fcmd->s_cmd[i]->s_cmd))
 					return (clear_all());
-				printf("Exec: %s\n", g_fcmd->s_cmd[i]->exec);
+				printf("Exec: %s\n", g_fcmd->s_cmd[i]->tokens[0]);
 				print_tokens(g_fcmd->s_cmd[i]);
-				is_builtin(g_fcmd->s_cmd[i]);
 			}
 		}
 		i++;

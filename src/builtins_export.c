@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 19:25:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:51:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ void	print_envp(void)
 
 static int	valid_input(t_scmd *scmd)
 {
-	if (scmd->ntokens == 0)
+	if (scmd->tokens && scmd->ntokens == 1)
 	{
 		print_envp();
 		return (0);
 	}
-	if (!scmd->tokens
-		|| !scmd->tokens[0]
-		|| !scmd->tokens[0]->token)
+	if (!scmd->tokens[1])
 	{
 		printf ("Error arguments.\n");
 		return (0);
@@ -67,7 +65,7 @@ void	builtins_export(t_scmd *scmd)
 
 	if (!valid_input(scmd))
 		return ;
-	array = split_first_occurence(scmd->tokens[0]->token, '=');
+	array = split_first_occurence(scmd->tokens[1], '=');
 	if (!array)
 		error_malloc();
 	printf("name: |%s| \nva: |%s|\n", array[0], array[1]);

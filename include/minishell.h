@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/07 09:54:21 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:46:48 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef	struct	s_env
 	struct s_env	*prev;
 }	t_env;
 
-typedef struct s_token
-{
-	char		*token;
-}	t_token;
+// typedef struct s_token
+// {
+// 	char		*token;
+// }	t_token;
 
 typedef struct s_redirection
 {
@@ -52,10 +52,9 @@ typedef struct s_redirection
 typedef struct s_single_command
 {
 	char	*s_cmd;
-	char	*exec;
 	char	*instructions;
 	size_t	ntokens;
-	t_token	**tokens;
+	char	**tokens;
 	t_redir	*redir;
 	pid_t	child_id;
 }	t_scmd;
@@ -124,10 +123,10 @@ int		clear_exit(void);
 void	clear_env(void);
 
 // exec
-void	exec(void);
+void	route_exec(char **envp);
+void	exec(t_scmd *scmd, char **envp);
 
 // builtins
-int		is_builtin(t_scmd *s_cmd);
 void	buildins_pwd(t_scmd *scmd, int fd_out);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
