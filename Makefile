@@ -6,7 +6,7 @@
 #    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/08 14:20:10 by npinheir         ###   ########.fr        #
+#    Updated: 2022/03/10 12:16:36 by npinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRC_FILES = main.c		\
 	builtins_env.c		\
 	builtins_exit.c		\
 	apply_redir.c		\
-	error_handling.c
+	error_handling.c	\
+	ft_realloc.c
 	
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

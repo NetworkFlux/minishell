@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/08 15:04:16 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:11:41 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ void	builtins_exit(void);
 
 void	buildins_cat(t_scmd *scmd, int fd_out, char **fd_in);
 
+// realloc
+char	**ft_realloc(char **tab, char *str);
+char	*ft_copy(char *str);
 
 // utils
 char	*remove_spaces(char *str);

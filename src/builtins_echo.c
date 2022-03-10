@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 15:32:11 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:41:23 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@ void	buildins_cat(t_scmd *scmd, int fd_out, char **fd_in)
 {
 	(void)scmd;
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (fd_in[i])
-		ft_putendl_fd(fd_in[i++], fd_out);
+	j = 0;
+	while (fd_in[i][0] != '\0')
+		i++;
+	while (j < i)
+		ft_putendl_fd(fd_in[j++], fd_out);
 	// PAS OUBLIER DE FREE FD_IN
+	return ;
 }
 
 int		is_option_ok(char *str)

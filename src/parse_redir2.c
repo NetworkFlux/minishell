@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 14:48:02 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/10 11:08:04 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	temp = first_word(temp_right);
 	//printf("TEMP : %s\n", temp);
 	if (c == '>')
-		s_cmd->redir->outout_args[j] = temp;
+		s_cmd->redir->outout_args[j] = remove_spaces(temp);
 	else
-		s_cmd->redir->inin_args[j] = temp;
+		s_cmd->redir->inin_args[j] = remove_spaces(temp);
 	temp_right += ft_strlen(temp);
 	s_cmd->s_cmd = strcat(temp_left, remove_spaces(temp_right));
 }

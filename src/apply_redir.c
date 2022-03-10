@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 15:41:04 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:45:53 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**get_fdin_data(t_scmd *scmd, int fd)
 		res[i] = line;
 		res[i++][ft_strlen(line)] = '\0';
 	}
-	res[i] = NULL;
+	res[i] = "\0";
 	return (res);
 }
 
@@ -103,21 +103,17 @@ char	**apply_heredoc(t_scmd *scmd)
 	char	**res;
 	char	*input;
 	size_t	i;
-	size_t	res_len;
 
 	i = 0;
-	res = NULL;
-	res_len = 0;
+	res = malloc(sizeof(char *));
+	res[0] = "\0";
 	while (i < scmd->redir->inin)
 	{
 		input = readline("> ");
 		while (ft_strncmp(input, scmd->redir->inin_args[i], ft_strlen(scmd->redir->inin_args[i])) != 0)
 		{
 			if (i == scmd->redir->inin - 1)
-			{
-				res = realloc_heredoc(res, res_len + 1, input);
-				res_len++;
-			}
+				res = ft_realloc(res, input);
 			input = readline("> ");
 		}
 		i++;
@@ -141,8 +137,8 @@ char	**apply_inredir(t_scmd *scmd)
 			return (NULL);
 		tab = get_fdin_data(scmd, fd);
 	}
-	// else
-	// 	tab = apply_heredoc(scmd);
+	else
+		tab = apply_heredoc(scmd);
 	close(fd);
 	return (tab);
 }
