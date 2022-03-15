@@ -6,14 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 15:05:31 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:17:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO should clear and exit;
-// returns the env value of a given word
+// returns the env value of a given $variable
 static char	*get_env(char *str, size_t start, size_t end)
 {
 	char	*variable;
@@ -41,13 +40,15 @@ static char	*insert_var(char *dest, char *src, size_t *i, size_t j)
 	return (dest);
 }
 
-// TODO should clear and exit;
+// in str replace $variable by $variable env's value
 static char	*replace(char *str, char *env, size_t start, size_t end)
 {
 	char	*dest;
 	size_t	i;
 
 	i = 0;
+	if (!env)
+		error_malloc();
 	dest = malloc(sizeof(char) * ft_strlen(str) - (end - start) \
 		+ ft_strlen(env) + 1);
 	if (!dest)
@@ -69,13 +70,7 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 	return (dest);
 }
 
-/* if a variable is found $something (at least one char after $)
-sends it to be replaced by its environment variable 
-try:	>`export test="echo 'blabla'"`
-		>$test
-		>echo "hello $test"
-	skip single quoted content
-*/
+// search for a $variable then replace it by its env value
 static char	*find_variable(char *str, size_t i, size_t j)
 {
 	while (str && str[i])
@@ -104,9 +99,7 @@ static char	*find_variable(char *str, size_t i, size_t j)
 	return (str);
 }
 
-// look for $
-// then look for its end 
-// anything not [A-a,0-9] is the end
+// entry point for the search and replacement of env $variables
 void	env_variables(void)
 {
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/07 11:56:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:23:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ static char	*concat(char *first, char *append)
 
 /*	if exec isn't a builtin execute it 
 	using fork and execve */
-void	exec(t_scmd *scmd, char **envp)
+void	exec(t_scmd *scmd, t_env *env)
 {
 	char	*target;
+	char	**envp;
+
+	envp = env_listtoarray(env);
+	print_env_array(envp);
 
 	printf("<exec> |%s|\n", scmd->tokens[0]);
 	scmd->child_id = fork();
@@ -72,4 +76,5 @@ void	exec(t_scmd *scmd, char **envp)
 		printf("<exec> after waiting %d\n", scmd->child_id);
 	}
 	printf("<exec> after fork\n");
+	clear_array(envp, envp_len(envp));
 }

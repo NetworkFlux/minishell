@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
+#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/10 12:16:36 by npinheir         ###   ########.fr        #
+#    Updated: 2022/03/15 18:36:39 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,14 @@ SRC_FILES = main.c		\
 	parse_verify.c		\
 	utils.c				\
 	clear.c				\
+	free_functions.c	\
 	parse_redir.c		\
 	parse_redir2.c		\
 	exec.c				\
 	debug.c				\
 	env_variables.c		\
-	env_functions.c  	\
+	env_tolist.c 	 	\
+	env_toarray.c		\
 	env_list.c		  	\
 	builtins_route.c	\
 	builtins_cd.c		\

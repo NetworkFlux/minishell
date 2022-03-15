@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 14:44:57 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:06:21 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,6 @@ static int	init_smcd(void)
 	return (1);
 }
 
-static char	**free_split(char **split)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < g_fcmd->nb_scmd)
-	{
-		free (split[i]);
-		i++;
-	}
-	free(split);
-	return (NULL);
-}
-
 // Initialize the big struct and fills some of 
 // its variable (f_cmd, nb_scmd, all s_cmd)
 // Verifier t_scmd	*s_cmd ou t_scmd	**s_cmd
@@ -89,17 +75,17 @@ int	init_full_cmd(char *cmd)
 		g_fcmd->s_cmd[i]->s_cmd = remove_spaces(cmd_split[i]);
 		if (!g_fcmd->s_cmd[i]->s_cmd)
 		{
-			free_split(cmd_split);
+			clear_array(cmd_split, g_fcmd->nb_scmd);
 			error_malloc();
 		}
 		g_fcmd->s_cmd[i]->redir = init_redir();
 		if (!g_fcmd->s_cmd[i]->redir)
 		{
-			free_split(cmd_split);
+			clear_array(cmd_split, g_fcmd->nb_scmd);
 			error_malloc();
 		}
 		i++;
 	}
-	cmd_split = free_split(cmd_split);
+	cmd_split = clear_array(cmd_split, g_fcmd->nb_scmd);
 	return (1);
 }

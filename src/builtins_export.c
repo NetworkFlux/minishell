@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/07 11:51:49 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:08:54 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,16 @@ static int	valid_input(t_scmd *scmd)
 
 static void	export_new(char **array)
 {
+	char	*str;
+	
 	if (ft_strlen(array[0]))
-		g_fcmd->envp = add_env(g_fcmd->envp, array[0], array[1]);
+	{
+		str = malloc(sizeof(char) * ft_strlen(array[0]) + ft_strlen(array[1]) + 4);
+		if (!str)
+			error_malloc();
+		str = strrebuild(array[0], " = ",array[1]);
+		g_fcmd->envp = add_env(g_fcmd->envp, array[0], array[1], str);
+	}
 	else
 	{
 		if (ft_strlen(array[1]))

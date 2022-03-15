@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:44:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 14:01:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:09:18 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_env	*find_env(t_env *env, char *name)
 	return (NULL);
 }
 
-t_env	*add_env(t_env *env, char *name, char *value)
+t_env	*add_env(t_env *env, char *name, char *value, char *line)
 {
 	t_env	*new;
 
@@ -59,6 +59,7 @@ t_env	*add_env(t_env *env, char *name, char *value)
 	if (!new)
 		error_malloc();
 	new->name = name;
+	new->line = line;
 	new->value = value;
 	new->next = NULL;
 	new->prev = env;

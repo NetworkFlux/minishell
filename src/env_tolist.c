@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_functions.c                                    :+:      :+:    :+:   */
+/*   env_tolist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:49:31 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/05 15:05:44 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:33:08 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_env	*create_env(char **envp)
 		if (!env)
 			error_malloc();
 		array = split_first_occurence(envp[i], '=');
+		env->line = envp[i];
 		env->name = array[0];
 		env->value = array[1];
 		free(array);

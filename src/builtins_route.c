@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/08 15:41:33 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:17:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	is_builtin(t_scmd *s_cmd)
 	return (0);
 }
 
-void	route_exec(char **envp)
+void	route_exec(void)
 {
 	size_t	i;
 	size_t	res;
@@ -68,7 +68,7 @@ void	route_exec(char **envp)
 		else
 		{
 			printf("not a builtin. --> exec\n");
-			exec(g_fcmd->s_cmd[i], envp);
+			exec(g_fcmd->s_cmd[i], g_fcmd->envp);
 		}
 		i++;
 	}

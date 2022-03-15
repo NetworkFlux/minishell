@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/10 13:51:28 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:21:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,18 @@ void	clear_env(void)
 	current = env_first(g_fcmd->envp);
 	while (current)
 	{
+		free(current->name);
+		free(current->value);
+		free(current->line);
 		if (!current->next)
 		{
-			free(current->name);
-			free(current->value);
 			free(current);
 			current = NULL;
 			break ;
 		}
 		tmp = current;
 		current = current->next;
-		free(tmp->name);
-		free(tmp->value);
 		free(tmp);
-		tmp = NULL;
 	}
 }
 

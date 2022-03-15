@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 16:58:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:09:27 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef	struct	s_env
 {
 	char			*name;
 	char			*value;
+	char			*line;
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
@@ -105,8 +106,13 @@ char	**split_first_occurence(char *str, unsigned char c);
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
 t_env 	*find_env(t_env *env, char *str);
-t_env	*add_env(t_env *env, char *name, char *value);
+t_env	*add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
+char	**env_listtoarray(t_env *env);
+void	print_envp(void);
+size_t	envp_len(char **envp);
+void	clear_envp(char **array, size_t i);
+char	*strrebuild(char *src1, char *src2, char *src3);
 
 // remove quotes
 char	*remove_quotes(char *input);
@@ -125,10 +131,11 @@ void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(void);
 void	clear_env(void);
+char	**clear_array(char **array, size_t len);
 
 // exec
-void	route_exec(char **envp);
-void	exec(t_scmd *scmd, char **envp);
+void	route_exec(void);
+void	exec(t_scmd *scmd, t_env *env);
 
 // builtins
 void	buildins_pwd(t_scmd *scmd, int fd_out);
@@ -160,7 +167,7 @@ int		error_malloc(void);
 // debug
 void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
-void	print_envp(void);
 void	print_tokens(t_scmd *scmd);
+void	print_env_array(char **envp);
 
 #endif

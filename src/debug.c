@@ -66,3 +66,16 @@ void	print_tokens(t_scmd *scmd)
 		i++;
 	}
 }
+
+void	print_env_array(char	**envp)
+{
+	size_t	i = 0;
+
+	printf("--- DEBUG ENV ARRAY ---\n");
+
+	while (envp[i] != NULL)
+	{
+		printf("DEBUG: %ld /%s\n", i, envp[i]);
+		i++;
+	}
+}
