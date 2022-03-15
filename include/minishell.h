@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/10 12:11:41 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:58:58 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+#include <termios.h>
+
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -30,11 +33,6 @@ typedef	struct	s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
-
-// typedef struct s_token
-// {
-// 	char		*token;
-// }	t_token;
 
 typedef struct s_redirection
 {
@@ -125,7 +123,7 @@ int		find_last_out(char *str);
 // memory free
 void	init_signals(void);
 int		clear_all(void);
-int		clear_exit(void);
+void	clear_exit(void);
 void	clear_env(void);
 
 // exec

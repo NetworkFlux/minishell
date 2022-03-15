@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/10 12:40:30 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:59:30 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ char	*take_input(void)
 	char	*tmp;
 
 	cmd = readline("minishell => ");
-	if (!ft_strlen(cmd))
-	{
-		free(cmd);
-		take_input();
-	}
+	if (!cmd)
+		clear_exit();
 	else
 	{
 		while (cmd && is_input_incomplete(cmd))
