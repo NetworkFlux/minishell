@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/15 16:59:30 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:32:36 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ char	*take_input(void)
 	char	*tmp;
 
 	cmd = readline("minishell => ");
-	if (!cmd)
-		clear_exit();
+	if (!ft_strlen(cmd))
+	{
+		free(cmd);
+		take_input();
+	}
 	else
 	{
 		while (cmd && is_input_incomplete(cmd))
@@ -82,7 +85,8 @@ int	main(int argc, char **argv, char **envp)
 		parse_redir();
 		env_variables();
 		parse_cmd();
-		route_exec(envp);
+		exec_full(0, NULL);
+		//route_exec(envp);
 		clear_all();
 	}
 	return (0);

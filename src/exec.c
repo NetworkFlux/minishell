@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/07 11:56:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:31:31 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,54 @@ void	exec(t_scmd *scmd, char **envp)
 		printf("<exec> after waiting %d\n", scmd->child_id);
 	}
 	printf("<exec> after fork\n");
+}
+
+
+char	**find_in_tab(t_scmd *s_cmd, int fd)
+{
+	char	**res;
+	char	*line;
+
+	line = NULL;
+	if (s_cmd->redir->in || s_cmd->redir->inin)
+		res = apply_inredir(s_cmd);
+	else
+	{
+		res = malloc(sizeof(char *) * 2);
+		res[0] = s_cmd->tokens[0];
+		res[1] = NULL;
+		while (get_next_line(fd, &line))
+			res = ft_realloc(res, line);
+		close(fd);
+	}
+	int j = 0;
+	while (res[j])
+		printf("%s\n", res[j++]);
+	return (res);
+}
+
+void	exec_full(size_t index, char **args)
+{
+	int	fd[2];
+	int	fd_out = 0;
+	pid_t	pid;
+
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
+	{
+		fd_out = apply_outredir(g_fcmd->s_cmd[index]);
+		if (fd_out == 1 && index != g_fcmd->nb_scmd - 1)
+			dup2(fd[1], STDOUT_FILENO);
+		else
+			dup2(fd_out, STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		is_builtin(g_fcmd->s_cmd[index], args);
+	}
+	waitpid(pid, NULL, 0);
+	close(fd[1]);
+	close(fd_out);
+	if (index != g_fcmd->nb_scmd - 1)
+		exec_full(index + 1, find_in_tab(g_fcmd->s_cmd[index + 1], fd[0]));
 }

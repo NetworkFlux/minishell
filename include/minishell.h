@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 16:58:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:33:51 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-#include <termios.h>
-
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -33,6 +30,11 @@ typedef	struct	s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
+
+// typedef struct s_token
+// {
+// 	char		*token;
+// }	t_token;
 
 typedef struct s_redirection
 {
@@ -123,24 +125,25 @@ int		find_last_out(char *str);
 // memory free
 void	init_signals(void);
 int		clear_all(void);
-void	clear_exit(void);
+int		clear_exit(void);
 void	clear_env(void);
 
 // exec
 void	route_exec(char **envp);
 void	exec(t_scmd *scmd, char **envp);
+void	exec_full(size_t index, char **args);
+char	**find_in_tab(t_scmd *s_cmd, int fd);
 
 // builtins
-void	buildins_pwd(t_scmd *scmd, int fd_out);
+void	buildins_pwd(t_scmd *scmd);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
-void	buildins_echo(t_scmd *scmd, int fd_out);
+void	buildins_echo(t_scmd *scmd);
 int		is_option_ok(char *str);
 void	builtins_export(t_scmd *scmd);
-void	builtins_env(t_scmd *scmd, int fd_out);
+void	builtins_env(t_scmd *scmd);
 void	builtins_exit(void);
-
-void	buildins_cat(t_scmd *scmd, int fd_out, char **fd_in);
+void	is_builtin(t_scmd *s_cmd, char **args);
 
 // realloc
 char	**ft_realloc(char **tab, char *str);
