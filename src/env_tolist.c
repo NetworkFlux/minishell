@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:49:31 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 18:33:08 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:36:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ t_env	*create_env(char **envp)
 		if (!env)
 			error_malloc();
 		array = split_first_occurence(envp[i], '=');
-		env->line = envp[i];
+		env->line = malloc (sizeof(char) * ft_strlen(envp[i]) + 1);
+		if (!env->line)
+			error_malloc();
+		env->line[ft_strlen(envp[i])] = '\0';
+		env->line = ft_strcopy(env->line, envp[i], 0);
 		env->name = array[0];
 		env->value = array[1];
 		free(array);

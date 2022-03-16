@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 19:17:31 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:29:54 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 		dest[i] = str[i];
 		i++;
 	}
-	insert_var (dest, env, &i, 0);
+	insert_var(dest, env, &i, 0);
 	while (str && str[end])
 	{
 		dest[i] = str[end];

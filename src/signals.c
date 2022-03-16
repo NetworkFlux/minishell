@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 16:58:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:36:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	clear_exit(void)
 {
 	clear_all();
 	clear_env();
-	free (g_fcmd);
+	free(g_fcmd);
 	g_fcmd = NULL;
 	printf("<clear_all> wiped !\n");
 	exit(0);

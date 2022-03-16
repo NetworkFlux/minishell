@@ -6,15 +6,12 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 19:09:27 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:35:22 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-#include <termios.h>
-
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -113,6 +110,7 @@ void	print_envp(void);
 size_t	envp_len(char **envp);
 void	clear_envp(char **array, size_t i);
 char	*strrebuild(char *src1, char *src2, char *src3);
+char	*ft_strcopy(char *dest, char *src, size_t index_dest);
 
 // remove quotes
 char	*remove_quotes(char *input);
@@ -134,20 +132,22 @@ void	clear_env(void);
 char	**clear_array(char **array, size_t len);
 
 // exec
-void	route_exec(void);
+// void	route_exec(void);
 void	exec(t_scmd *scmd, t_env *env);
+void	route_exec(char **envp);
+void	exec_full(size_t index, char **args);
+char	**find_in_tab(t_scmd *s_cmd, int fd);
 
 // builtins
-void	buildins_pwd(t_scmd *scmd, int fd_out);
+void	buildins_pwd(t_scmd *scmd);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
-void	buildins_echo(t_scmd *scmd, int fd_out);
+void	buildins_echo(t_scmd *scmd);
 int		is_option_ok(char *str);
 void	builtins_export(t_scmd *scmd);
-void	builtins_env(t_scmd *scmd, int fd_out);
+void	builtins_env(t_scmd *scmd);
 void	builtins_exit(void);
-
-void	buildins_cat(t_scmd *scmd, int fd_out, char **fd_in);
+void	is_builtin(t_scmd *s_cmd, char **args);
 
 // realloc
 char	**ft_realloc(char **tab, char *str);
