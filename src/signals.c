@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 19:36:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:35:19 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	clear_exit(void)
 {
+	printf("--- clear_exit ---\n");
 	clear_all();
 	clear_env();
 	free(g_fcmd);
 	g_fcmd = NULL;
-	printf("<clear_all> wiped !\n");
+	printf("<clear_exit> wiped !\n");
 	exit(0);
 }
 
@@ -32,7 +33,7 @@ void	ctrlc(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		ft_putstr_fd(" \b\b", 1);
+		// ft_putstr_fd("", 1);
 	}
 }
 

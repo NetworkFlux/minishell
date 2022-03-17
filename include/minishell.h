@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 19:35:22 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 16:59:45 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_single_command
 	size_t	ntokens;
 	char	**tokens;
 	t_redir	*redir;
-	pid_t	child_id;
 }	t_scmd;
 
 typedef struct s_full_command
@@ -62,6 +61,7 @@ typedef struct s_full_command
 	size_t			nb_scmd;
 	t_scmd			**s_cmd;
 	struct s_env	*envp;
+	pid_t			child_id;
 }	t_fcmd;
 
 // GLOBAL

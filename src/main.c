@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 10:08:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:00:50 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ char	*take_input(void)
 	char	*cmd;
 	char	*tmp;
 
+	printf("read line\n");
 	cmd = readline("minishell => ");
 	if (!cmd)
+	{
+		printf("EOF detected !\n");
 		clear_exit();
+	}
 	if (!strlen(cmd))
 	{
 		free(cmd);
@@ -79,6 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	g_fcmd = malloc(sizeof(t_fcmd));
 	if (!g_fcmd)
 		error_malloc();
+	g_fcmd->child_id = -1;
 	g_fcmd->envp = create_env(envp);
 	while (1)
 	{
@@ -88,7 +93,6 @@ int	main(int argc, char **argv, char **envp)
 		env_variables();
 		parse_cmd();
 		exec_full(0, NULL);
-		//route_exec(envp);
 		clear_all();
 	}
 	return (0);
