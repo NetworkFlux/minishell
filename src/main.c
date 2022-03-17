@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/16 19:17:27 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:08:16 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ char	*take_input(void)
 	cmd = readline("minishell => ");
 	if (!cmd)
 		clear_exit();
+	if (!strlen(cmd))
+	{
+		free(cmd);
+		take_input();
+	}
 	else
 	{
 		while (cmd && is_input_incomplete(cmd))

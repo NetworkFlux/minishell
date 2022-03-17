@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/08 10:50:59 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:06:49 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	token_memory_alloc(t_scmd *current)
 		current->tokens = malloc(sizeof(char *) * current->ntokens + 1);
 		if (!current->tokens)
 			error_malloc();
-		current->tokens[current->ntokens] = "\0";
+		current->tokens[current->ntokens] = NULL;
 	}
 	return (1);
 }
