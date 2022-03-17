@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 16:26:26 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // looks for the tokens start and end then executes tokenize
 static int	ft_strtok(t_scmd *s_cmd, char *str)
 {	
-	int	itoken;
+	int		itoken;
 	size_t	start;
 	char	*tmp;
 
@@ -46,7 +46,7 @@ static int	token_memory_alloc(t_scmd *current)
 	{
 		current->tokens = malloc(sizeof(char *) * current->ntokens + 1);
 		if (!current->tokens)
-			error_malloc();
+			error_malloc(1);
 		current->tokens[current->ntokens] = NULL;
 	}
 	return (1);
@@ -86,20 +86,15 @@ int	parse_cmd(void)
 	{
 		if (g_fcmd->s_cmd[i]->s_cmd)
 		{
-			if (!count_input(g_fcmd->s_cmd[i]->s_cmd, 0, &g_fcmd->s_cmd[i]->ntokens))
-			{
-				// printf("No tokens\n");
+			if (!count_input(g_fcmd->s_cmd[i]->s_cmd, 0, \
+				&g_fcmd->s_cmd[i]->ntokens))
 				return (clear_all());
-			}
 			else
 			{
-				// printf("%ld Tokens\n", g_fcmd->s_cmd[i]->ntokens);
 				if (!token_memory_alloc(g_fcmd->s_cmd[i]))
 					return (0);
 				if (!ft_strtok(g_fcmd->s_cmd[i], g_fcmd->s_cmd[i]->s_cmd))
 					return (clear_all());
-				// printf("Exec: %s\n", g_fcmd->s_cmd[i]->tokens[0]);
-				// print_tokens(g_fcmd->s_cmd[i]);
 			}
 		}
 		i++;

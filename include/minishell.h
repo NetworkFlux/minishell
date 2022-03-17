@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 16:59:45 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:24:04 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(void);
 void	clear_env(void);
-char	**clear_array(char **array, size_t len);
+int		clear_array(char **array, size_t len);
 
 // exec
 // void	route_exec(void);
@@ -162,7 +162,7 @@ size_t	charsslen(int fd);
 char	**realloc_heredoc(char **tab, size_t res_len, char *input);
 
 // error handling
-int		error_malloc(void);
+int		error_malloc(int n);
 
 // debug
 void	print_cmd(size_t i);

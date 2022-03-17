@@ -6,12 +6,12 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 19:18:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:31:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static char	*concat(char *first, char *append)
 {
 	char	*new;
@@ -22,7 +22,7 @@ static char	*concat(char *first, char *append)
 	j = 0;
 	new = malloc (sizeof(char) * ft_strlen(first) + ft_strlen(append) + 1);
 	if (!new)
-		error_malloc();
+		error_malloc(1);
 	while (first && first[i])
 	{
 		new[j] = first[i];
@@ -38,11 +38,11 @@ static char	*concat(char *first, char *append)
 	}
 	new[j] = '\0';
 	return (new);
-}
+}*/
 
 /*	if exec isn't a builtin execute it 
 	using fork and execve */
-void	exec(t_scmd *scmd, t_env *env)
+/*void	exec(t_scmd *scmd, t_env *env)
 {
 	char	*target;
 	char	**envp;
@@ -78,7 +78,7 @@ void	exec(t_scmd *scmd, t_env *env)
 	printf("<exec> after fork\n");
 	clear_array(envp, envp_len(envp));
 }
-
+*/
 
 char	**find_in_tab(t_scmd *s_cmd, int fd)
 {
@@ -107,11 +107,10 @@ void	exec_full(size_t index, char **args)
 {
 	int	fd[2];
 	int	fd_out = 0;
-	pid_t	pid;
 
 	pipe(fd);
-	pid = fork();
-	if (pid == 0)
+	g_fcmd->child_id = fork();
+	if (g_fcmd->child_id == 0)
 	{
 		fd_out = apply_outredir(g_fcmd->s_cmd[index]);
 		if (fd_out == 1 && index != g_fcmd->nb_scmd - 1)
@@ -121,10 +120,15 @@ void	exec_full(size_t index, char **args)
 		close(fd[0]);
 		close(fd[1]);
 		is_builtin(g_fcmd->s_cmd[index], args);
+		exit(0);
 	}
-	waitpid(pid, NULL, 0);
-	close(fd[1]);
-	close(fd_out);
+	else
+	{
+		waitpid(g_fcmd->child_id, NULL, 0);
+		g_fcmd->child_id = -1;
+		close(fd[1]);
+		// close(fd_out);
+	}
 	if (index != g_fcmd->nb_scmd - 1)
 		exec_full(index + 1, find_in_tab(g_fcmd->s_cmd[index + 1], fd[0]));
 }

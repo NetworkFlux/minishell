@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:48:43 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 19:23:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*strrebuild(char *src1, char *src2, char *src3)
 	lsrc3 = ft_strlen(src3);
 	str = malloc(sizeof(char) * lsrc1 + lsrc2 + lsrc3 + 1);
 	if (!str)
-		error_malloc();
+		error_malloc(1);
 	str = ft_strcopy(str, src1, 0);
 	str = ft_strcopy(str, src2, lsrc1);
 	str = ft_strcopy(str, src3, lsrc1 + lsrc2);
@@ -92,13 +92,13 @@ char	**env_listtoarray(t_env *env)
 		if (!array[i])
 		{
 			clear_array(array, i);
-			error_malloc();
+			error_malloc(1);
 		}
 		array[i] = ft_strcopy(array[i], env->line, 0);
 		array[i][ft_strlen(env->line)] = '\0';
 		i++;
 		if (!env->next)
-			break;
+			break ;
 		env = env->next;
 	}
 	array[i] = NULL;

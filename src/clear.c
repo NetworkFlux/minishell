@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 15:08:37 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:27:42 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ static void	clear_tokens(t_scmd *scmd)
 
 	i = 0;
 	while (i < scmd->ntokens && scmd->tokens[i])
-	{
-		// free(scmd->tokens[i]->token);
-		free(scmd->tokens[i]);
-		i++;
-	}
+		free(scmd->tokens[i++]);
 	free(scmd->tokens);
 }
 
@@ -113,16 +109,12 @@ int	clear_all(void)
 		}
 		else
 		{
-			if (g_fcmd)
+			if (g_fcmd->s_cmd)
 			{
-				if (g_fcmd->s_cmd)
-				{
-					if (g_fcmd->s_cmd[0])
-						clear_scmd();
-					free(g_fcmd->s_cmd);
-					g_fcmd->s_cmd = NULL;
-				}
-				g_fcmd->nb_scmd = 0;
+				if (g_fcmd->s_cmd[0])
+					clear_scmd();
+				free(g_fcmd->s_cmd);
+				g_fcmd->s_cmd = NULL;
 			}
 			g_fcmd->nb_scmd = 0;
 			free(g_fcmd->f_cmd);

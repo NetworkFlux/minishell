@@ -6,13 +6,14 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 19:18:33 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:14:09 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* if the exec is a builtin and files pernissions are ok, calls the appropriate function */
+// if the exec is a builtin and files permissions are ok,
+// calls the appropriate function
 static void	route_builtins(t_scmd *scmd, size_t i)
 {
 	if (i == 0)
@@ -53,23 +54,3 @@ void	is_builtin(t_scmd *s_cmd, char **args)
 		args = apply_inredir(s_cmd);
 	execvp(s_cmd->tokens[0], args);
 }
-
-// void	route_exec(char **envp)
-// {
-// 	size_t	i;
-// 	size_t	res;
-
-// 	i = 0;
-// 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
-// 	{
-// 		res = is_builtin(g_fcmd->s_cmd[i]);
-// 		if (res > 0)
-// 			route_builtins(g_fcmd->s_cmd[i], res);
-// 		else
-// 		{
-// 			printf("not a builtin. --> exec\n");
-// 			exec(g_fcmd->s_cmd[i], envp);
-// 		}
-// 		i++;
-// 	}
-// }

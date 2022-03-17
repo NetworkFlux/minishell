@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:44:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 19:09:18 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_env	*add_env(t_env *env, char *name, char *value, char *line)
 	env = env_last(env);
 	new = malloc(sizeof(t_env) * 1);
 	if (!new)
-		error_malloc();
+		error_malloc(1);
 	new->name = name;
 	new->line = line;
 	new->value = value;

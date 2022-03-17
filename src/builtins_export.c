@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 19:19:35 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:22:42 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ static int	valid_input(t_scmd *scmd)
 static void	export_new(char **array)
 {
 	char	*str;
-	
+
 	if (ft_strlen(array[0]))
 	{
-		str = malloc(sizeof(char) * ft_strlen(array[0]) + ft_strlen(array[1]) + 4);
+		str = malloc(sizeof(char) * ft_strlen(array[0]) + \
+			ft_strlen(array[1]) + 4);
 		if (!str)
-			error_malloc();
-		str = strrebuild(array[0], "=",array[1]);
+			error_malloc(1);
+		str = strrebuild(array[0], "=", array[1]);
 		g_fcmd->envp = add_env(g_fcmd->envp, array[0], array[1], str);
 	}
 	else
@@ -75,7 +76,7 @@ void	builtins_export(t_scmd *scmd)
 		return ;
 	array = split_first_occurence(scmd->tokens[1], '=');
 	if (!array)
-		error_malloc();
+		error_malloc(1);
 	printf("name: |%s| \nva: |%s|\n", array[0], array[1]);
 	tmp = find_env(g_fcmd->envp, array[0]);
 	if (!tmp)
