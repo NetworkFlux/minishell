@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 18:32:43 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/15 19:06:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:24:23 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**clear_array(char **array, size_t len)
+int	clear_array(char **array, size_t len)
 {
 	size_t	i;
 
@@ -23,5 +23,5 @@ char	**clear_array(char **array, size_t len)
 		i++;
 	}
 	free(array);
-	return (NULL);
+	return (1);
 }

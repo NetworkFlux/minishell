@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 16:18:42 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:57:00 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_single_command
 	size_t	ntokens;
 	char	**tokens;
 	t_redir	*redir;
-	pid_t	child_id;
 }	t_scmd;
 
 typedef struct s_full_command
@@ -62,6 +61,7 @@ typedef struct s_full_command
 	size_t			nb_scmd;
 	t_scmd			**s_cmd;
 	struct s_env	*envp;
+	pid_t			child_id;
 }	t_fcmd;
 
 // GLOBAL
@@ -129,7 +129,7 @@ void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(void);
 void	clear_env(void);
-char	**clear_array(char **array, size_t len);
+int		clear_array(char **array, size_t len);
 
 // exec
 // void	route_exec(void);
@@ -162,7 +162,7 @@ size_t	charsslen(int fd);
 char	**realloc_heredoc(char **tab, size_t res_len, char *input);
 
 // error handling
-int		error_malloc(void);
+int		error_malloc(int n);
 
 // debug
 void	print_cmd(size_t i);

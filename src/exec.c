@@ -6,12 +6,12 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 20:45:20 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:59:00 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static char	*concat(char *first, char *append)
 {
 	char	*new;
@@ -22,7 +22,7 @@ static char	*concat(char *first, char *append)
 	j = 0;
 	new = malloc (sizeof(char) * ft_strlen(first) + ft_strlen(append) + 1);
 	if (!new)
-		error_malloc();
+		error_malloc(1);
 	while (first && first[i])
 	{
 		new[j] = first[i];
@@ -38,11 +38,11 @@ static char	*concat(char *first, char *append)
 	}
 	new[j] = '\0';
 	return (new);
-}
+}*/
 
 /*	if exec isn't a builtin execute it 
 	using fork and execve */
-void	exec(t_scmd *scmd, t_env *env)
+/*void	exec(t_scmd *scmd, t_env *env)
 {
 	char	*target;
 	char	**envp;
@@ -78,7 +78,7 @@ void	exec(t_scmd *scmd, t_env *env)
 	printf("<exec> after fork\n");
 	clear_array(envp, envp_len(envp));
 }
-
+*/
 
 char	**find_in_tab(t_scmd *s_cmd, int fd)
 {
@@ -146,6 +146,14 @@ void	exec_full(size_t index, char **args)
 		close(p1[1]);
 		//printf("Child Process : Closing wrting pipe\n");
 		is_builtin(g_fcmd->s_cmd[index], args);
+		exit(0);
+	}
+	else
+	{
+		waitpid(g_fcmd->child_id, NULL, 0);
+		g_fcmd->child_id = -1;
+		close(fd[1]);
+		// close(fd_out);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 19:29:54 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 
 	i = 0;
 	if (!env)
-		error_malloc();
+		error_malloc(1);
 	dest = malloc(sizeof(char) * ft_strlen(str) - (end - start) \
 		+ ft_strlen(env) + 1);
 	if (!dest)
-		error_malloc();
+		error_malloc(1);
 	while (str && str[i] && i < start)
 	{
 		dest[i] = str[i];

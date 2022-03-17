@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/16 15:29:44 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:13:47 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	buildins_pwd(t_scmd *scmd)
 	char	*res;
 
 	if (redir_files_ok(scmd) < 0)
-		return;
+		return ;
 	res = NULL;
 	if (scmd->ntokens != 1)
 	{

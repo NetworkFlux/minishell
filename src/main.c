@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 18:34:43 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:59:37 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*total_input(char *cmd, char *tmp)
 	{
 		free(cmd);
 		free(tmp);
-		error_malloc();
+		error_malloc(1);
 	}
 	while (cmd && cmd[i])
 		total[j++] = cmd[i++];
@@ -46,7 +46,10 @@ char	*take_input(void)
 
 	cmd = readline("minishell => ");
 	if (!cmd)
+	{
+		printf("EOF detected !\n");
 		clear_exit();
+	}
 	if (!strlen(cmd))
 	{
 		free(cmd);
@@ -60,7 +63,7 @@ char	*take_input(void)
 			cmd = total_input(cmd, tmp);
 		}
 		if (!cmd)
-			error_malloc();
+			error_malloc(1);
 		add_history(cmd);
 	}
 	g_fcmd->f_cmd = cmd;
@@ -78,7 +81,8 @@ int	main(int argc, char **argv, char **envp)
 	init_signals();
 	g_fcmd = malloc(sizeof(t_fcmd));
 	if (!g_fcmd)
-		error_malloc();
+		error_malloc(1);
+	g_fcmd->child_id = -1;
 	g_fcmd->envp = create_env(envp);
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/15 19:06:21 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:24:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_redir	*init_redir(void)
 
 	res = malloc(sizeof(t_redir));
 	if (!res)
-		error_malloc();
+		error_malloc(1);
 	res->out = 0;
 	res->in = 0;
 	res->outout = 0;
@@ -40,17 +40,16 @@ static int	init_smcd(void)
 	i = 0;
 	g_fcmd->s_cmd = malloc(sizeof(t_scmd) * g_fcmd->nb_scmd);
 	if (!g_fcmd->s_cmd)
-		error_malloc();
+		error_malloc(1);
 	while (i < g_fcmd->nb_scmd)
 	{
 		g_fcmd->s_cmd[i] = malloc(sizeof(t_scmd));
 		if (!g_fcmd->s_cmd[i])
-			error_malloc();
+			error_malloc(1);
 		g_fcmd->s_cmd[i]->s_cmd = NULL;
 		g_fcmd->s_cmd[i]->tokens = NULL;
 		g_fcmd->s_cmd[i]->instructions = NULL;
 		g_fcmd->s_cmd[i]->ntokens = 0;
-		g_fcmd->s_cmd[i]->child_id = 0;
 		i++;
 	}
 	return (1);
@@ -69,23 +68,17 @@ int	init_full_cmd(char *cmd)
 	init_smcd();
 	cmd_split = ft_split_quote(cmd, '|');
 	if (!cmd_split)
-		error_malloc();
+		error_malloc(1);
 	while (i < g_fcmd->nb_scmd)
 	{
 		g_fcmd->s_cmd[i]->s_cmd = remove_spaces(cmd_split[i]);
 		if (!g_fcmd->s_cmd[i]->s_cmd)
-		{
-			clear_array(cmd_split, g_fcmd->nb_scmd);
-			error_malloc();
-		}
+			error_malloc(clear_array(cmd_split, g_fcmd->nb_scmd));
 		g_fcmd->s_cmd[i]->redir = init_redir();
 		if (!g_fcmd->s_cmd[i]->redir)
-		{
-			clear_array(cmd_split, g_fcmd->nb_scmd);
-			error_malloc();
-		}
+			error_malloc(clear_array(cmd_split, g_fcmd->nb_scmd));
 		i++;
 	}
-	cmd_split = clear_array(cmd_split, g_fcmd->nb_scmd);
+	clear_array(cmd_split, g_fcmd->nb_scmd);
 	return (1);
 }

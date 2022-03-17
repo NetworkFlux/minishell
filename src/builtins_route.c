@@ -6,13 +6,14 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 20:49:14 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:57:45 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* if the exec is a builtin and files pernissions are ok, calls the appropriate function */
+// if the exec is a builtin and files permissions are ok,
+// calls the appropriate function
 static void	route_builtins(t_scmd *scmd, size_t i)
 {
 	if (i == 0)
@@ -54,23 +55,3 @@ void	is_builtin(t_scmd *s_cmd, char **args)
 	//printf("Child Process : %s is being executed\n", s_cmd->tokens[0]);
 	execvp(s_cmd->tokens[0], args);
 }
-
-// void	route_exec(char **envp)
-// {
-// 	size_t	i;
-// 	size_t	res;
-
-// 	i = 0;
-// 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
-// 	{
-// 		res = is_builtin(g_fcmd->s_cmd[i]);
-// 		if (res > 0)
-// 			route_builtins(g_fcmd->s_cmd[i], res);
-// 		else
-// 		{
-// 			printf("not a builtin. --> exec\n");
-// 			exec(g_fcmd->s_cmd[i], envp);
-// 		}
-// 		i++;
-// 	}
-// }

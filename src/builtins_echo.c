@@ -6,13 +6,13 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 19:56:59 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:57:20 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_option_ok(char *str)
+int	is_option_ok(char *str)
 {
 	size_t	i;
 
@@ -36,7 +36,7 @@ void	buildins_echo(t_scmd *scmd)
 
 	i = 1;
 	if (redir_files_ok(scmd) < 0)
-		return;
+		return ;
 	if (scmd->tokens && scmd->tokens[1])
 	{
 		if (scmd->tokens[1][0] == '-')
