@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/16 15:27:54 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 19:56:59 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,4 @@ void	buildins_echo(t_scmd *scmd)
 	}
 	else
 		ft_putchar_fd('\n', 1);
-
 }

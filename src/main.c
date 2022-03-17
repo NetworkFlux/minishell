@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 10:08:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:34:43 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **envp)
 		parse_redir();
 		env_variables();
 		parse_cmd();
-		exec_full(0, NULL);
+		exec_full(0, g_fcmd->s_cmd[0]->tokens);
 		//route_exec(envp);
 		clear_all();
 	}

@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/10 11:08:04 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 19:47:30 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,17 @@ int		redir_files_ok(t_scmd *scmd)
 {
 	if (scmd->redir->last_out == 1 && access(scmd->redir->out_args[scmd->redir->out - 1], W_OK) < 0)
 	{
-			printf("%s : Pernission denied\n",scmd->redir->out_args[scmd->redir->out - 1]);
+			//printf("%s : Pernission denied\n",scmd->redir->out_args[scmd->redir->out - 1]);
 			scmd->redir->last_out = -1;
 	}
 	else if (scmd->redir->last_out == 2 && access(scmd->redir->outout_args[scmd->redir->outout - 1], W_OK) < 0)
 	{
-			printf("%s : Pernission denied\n",scmd->redir->outout_args[scmd->redir->outout - 1]);
+			//printf("%s : Pernission denied\n",scmd->redir->outout_args[scmd->redir->outout - 1]);
 			scmd->redir->last_out = -1;
 	}
 	if (scmd->redir->in && access(scmd->redir->in_args[scmd->redir->in - 1], R_OK) < 0)
 	{
-		printf("%s : Pernission denied\n",scmd->redir->in_args[scmd->redir->in - 1]);
+		//printf("%s : Pernission denied\n",scmd->redir->in_args[scmd->redir->in - 1]);
 		scmd->redir->last_out = -1;
 	}
 	return (scmd->redir->last_out);
