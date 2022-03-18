@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 20:22:30 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:06:58 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**get_fdin_data(t_scmd *scmd, int fd)
 	size_t	fd_len;
 	size_t	i;
 
-	line = NULL;
+	line = "yo";
 	fd_len = charsslen(fd);
 	res = malloc(sizeof(char *) * (fd_len + 1));
 	fd = open(scmd->redir->in_args[scmd->redir->in - 1], O_RDONLY);
