@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:24:04 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:57:00 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,7 @@ void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
 void	print_tokens(t_scmd *scmd);
 void	print_env_array(char **envp);
+
+void	rl_replace_line (const char *text, int clear_undo);
 
 #endif

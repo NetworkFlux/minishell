@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:14:09 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:57:45 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 		builtins_env(scmd);
 	else if (i == 6)
 		builtins_exit();
+	exit(0);
 }
 
 /* checks if the single command exec is a builtin function */
@@ -39,8 +40,9 @@ void	is_builtin(t_scmd *s_cmd, char **args)
 	const char	*builtins[7] = {"echo", "cd",
 		"pwd", "export", "unset", "env", "exit"};
 
+	if (s_cmd->redir->in || s_cmd->redir->inin)
+		args = apply_inredir(s_cmd);
 	i = 0;
-	args = NULL;
 	while (i < 7 && builtins[i])
 	{
 		if (ft_strcompare(builtins[i], s_cmd->tokens[0]))
@@ -50,7 +52,6 @@ void	is_builtin(t_scmd *s_cmd, char **args)
 		}
 		i++;
 	}
-	if (args == NULL)
-		args = apply_inredir(s_cmd);
+	//printf("Child Process : %s is being executed\n", s_cmd->tokens[0]);
 	execvp(s_cmd->tokens[0], args);
 }

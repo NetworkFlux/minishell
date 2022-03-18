@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/16 15:26:38 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:22:30 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		apply_outredir(t_scmd *scmd)
 	if (!scmd->redir->out && !scmd->redir->outout)
 		return (1);
 	create_redir_file_s(scmd);
-	temp = open(scmd->redir->out_args[scmd->redir->out - 1], O_CREAT | O_WRONLY, 0777);
+	temp = open(scmd->redir->out_args[scmd->redir->out - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (!temp)
 		return (1); // gere l'erreur
 	fd = temp;
@@ -95,6 +95,7 @@ char	**get_fdin_data(t_scmd *scmd, int fd)
 		res[i++][ft_strlen(line)] = '\0';
 	}
 	res[i] = NULL;
+	close(fd);
 	return (res);
 }
 
@@ -135,13 +136,7 @@ char	**apply_inredir(t_scmd *scmd)
 		return (tab);
 	}
 	if (scmd->redir->last_in == 1)
-	{
-		fd = open(scmd->redir->in_args[scmd->redir->in - 1], O_RDONLY);
-		if (!fd)
-			return (NULL);
 		tab = get_fdin_data(scmd, fd);
-		close(fd);
-	}
 	else
 		tab = apply_heredoc(scmd);
 	return (tab);

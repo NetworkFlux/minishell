@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:10:34 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/16 15:31:56 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/17 20:41:52 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,22 @@ char	**ft_realloc(char **tab, char *str)
 	int		i;
 
 	res = NULL;
-	size_tab = 2;
-	i = 1;
-	while (tab[i])
-		i++;
-	size_tab += i - 1;
+	size_tab = 0;
 	i = 0;
-	res = malloc(sizeof(char *) * (size_tab + 1));
+	while (tab[size_tab])
+		size_tab++;
+	res = malloc(sizeof(char *) * (size_tab + 2));
 	if (!res)
 		return (NULL);
-	while (i < size_tab - 1)
+	while (i < size_tab + 1)
 	{
-		res[i] = ft_copy(tab[i]);
+		if (i == size_tab)
+			res[i] = ft_copy(str);
+		else
+			res[i] = ft_copy(tab[i]);
 		i++;
 	}
-	res[i] = ft_copy(str);
-	res[i + 1] = NULL;
+	res[i] = NULL;
 	//free_realloc(tab);
 	return (res);
 }
