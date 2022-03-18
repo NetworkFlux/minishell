@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 17:04:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:06:54 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ char	**find_in_tab(t_scmd *s_cmd, int fd)
 void	exec_full(size_t index, char **args)
 {
 	int		p1[2]; // p1[0] - read || p1[1] - write
-	pid_t	pid;
 
 	pipe(p1);
-	pid = fork();
-	if (pid == 0)
+	g_fcmd->child_id = fork();
+	if (g_fcmd->child_id == 0)
 	{
 		// Child process
 		int	redir_out;
