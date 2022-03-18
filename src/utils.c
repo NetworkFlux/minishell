@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/08 15:15:05 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 20:04:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	ft_strcompare(const char *str, char *test)
 	return (1);
 }
 
+/*
 size_t	charsslen(int fd)
 {
 	size_t	res;
@@ -122,6 +123,7 @@ size_t	charsslen(int fd)
 	close(fd);
 	return (res + 1);
 }
+*/
 
 char	**realloc_heredoc(char **tab, size_t res_len, char *input)
 {
@@ -148,4 +150,15 @@ char	**realloc_heredoc(char **tab, size_t res_len, char *input)
 	res[i++][ft_strlen(input)] = '\0';
 	res[i] = NULL;
 	return (res);
+}
+
+// get size of NULL terminated char **
+size_t	ft_arrlen(char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr && arr[i])
+		i++;
+	return (i);
 }

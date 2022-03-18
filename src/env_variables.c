@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:52:34 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static char	*find_variable(char *str, size_t i, size_t j)
 		if (str[i] == '$')
 		{
 			j = i + 1;
+			if (str[j] == '?')
+				str = replace(str, ft_itoa(g_fcmd->exitcode), i, j + 1);
 			while (str && str[j])
 			{
 				if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j]))

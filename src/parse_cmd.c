@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/18 20:02:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static int	ft_strtok(t_scmd *s_cmd, char *str)
 		{
 			tmp = parse_param(str, &start);
 			if (tmp)
-			{
 				s_cmd->tokens[itoken++] = tmp;
-			}
 		}
 		if (str[start] != '\0')
 			start++;
@@ -40,14 +38,14 @@ static int	ft_strtok(t_scmd *s_cmd, char *str)
 }
 
 // allocates memory for the token array
-static int	token_memory_alloc(t_scmd *current)
+static int	token_memory_alloc(t_scmd *scmd)
 {
-	if (current->ntokens > 0)
+	if (scmd->ntokens > 0)
 	{
-		current->tokens = malloc(sizeof(char *) * current->ntokens + 1);
-		if (!current->tokens)
+		scmd->tokens = malloc(sizeof(char *) * scmd->ntokens + 1);
+		if (!scmd->tokens)
 			error_malloc(1);
-		current->tokens[current->ntokens] = NULL;
+		scmd->tokens[scmd->ntokens] = NULL;
 	}
 	return (1);
 }
@@ -95,6 +93,7 @@ int	parse_cmd(void)
 					return (0);
 				if (!ft_strtok(g_fcmd->s_cmd[i], g_fcmd->s_cmd[i]->s_cmd))
 					return (clear_all());
+				print_tokens(g_fcmd->s_cmd[i]); // remove
 			}
 		}
 		i++;

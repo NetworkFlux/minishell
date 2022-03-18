@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:22:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:48:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	builtins_export(t_scmd *scmd)
 	array = split_first_occurence(scmd->tokens[1], '=');
 	if (!array)
 		error_malloc(1);
-	printf("name: |%s| \nva: |%s|\n", array[0], array[1]);
+	// printf("name: |%s| \nva: |%s|\n", array[0], array[1]);
 	tmp = find_env(g_fcmd->envp, array[0]);
 	if (!tmp)
 		export_new(array);

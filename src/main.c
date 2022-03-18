@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 20:59:37 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:23:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ char	*take_input(void)
 
 	cmd = readline("minishell => ");
 	if (!cmd)
-	{
-		printf("EOF detected !\n");
 		clear_exit();
-	}
 	if (!strlen(cmd))
 	{
 		free(cmd);
@@ -83,6 +80,8 @@ int	main(int argc, char **argv, char **envp)
 	if (!g_fcmd)
 		error_malloc(1);
 	g_fcmd->child_id = -1;
+	g_fcmd->env = NULL;
+	g_fcmd->exitcode = 0;
 	g_fcmd->envp = create_env(envp);
 	while (1)
 	{
@@ -92,7 +91,6 @@ int	main(int argc, char **argv, char **envp)
 		env_variables();
 		parse_cmd();
 		exec_full(0, g_fcmd->s_cmd[0]->tokens);
-		//route_exec(envp);
 		clear_all();
 	}
 	return (0);

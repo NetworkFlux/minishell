@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:27:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/18 20:03:19 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static void	clear_tokens(t_scmd *scmd)
 
 	i = 0;
 	while (i < scmd->ntokens && scmd->tokens[i])
-		free(scmd->tokens[i++]);
+	{
+		free(scmd->tokens[i]);
+		i++;
+	}
 	free(scmd->tokens);
 }
 
@@ -75,11 +78,14 @@ void	clear_env(void)
 	}
 	free(current);
 	current = NULL;
+	if (g_fcmd->env)
+		clear_array(g_fcmd->env, ft_arrlen(g_fcmd->env));
 }
 
 /*
 g_fcmd t_fcmd *
 	f_cmd	char *
+	env		char **
 	envp	t_env * (chained list)
 		name	char *
 		value	char *
@@ -103,7 +109,7 @@ int	clear_all(void)
 	{
 		if (g_fcmd->child_id != -1)
 		{
-			printf("killing child process: %d\n", g_fcmd->child_id);
+			printf("killing child process: %d\n", g_fcmd->child_id); // remove
 			kill (g_fcmd->child_id, SIGKILL);
 			g_fcmd->child_id = -1;
 		}
@@ -119,7 +125,7 @@ int	clear_all(void)
 			g_fcmd->nb_scmd = 0;
 			free(g_fcmd->f_cmd);
 			g_fcmd->f_cmd = NULL;
-			printf("<clear_all> global cleared !\n");
+			printf("<clear_all> global cleared !\n"); // remove
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/15 18:36:39 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/18 18:33:10 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_FILES = main.c		\
 	parse_redir.c		\
 	parse_redir2.c		\
 	exec.c				\
+	find_path.c			\
 	debug.c				\
 	env_variables.c		\
 	env_tolist.c 	 	\

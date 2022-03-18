@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 20:57:45 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 20:11:21 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 }
 
 /* checks if the single command exec is a builtin function */
-void	is_builtin(t_scmd *s_cmd, char **args)
+void	is_builtin(t_scmd *s_cmd, char **args, char *target)
 {
 	size_t		i;
 	const char	*builtins[7] = {"echo", "cd",
 		"pwd", "export", "unset", "env", "exit"};
+	int	res;
 
 	if (s_cmd->redir->in || s_cmd->redir->inin)
 		args = apply_inredir(s_cmd);
@@ -53,5 +54,10 @@ void	is_builtin(t_scmd *s_cmd, char **args)
 		i++;
 	}
 	//printf("Child Process : %s is being executed\n", s_cmd->tokens[0]);
-	execvp(s_cmd->tokens[0], args);
+	// execvp(s_cmd->tokens[0], args);
+	res = execve(target, args, g_fcmd->env);
+	// if execve gets an error, it doesn't take possession of the child process
+	// so it does not exit it
+	printf("ERROR EXECVE %d\n", res);
+	exit(0);
 }

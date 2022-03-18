@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 15:34:27 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:58:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,17 @@ typedef struct s_full_command
 	size_t			nb_scmd;
 	t_scmd			**s_cmd;
 	struct s_env	*envp;
+	char			**env;
+	int				exitcode;
 	pid_t			child_id;
 }	t_fcmd;
 
 // GLOBAL
 t_fcmd	*g_fcmd;
+
+
+
+char	*find_path(t_scmd *scmd);
 
 // take_input
 char	*take_input(void);
@@ -149,7 +155,7 @@ int		is_option_ok(char *str);
 void	builtins_export(t_scmd *scmd);
 void	builtins_env(t_scmd *scmd);
 void	builtins_exit(void);
-void	is_builtin(t_scmd *s_cmd, char **args);
+void	is_builtin(t_scmd *s_cmd, char **args, char *target);
 
 // realloc
 char	**ft_realloc(char **tab, char *str);
@@ -160,7 +166,9 @@ char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
 int		ft_strcompare(const char *str, char *test);
-size_t	charsslen(int fd);
+size_t	ft_arrlen(char **arr);
+
+// size_t	charsslen(int fd);
 char	**realloc_heredoc(char **tab, size_t res_len, char *input);
 
 // error handling
