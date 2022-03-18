@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 20:57:00 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:34:27 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include <fcntl.h>
+# include <errno.h>
 
 typedef	struct	s_env
 {
@@ -93,8 +94,9 @@ int		apply_outredir(t_scmd *scmd);
 void	create_redir_file_s(t_scmd *scmd);
 void	create_redir_file_d(t_scmd *scmd);
 char	**apply_inredir(t_scmd *scmd);
-char	**get_fdin_data(t_scmd *scmd, int fd);
+char	**get_fdin_data(t_scmd *scmd);
 char	**apply_heredoc(t_scmd *scmd);
+char	**get_heredoc(t_scmd *scmd);
 
 // env variables
 void	env_variables(void);

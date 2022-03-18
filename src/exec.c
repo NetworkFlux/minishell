@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 12:55:06 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:45:18 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ char	**find_in_tab(t_scmd *s_cmd, int fd)
 {
 	char	**res;
 	char	*line;
+	int		new_fd = 0;;
 
+	(void)fd;
 	line = NULL;
 	//printf("Parent Process : Reading pipe fd : %d\n", fd);
 	if (s_cmd->redir->in || s_cmd->redir->inin)
@@ -94,13 +96,15 @@ char	**find_in_tab(t_scmd *s_cmd, int fd)
 	}
 	else
 	{
+		new_fd = open("temp.ms", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (!new_fd)
+			return (NULL);
+		while (get_next_line(fd, &line))
+			ft_putendl_fd(line, new_fd);
 		//printf("Parent Process : No in or inin redirection asked\n");
 		res = s_cmd->tokens;
-		while (get_next_line(fd, &line))
-		{
-			//printf("Parent Process : Realloc try to add %s\n", line);
-			res = ft_realloc(res, line);
-		}
+		res = ft_realloc(res, "temp.ms");
+		close(new_fd);
 		//printf("Parent Process : Pipe was read\n");
 	}
 	// int j = 0;
@@ -183,6 +187,8 @@ void	exec_full(size_t index, char **args)
 		}
 		else
 			close(p1[0]);
+		unlink("temp.ms");
+		unlink("heredoc.ms");
 		printf("Parent Process %ld : End of execution\n", index + 1);
 	}
 	return ;
