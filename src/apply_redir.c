@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 20:22:30 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:44:07 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,34 +72,24 @@ int		apply_outredir(t_scmd *scmd)
 	return (fd);
 }
 
-char	**get_fdin_data(t_scmd *scmd, int fd)
+char	**apply_heredoc(t_scmd *scmd)
 {
-	char	**res;
-	char	*line;
-	size_t	fd_len;
-	size_t	i;
+	char	**hered;
+	int		fd;
+	int		i;
 
-	line = NULL;
-	fd_len = charsslen(fd);
-	res = malloc(sizeof(char *) * (fd_len + 1));
-	fd = open(scmd->redir->in_args[scmd->redir->in - 1], O_RDONLY);
-	if (!res || !fd)
-		return NULL;
-	i = 0;
-	while (get_next_line(fd, &line))
-	{
-		res[i] = malloc(sizeof(char) * (ft_strlen(line) + 1));
-		if (!res[i])
-			return (NULL);
-		res[i] = line;
-		res[i++][ft_strlen(line)] = '\0';
-	}
-	res[i] = NULL;
+	hered = get_heredoc(scmd);
+	fd = open("heredoc.ms", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (!fd)
+		return (NULL); // gerer l'erreur
+	i = 1;
+	while (hered[i])
+		ft_putendl_fd(hered[i++], fd);
 	close(fd);
-	return (res);
+	return(ft_realloc(scmd->tokens, "heredoc.ms"));
 }
 
-char	**apply_heredoc(t_scmd *scmd)
+char	**get_heredoc(t_scmd *scmd)
 {
 	char	**res;
 	char	*input;
@@ -125,18 +115,19 @@ char	**apply_heredoc(t_scmd *scmd)
 
 char	**apply_inredir(t_scmd *scmd)
 {
-	int		fd;
 	char	**tab;
 
 	tab = NULL;
-	fd = 0;
 	if (!scmd->redir->in && !scmd->redir->inin)
 	{
 		tab = scmd->tokens;
 		return (tab);
 	}
 	if (scmd->redir->last_in == 1)
-		tab = get_fdin_data(scmd, fd);
+	{
+		tab = scmd->tokens;
+		tab = ft_realloc(tab, scmd->redir->in_args[scmd->redir->in - 1]);
+	}
 	else
 		tab = apply_heredoc(scmd);
 	return (tab);
