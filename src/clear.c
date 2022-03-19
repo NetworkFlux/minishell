@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 20:03:19 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 13:42:58 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int	clear_all(void)
 		if (g_fcmd->child_id != -1)
 		{
 			printf("killing child process: %d\n", g_fcmd->child_id); // remove
-			kill (g_fcmd->child_id, SIGKILL);
+			kill(g_fcmd->child_id, SIGINT);
+			g_fcmd->exitcode = 128 + (int) SIGINT;
 			g_fcmd->child_id = -1;
 		}
 		else

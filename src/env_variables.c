@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 19:52:34 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 13:24:10 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 	size_t	i;
 
 	i = 0;
-	if (!env)
-		error_malloc(1);
 	dest = malloc(sizeof(char) * ft_strlen(str) - (end - start) \
 		+ ft_strlen(env) + 1);
 	if (!dest)
@@ -69,11 +67,21 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 	free(str);
 	return (dest);
 }
+static char	*exit_code(char	*str, size_t i, size_t j)
+{
+	char *exitcode;
+	
+	exitcode = ft_itoa(g_fcmd->exitcode);
+	str = replace(str, exitcode, i, j + 1);
+	free(exitcode);
+	return (str);
+}
+
 
 // search for a $variable then replace it by its env value
 static char	*find_variable(char *str, size_t i, size_t j)
 {
-	while (str && str[i])
+	if (str && str[i])
 	{
 		if (str[i] == '\'')
 		{
@@ -84,19 +92,25 @@ static char	*find_variable(char *str, size_t i, size_t j)
 		if (str[i] == '$')
 		{
 			j = i + 1;
-			if (str[j] == '?')
-				str = replace(str, ft_itoa(g_fcmd->exitcode), i, j + 1);
 			while (str && str[j])
 			{
+				if (j - 1 == i && str[j] == '?')
+					break ;
 				if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j]))
 					break ;
 				j++;
 			}
-			if (j - i > 1)
-				str = replace(str, get_env(str, i, j), i, j);
-			i = j;
+			if (j - i >= 1)
+			{
+				if (str[j] == '?')
+				{
+					str = exit_code(str, i, j);
+				}
+				else
+					str = replace(str, get_env(str, i, j), i, j);
+				find_variable(str, 0, 0);
+			}
 		}
-		i++;
 	}
 	return (str);
 }

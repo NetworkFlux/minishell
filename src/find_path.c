@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:22:48 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 19:58:09 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 13:49:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,17 @@ static char	*concat(char *first, char *append, char c)
 	return (new);
 }
 
+// split PATH onto :
+// loop & concat with the current exec to create a path to the exec file
+// check if file exist
 char	*find_path(t_scmd *scmd)
 {
-	// split PATH onto ;
-	// loop & concat with the current exec to create a path to the exec file
-	// check if file exist
-	// if exec file isn't find anywhere in the loop
-	// exit(127)
-
 	char	**paths;
 	char	*target;
 	size_t	i;
 
+	if (!scmd->tokens || !scmd->tokens[0])
+		return (NULL);
 	i = 0;
 	g_fcmd->envp = find_env(g_fcmd->envp, "PATH");
 	paths = ft_split(g_fcmd->envp->value, ':');
@@ -61,17 +60,14 @@ char	*find_path(t_scmd *scmd)
 	while (paths && paths[i])
 	{
 		target = concat(paths[i], scmd->tokens[0], '/');
-		// printf("target: %s\n", target);
 		if (access(target, F_OK) == 0)
 		{
-			printf(">> target EXISTS: %s\n", target);
 			clear_array(paths, ft_arrlen(paths));
 			return (target);
 		}
 		free (target);
 		i++;
 	}
-	printf(">> No path found\n");
 	clear_array(paths, ft_arrlen(paths));
 	return (NULL);
 }

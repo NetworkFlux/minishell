@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 20:11:21 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 13:46:40 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	route_builtins(t_scmd *scmd, size_t i)
 		builtins_env(scmd);
 	else if (i == 6)
 		builtins_exit();
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 /* checks if the single command exec is a builtin function */
@@ -39,7 +39,6 @@ void	is_builtin(t_scmd *s_cmd, char **args, char *target)
 	size_t		i;
 	const char	*builtins[7] = {"echo", "cd",
 		"pwd", "export", "unset", "env", "exit"};
-	int	res;
 
 	if (s_cmd->redir->in || s_cmd->redir->inin)
 		args = apply_inredir(s_cmd);
@@ -55,9 +54,13 @@ void	is_builtin(t_scmd *s_cmd, char **args, char *target)
 	}
 	//printf("Child Process : %s is being executed\n", s_cmd->tokens[0]);
 	// execvp(s_cmd->tokens[0], args);
-	res = execve(target, args, g_fcmd->env);
+	if (target == NULL)
+	{
+		printf("%s: command not found\n", s_cmd->tokens[0]);
+		exit(127);
+	}
+	execve(target, args, g_fcmd->env);
 	// if execve gets an error, it doesn't take possession of the child process
 	// so it does not exit it
-	printf("ERROR EXECVE %d\n", res);
-	exit(0);
+	exit(EXIT_FAILURE);
 }

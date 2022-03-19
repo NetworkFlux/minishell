@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 20:07:27 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 13:51:52 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	exec_full(size_t index, char **args)
 {
 	int		p1[2]; // p1[0] - read || p1[1] - write
 	char	*target;
+	int		wstatus;
 
 	// env list to array
 	if (g_fcmd->env)
@@ -56,6 +57,7 @@ void	exec_full(size_t index, char **args)
 	g_fcmd->env = env_listtoarray(g_fcmd->envp);
 	// get the executable's path for execve
 	target = find_path(g_fcmd->s_cmd[index]);
+	printf("<exec_full> target: |%s|\n", target); // remove
 	
 	pipe(p1);
 	g_fcmd->child_id = fork();
@@ -106,7 +108,16 @@ void	exec_full(size_t index, char **args)
 		//printf("Parent Process %ld : Process is starting\n", index + 1);
 		close(p1[1]);
 		//printf("Parent Process %ld : Closing writing pipe (obvious)\n", index + 1);
-		waitpid(g_fcmd->child_id, NULL, 0);
+		waitpid(g_fcmd->child_id, &wstatus, 0);
+		if (WIFEXITED(wstatus))
+		{
+			printf("<exec_full> exitcode: %d\n",  WEXITSTATUS(wstatus));
+			g_fcmd->exitcode = WEXITSTATUS(wstatus);
+		}
+		else
+		{
+			printf("<exec_full> Error: Child execution failed.\n");
+		}
 		g_fcmd->child_id = -1;
 		//printf("Parent Process %ld : Waiting for child execution\n", index + 1);
 		if (index != g_fcmd->nb_scmd - 1)
