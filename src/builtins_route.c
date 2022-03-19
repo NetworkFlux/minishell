@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 13:46:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 23:19:04 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,47 @@
 
 // if the exec is a builtin and files permissions are ok,
 // calls the appropriate function
-static void	route_builtins(t_scmd *scmd, size_t i)
+void	route_builtins(t_scmd *scmd, size_t i)
 {
 	if (i == 0)
-		buildins_echo(scmd);
+		builtins_exit(); // ok
 	else if (i == 1)
-		buildins_cd(scmd);
+		buildins_cd(scmd); // ok
 	else if (i == 2)
-		buildins_pwd(scmd);
+		builtins_env(scmd); // output
 	else if (i == 3)
-		builtins_export(scmd);
+		buildins_pwd(scmd); // output
 	else if (i == 4)
-		builtin_unset(scmd);
+		builtin_unset(scmd); // input
 	else if (i == 5)
-		builtins_env(scmd);
+		buildins_echo(scmd); // input && output
 	else if (i == 6)
-		builtins_exit();
+		builtins_export(scmd); // input && output
 	exit(EXIT_SUCCESS);
+}
+
+int	find_builtin(t_scmd *s_cmd)
+{
+	size_t		i;
+	const char	*builtins[7] = {"exit", "cd",
+		"env", "pwd", "unset", "echo", "export"};
+
+	i = 0;
+	while (i < 7 && builtins[i])
+	{
+		if (ft_strcompare(builtins[i], s_cmd->tokens[0]))
+			return (i);
+		i++;
+	}
+	return (-1);	
 }
 
 /* checks if the single command exec is a builtin function */
 void	is_builtin(t_scmd *s_cmd, char **args, char *target)
 {
 	size_t		i;
-	const char	*builtins[7] = {"echo", "cd",
-		"pwd", "export", "unset", "env", "exit"};
+	const char	*builtins[7] = {"exit", "cd",
+		"env", "pwd", "unset", "echo", "export"};
 
 	if (s_cmd->redir->in || s_cmd->redir->inin)
 		args = apply_inredir(s_cmd);

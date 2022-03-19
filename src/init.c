@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 17:24:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 19:45:26 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ t_redir	*init_redir(void)
 	res->last_out = 0;
 	res->last_in = 0;
 	return (res);
+}
+
+void	init_global(char **envp)
+{
+	g_fcmd = malloc(sizeof(t_fcmd));
+	if (!g_fcmd)
+		error_malloc(1);
+	g_fcmd->child_id = -1;
+	g_fcmd->env = NULL;
+	g_fcmd->exitcode = 0;
+	g_fcmd->exec_path = NULL;
+	g_fcmd->envp = create_env(envp);
 }
 
 static int	init_smcd(void)

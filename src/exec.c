@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 13:51:52 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 19:47:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,20 @@ char	**find_in_tab(t_scmd *s_cmd, int fd)
 void	exec_full(size_t index, char **args)
 {
 	int		p1[2]; // p1[0] - read || p1[1] - write
-	char	*target;
 	int		wstatus;
 
 	// env list to array
 	if (g_fcmd->env)
 		free(g_fcmd->env);
 	g_fcmd->env = env_listtoarray(g_fcmd->envp);
-	// get the executable's path for execve
-	target = find_path(g_fcmd->s_cmd[index]);
-	printf("<exec_full> target: |%s|\n", target); // remove
-	
+
+	if (find_builtin(g_fcmd->s_cmd[index]) == 0) // exit
+			route_builtins(g_fcmd->s_cmd[index], 0);
+	if (g_fcmd->exec_path)
+		free(g_fcmd->exec_path);
+	g_fcmd->exec_path = find_path(g_fcmd->s_cmd[index]);
+	printf("<exec_full> target: |%s|\n", g_fcmd->exec_path); // remove
+
 	pipe(p1);
 	g_fcmd->child_id = fork();
 	if (g_fcmd->child_id == 0)
@@ -100,7 +103,7 @@ void	exec_full(size_t index, char **args)
 		}
 		close(p1[1]);
 		//printf("Child Process : Closing wrting pipe\n");
-		is_builtin(g_fcmd->s_cmd[index], args, target);
+		is_builtin(g_fcmd->s_cmd[index], args, g_fcmd->exec_path);
 		// close(fd[1]); // close child process fd 1 from builtin function
 	}
 	else
@@ -141,6 +144,5 @@ void	exec_full(size_t index, char **args)
 		unlink("heredoc.ms");
 		printf("Parent Process %ld : End of execution\n", index + 1);
 	}
-	free(target); // won't be freed if we CTRL+C/D it during a child process :/
 	return ;
 }

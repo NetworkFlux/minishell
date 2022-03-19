@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 15:30:06 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 19:04:00 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_full_command
 	struct s_env	*envp;
 	char			**env;
 	int				exitcode;
+	char			*exec_path;
 	pid_t			child_id;
 }	t_fcmd;
 
@@ -79,6 +80,7 @@ char	*take_input(void);
 int		is_input_incomplete(char *input);
 
 // init
+void	init_global(char **envp);
 int		init_full_cmd(char *cmd);
 t_redir	*init_redir(void);
 
@@ -107,7 +109,6 @@ char	**get_heredoc(t_scmd *scmd);
 // env variables
 void	env_variables(void);
 t_env	*create_env(char	**envp);
-char	**split_on_first_separator(char *str, char c);
 // char	**split_first_occurence(char *str, unsigned char c);
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
@@ -116,10 +117,8 @@ t_env	*add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
 char	**env_listtoarray(t_env *env);
 void	print_envp(void);
-size_t	envp_len(char **envp);
 void	clear_envp(char **array, size_t i);
 char	*strrebuild(char *src1, char *src2, char *src3);
-char	*ft_strcopy(char *dest, char *src, size_t index_dest);
 
 // remove quotes
 char	*remove_quotes(char *input);
@@ -138,7 +137,6 @@ void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(void);
 void	clear_env(void);
-int		clear_array(char **array, size_t len);
 
 // exec
 // void	route_exec(void);
@@ -166,8 +164,6 @@ char	*ft_copy(char *str);
 char	*remove_spaces(char *str);
 int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
-int		ft_strcompare(const char *str, char *test);
-size_t	ft_arrlen(char **arr);
 
 // size_t	charsslen(int fd);
 char	**realloc_heredoc(char **tab, size_t res_len, char *input);
@@ -182,5 +178,22 @@ void	print_tokens(t_scmd *scmd);
 void	print_env_array(char **envp);
 
 void	rl_replace_line (const char *text, int clear_undo);
+
+
+// new
+int		find_builtin(t_scmd *s_cmd);
+void	route_builtins(t_scmd *scmd, size_t i);
+
+
+
+// useful functions
+int		ft_strisalpha(char *str);
+size_t	find_char(char *str, char c);
+char	*fillstr(size_t start, size_t end, const char *src, char *dest);
+char	**split_once(char *str, char c);
+char	*ft_strcopy(char *dest, char *src, size_t index_dest);
+int		clear_array(char **array, size_t len);
+int		ft_strcompare(const char *str, char *test);
+size_t	ft_arrlen(char **arr);
 
 #endif

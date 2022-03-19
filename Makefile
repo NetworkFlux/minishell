@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/18 18:33:10 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/19 18:29:10 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LIBFT_DIR = ./libft/
 
 # Source files and object files
 SRC_FILES = main.c		\
+	input.c				\
 	signals.c			\
 	init.c				\
 	parse_quotes.c		\
@@ -32,7 +33,6 @@ SRC_FILES = main.c		\
 	parse_verify.c		\
 	utils.c				\
 	clear.c				\
-	free_functions.c	\
 	parse_redir.c		\
 	parse_redir2.c		\
 	exec.c				\
@@ -52,6 +52,7 @@ SRC_FILES = main.c		\
 	builtins_exit.c		\
 	apply_redir.c		\
 	error_handling.c	\
+	_ft_functions.c		\
 	ft_realloc.c
 	
 

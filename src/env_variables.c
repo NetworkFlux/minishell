@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 13:24:10 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:14:56 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static char	*exit_code(char	*str, size_t i, size_t j)
 	free(exitcode);
 	return (str);
 }
-
 
 // search for a $variable then replace it by its env value
 static char	*find_variable(char *str, size_t i, size_t j)

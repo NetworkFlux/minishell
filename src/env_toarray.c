@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:48:43 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 19:01:25 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:14:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,6 @@ static size_t	env_len(t_env *env)
 		env = env->next;
 	}
 	return (len);
-}
-
-size_t	envp_len(char **envp)
-{
-	size_t	i;
-
-	i = 0;
-	while (envp && envp[i])
-		i++;
-	return (i);
-}
-
-// copy src into dest starting at a given dest position
-// Does not NULL terminate dest
-char	*ft_strcopy(char *dest, char *src, size_t index_dest)
-{
-	size_t	i;
-
-	i = 0;
-	while (dest && src && src[i])
-	{
-		dest[index_dest] = src[i];
-		index_dest++;
-		i++;
-	}
-	return (dest);
 }
 
 // concats three strings

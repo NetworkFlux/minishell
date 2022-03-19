@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 15:42:07 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:11:01 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,86 +24,6 @@ void	print_envp(void)
 	}
 }
 
-// checks if the string provided is only alphanumerical
-static int	ft_strisalpha(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (!ft_isalnum(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-// counts until if finds char c
-static size_t	count_to_separator(char *str, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == c)
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-// fills dest with the content of src from the value of start to the value of end
-static char	*fill_split(size_t start, size_t end, const char *src, char *dest)
-{
-	size_t	i;
-	size_t	size;
-
-	i = 0;
-	size = end - start;
-	if (start > end)
-		size = 0;
-	dest = malloc(sizeof(char) * size + 1);
-	if (!dest)
-		return (NULL);
-	while (start < end && src && src[start])
-	{
-		dest[i] = src[start];
-		start++;
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-//	"str0(separator char)str1" array[2] IS NULL
-char	**split_on_first_separator(char *str, char c)
-{
-	size_t	i;
-	char	**array;
-
-	i = count_to_separator(str, c);
-	array = malloc(sizeof(char *) * (2 + 1));
-	if (!array)
-		return (NULL);
-	array[2] = NULL;
-	array[0] = fill_split(0, i, str, array[0]);
-	if (!array[0])
-	{
-		free(array);
-		return (NULL);
-	}
-	array[1] = fill_split(i + 1, ft_strlen(str), str, array[1]);
-	if (!array[1])
-	{
-		free(array[0]);
-		free(array);
-		return (NULL);
-	}
-	return (array);
-}
-
 static int	valid_input(t_scmd *scmd)
 {
 	if (scmd->tokens && scmd->ntokens == 1)
@@ -114,7 +34,7 @@ static int	valid_input(t_scmd *scmd)
 	if (!scmd->tokens[1])
 	{
 		printf ("Error arguments.\n"); // remove
-		exit(2);
+		exit(1);
 	}
 	return (1);
 }
@@ -148,7 +68,7 @@ void	builtins_export(t_scmd *scmd)
 	t_env	*tmp;
 
 	valid_input(scmd);
-	array = split_on_first_separator(scmd->tokens[1], '=');
+	array = split_once(scmd->tokens[1], '=');
 	if (!array)
 		error_malloc(1);
 	if (!ft_strisalpha(array[0]))
@@ -161,6 +81,5 @@ void	builtins_export(t_scmd *scmd)
 		export_new(array);
 	else
 		export_update(tmp, array);
-	printf("NOLOL\n");
 	exit(0);
 }
