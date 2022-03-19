@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 19:58:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 15:30:06 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ char	**get_heredoc(t_scmd *scmd);
 // env variables
 void	env_variables(void);
 t_env	*create_env(char	**envp);
-char	**split_first_occurence(char *str, unsigned char c);
+char	**split_on_first_separator(char *str, char c);
+// char	**split_first_occurence(char *str, unsigned char c);
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
 t_env 	*find_env(t_env *env, char *str);

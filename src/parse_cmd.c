@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:01:59 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/18 20:02:31 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 16:14:05 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	token_memory_alloc(t_scmd *scmd)
 {
 	if (scmd->ntokens > 0)
 	{
-		scmd->tokens = malloc(sizeof(char *) * scmd->ntokens + 1);
+		scmd->tokens = malloc(sizeof(char *) * (scmd->ntokens + 1));
 		if (!scmd->tokens)
 			error_malloc(1);
 		scmd->tokens[scmd->ntokens] = NULL;

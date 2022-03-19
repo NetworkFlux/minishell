@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:36:18 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/19 16:10:23 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*remove_quotes(char *input)
 		output[len] = '\0';
 		// g_fcmd->s_cmd[i]->instructions = output;
 		// printf("<remove_quotes> |%s|\n", output);
+		free(input);
 		return (output);
 	}
 	return (NULL);
