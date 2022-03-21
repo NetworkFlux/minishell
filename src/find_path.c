@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:22:48 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 18:22:43 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:01:59 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,28 @@ static char	*concat(char *first, char *append, char c)
 	return (new);
 }
 
+static char	*slash_path(t_scmd *scmd)
+{
+	size_t	len;
+	size_t	i;
+	char	*token;
+	char	*target;
+
+	i = 0;
+	len = ft_strlen(scmd->tokens[0]);
+	target = scmd->tokens[0];
+	while (len > 0 && scmd->tokens[0][len - 1] && scmd->tokens[0][len - 1] != '/' )
+	{
+		i++;
+		len--;
+	}
+	token = fillstr(len, len + i, scmd->tokens[0]);
+	if (!token)
+		return (NULL);
+	scmd->tokens[0] = token;
+	return (target);
+}
+
 // split PATH onto :
 // loop & concat with the current exec to create a path to the exec file
 // check if file exist
@@ -55,7 +77,7 @@ char	*find_path(t_scmd *scmd)
 	if (!scmd->tokens || !scmd->tokens[0])
 		return (NULL);
 	if (access(scmd->tokens[0], F_OK) == 0)
-		return (scmd->tokens[0]);
+		return (slash_path(scmd));
 	i = 0;
 	g_fcmd->envp = find_env(g_fcmd->envp, "PATH");
 	paths = ft_split(g_fcmd->envp->value, ':');

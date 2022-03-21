@@ -84,4 +84,5 @@ void	print_array(char **array, char *str)
 		printf("|%s|\n", array[i]);
 		i++;
 	}
+	printf("-----------\n");
 }

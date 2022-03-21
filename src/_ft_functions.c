@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:05:57 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 18:22:19 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:51:33 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ size_t	find_char(char *str, char c)
 
 //	fills dest with the content of src from the position `start` to `end`
 //	returns at least '\0'
-char	*fillstr(size_t start, size_t end, const char *src, char *dest)
+char	*fillstr(size_t start, size_t end, const char *src)
 {
 	size_t	i;
 	size_t	size;
+	char	*dest;
 
 	i = 0;
 	size = end - start;
@@ -77,13 +78,13 @@ char	**split_once(char *str, char c)
 	if (!array)
 		return (NULL);
 	array[2] = NULL;
-	array[0] = fillstr(0, i, str, array[0]);
+	array[0] = fillstr(0, i, str);
 	if (!array[0])
 	{
 		free(array);
 		return (NULL);
 	}
-	array[1] = fillstr(i + 1, ft_strlen(str), str, array[1]);
+	array[1] = fillstr(i + 1, ft_strlen(str), str);
 	if (!array[1])
 	{
 		free(array[0]);

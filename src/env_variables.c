@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 18:07:12 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:56:33 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static char	*find_variable(char *str, size_t i, size_t j)
 					str = exit_code(str, i, j);
 				else
 					str = replace(str, get_env(str, i, j), i, j);
-				printf("var: |%s|\n", str);
 				find_variable(str, 0, 0);
 			}
 		}
@@ -128,6 +127,5 @@ void	env_variables(void)
 		// printf("cmd: %s\n", g_fcmd->s_cmd[i]->s_cmd);
 		i++;
 	}
-	printf("debug\n");
 	return ;
 }

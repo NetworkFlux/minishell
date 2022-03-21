@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   __exec_full.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 15:47:17 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:59:25 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	__exec_full(size_t index, char **args)
 	{
 		if (!args)
 			args = g_fcmd->s_cmd[index + 1]->tokens;
-		print_array(args, "recur args");
+		print_array(args, "next args");
 		__exec_full(index + 1, args);
 	}
 	return ;

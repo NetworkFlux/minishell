@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 16:42:02 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:51:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ char	*find_path(t_scmd *scmd);
 // useful functions
 int		ft_strisalpha(char *str);
 size_t	find_char(char *str, char c);
-char	*fillstr(size_t start, size_t end, const char *src, char *dest);
+char	*fillstr(size_t start, size_t end, const char *src);
 char	**split_once(char *str, char c);
 char	*ft_strcopy(char *dest, char *src, size_t index_dest);
 int		clear_array(char **array, size_t len);
