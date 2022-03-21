@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 14:17:10 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:30:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		find_builtin(t_scmd *s_cmd)
 }
 
 /* checks if the single command exec is a builtin function */
+/*
 void	is_builtin(t_scmd *s_cmd, char **args, char *target)
 {
 	size_t		i;
@@ -82,4 +83,4 @@ void	is_builtin(t_scmd *s_cmd, char **args, char *target)
 	// so it does not exit it
 	exit(EXIT_FAILURE);
 }
-
+*/

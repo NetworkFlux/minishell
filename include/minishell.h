@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 14:33:28 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:42:02 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ t_fcmd	*g_fcmd;
 
 
 
-char	*find_path(t_scmd *scmd);
 
 // take_input
 char	*take_input(void);
@@ -103,47 +102,45 @@ int		apply_outredir(t_scmd *scmd);
 void	create_redir_file_s(t_scmd *scmd);
 void	create_redir_file_d(t_scmd *scmd);
 char	**apply_inredir(t_scmd *scmd);
-char	**get_fdin_data(t_scmd *scmd);
+// char	**get_fdin_data(t_scmd *scmd);		// doesn't exist
 char	**apply_heredoc(t_scmd *scmd);
 char	**get_heredoc(t_scmd *scmd);
 
 // env variables
 void	env_variables(void);
 t_env	*create_env(char	**envp);
-// char	**split_first_occurence(char *str, unsigned char c);
+// char	**split_first_occurence(char *str, unsigned char c);	// doesn't exist
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
 t_env 	*find_env(t_env *env, char *str);
 t_env	*add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
 char	**env_listtoarray(t_env *env);
-void	print_envp(void);
-void	clear_envp(char **array, size_t i);
+// void	print_envp(void);					// doesn't exist
 char	*strrebuild(char *src1, char *src2, char *src3);
 
 // remove quotes
 char	*remove_quotes(char *input);
 
 // parsing
-// void	get_exec(void);
 int		parse_cmd(void);
 char	*parse_param(char *str, size_t *start);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 size_t	find_block_end(char *input, size_t position);
-int		find_last_out(char *str);
 
 // memory free
 void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(void);
 void	clear_env(void);
+// void	clear_envp(char **array, size_t i);		// never used
 
 // exec
-// void	route_exec(void);
-void	exec(t_scmd *scmd, t_env *env);
-void	route_exec(char **envp);
-void	exec_full(size_t index, char **args);
+void	route_exec(void);						// doesn't exist
+// void	exec(t_scmd *scmd, t_env *env); 		// doesn't exist
+// void	route_exec(char **envp);				// never used
+// void	exec_full(size_t index, char **args);	// never used
 char	**find_in_tab(t_scmd *s_cmd, int fd);
 
 // builtins
@@ -151,11 +148,11 @@ char	**buildins_pwd(t_scmd *scmd, char **args);
 char	**buildins_cd(t_scmd *scmd, char **args);
 char	**builtin_unset(t_scmd *scmd, char **args);
 char	**buildins_echo(t_scmd *scmd, char **args);
-int		is_option_ok(char *str);
+// int		is_option_ok(char *str);
 char	**builtins_export(t_scmd *scmd, char **args);
 char	**builtins_env(t_scmd *scmd, char **args);
 char	**builtins_exit(t_scmd *scmd, char **args);
-void	is_builtin(t_scmd *s_cmd, char **args, char *target);
+// void	is_builtin(t_scmd *s_cmd, char **args, char *target); // never used
 
 // realloc
 char	**ft_realloc(char **tab, char *str);
@@ -167,7 +164,7 @@ int		is_in_quote(const char *s, int index);
 char	*first_word(char *str);
 
 // size_t	charsslen(int fd);
-char	**realloc_heredoc(char **tab, size_t res_len, char *input);
+// char	**realloc_heredoc(char **tab, size_t res_len, char *input);	// never used
 
 // error handling
 int		error_malloc(int n);
@@ -180,7 +177,7 @@ void	print_env_array(char **envp);
 void	print_env_list();
 void	print_array(char **array, char *str);
 
-void	rl_replace_line (const char *text, int clear_undo);
+// void	rl_replace_line (const char *text, int clear_undo); // never used
 
 
 // new
@@ -188,6 +185,7 @@ void	__exec_full(size_t index, char **args);
 int		find_builtin(t_scmd *s_cmd);
 char	**route_builtins(t_scmd *scmd, size_t i, char **args);
 char	**pipeline(t_scmd	*scmd, char **args, void(foutput)(t_scmd *, char **));
+char	*find_path(t_scmd *scmd);
 
 // useful functions
 int		ft_strisalpha(char *str);

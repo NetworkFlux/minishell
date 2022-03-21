@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 18:14:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:07:12 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,36 +80,38 @@ static char	*exit_code(char	*str, size_t i, size_t j)
 // search for a $variable then replace it by its env value
 static char	*find_variable(char *str, size_t i, size_t j)
 {
-	if (str && str[i])
+	while (str && str[i])
 	{
+		// jump single quote block
 		if (str[i] == '\'')
 		{
 			i += 1;
 			while (str && str[i] && str[i] != '\'')
 				i++;
 		}
+		// on $ sign
 		if (str[i] == '$')
 		{
-			j = i + 1;
+			j = i + 1;	// jump $ sign
 			while (str && str[j])
 			{
-				if (j - 1 == i && str[j] == '?')
+				if (j - 1 == i && str[j] == '?') // if first char just after $ is ?
 					break ;
-				if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j]))
+				if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j])) // find end of $variable
 					break ;
 				j++;
 			}
 			if (j - i >= 1)
 			{
 				if (str[j] == '?')
-				{
 					str = exit_code(str, i, j);
-				}
 				else
 					str = replace(str, get_env(str, i, j), i, j);
+				printf("var: |%s|\n", str);
 				find_variable(str, 0, 0);
 			}
 		}
+		i++;
 	}
 	return (str);
 }
@@ -123,7 +125,9 @@ void	env_variables(void)
 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 	{
 		g_fcmd->s_cmd[i]->s_cmd = find_variable(g_fcmd->s_cmd[i]->s_cmd, 0, 0);
+		// printf("cmd: %s\n", g_fcmd->s_cmd[i]->s_cmd);
 		i++;
 	}
+	printf("debug\n");
 	return ;
 }

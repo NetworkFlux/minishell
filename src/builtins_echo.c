@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/21 14:22:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:32:53 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_option_ok(char *str)
+static int	is_option_ok(char *str)
 {
 	size_t	i;
 

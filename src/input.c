@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:24:41 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 18:28:19 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:24:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ static char	*total_input(char *cmd, char *tmp)
 	return (total);
 }
 
+static	size_t is_empty(char *str)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len  = ft_strlen(str);
+	while (str && str[i] && ft_isspace(str[i]))
+		i++;
+	if (len - i <= 0)
+		return (1);
+	return (0);		
+}
+
 char	*take_input(void)
 {
 	char	*cmd;
@@ -47,9 +61,10 @@ char	*take_input(void)
 	cmd = readline("minishell => ");
 	if (!cmd)
 		clear_exit();
-	if (!strlen(cmd))
+	if (!strlen(cmd) || is_empty(cmd))
 	{
 		free(cmd);
+		cmd = NULL;
 		take_input();
 	}
 	else
