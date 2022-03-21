@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 19:04:00 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:33:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_redirection
 
 typedef struct s_single_command
 {
+	size_t	index;
 	char	*s_cmd;
 	char	*instructions;
 	size_t	ntokens;
@@ -146,14 +147,14 @@ void	exec_full(size_t index, char **args);
 char	**find_in_tab(t_scmd *s_cmd, int fd);
 
 // builtins
-void	buildins_pwd(t_scmd *scmd);
-void	buildins_cd(t_scmd *scmd);
-void	builtin_unset(t_scmd *scmd);
-void	buildins_echo(t_scmd *scmd);
+char	**buildins_pwd(t_scmd *scmd, char **args);
+char	**buildins_cd(t_scmd *scmd, char **args);
+char	**builtin_unset(t_scmd *scmd, char **args);
+char	**buildins_echo(t_scmd *scmd, char **args);
 int		is_option_ok(char *str);
-void	builtins_export(t_scmd *scmd);
-void	builtins_env(t_scmd *scmd);
-void	builtins_exit(void);
+char	**builtins_export(t_scmd *scmd, char **args);
+char	**builtins_env(t_scmd *scmd, char **args);
+char	**builtins_exit(t_scmd *scmd, char **args);
 void	is_builtin(t_scmd *s_cmd, char **args, char *target);
 
 // realloc
@@ -176,15 +177,17 @@ void	print_cmd(size_t i);
 void	print_redir(t_scmd	*s_cmd, size_t i);
 void	print_tokens(t_scmd *scmd);
 void	print_env_array(char **envp);
+void	print_env_list();
+void	print_array(char **array, char *str);
 
 void	rl_replace_line (const char *text, int clear_undo);
 
 
 // new
+void	__exec_full(size_t index, char **args);
 int		find_builtin(t_scmd *s_cmd);
-void	route_builtins(t_scmd *scmd, size_t i);
-
-
+char	**route_builtins(t_scmd *scmd, size_t i, char **args);
+char	**pipeline(t_scmd	*scmd, char **args, void(foutput)(t_scmd *, char **));
 
 // useful functions
 int		ft_strisalpha(char *str);

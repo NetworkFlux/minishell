@@ -79,3 +79,29 @@ void	print_env_array(char	**envp)
 		i++;
 	}
 }
+
+void	print_env_list()
+{
+	g_fcmd->envp = env_first(g_fcmd->envp);
+	while (g_fcmd->envp)
+	{
+		printf("%s=\"%s\"\n", g_fcmd->envp->name, g_fcmd->envp->value);
+		if (!g_fcmd->envp->next)
+			break ;
+		g_fcmd->envp = g_fcmd->envp->next;
+	}
+}
+
+void	print_array(char **array, char *str)
+{
+	printf("--- DEBUG (%s) ---\n", str);
+
+	size_t	i;
+
+	i = 0;
+	while (i < ft_arrlen(array) && array[i])
+	{
+		printf("|%s|\n", array[i]);
+		i++;
+	}
+}
