@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:22:48 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 19:01:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 22:26:47 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*concat(char *first, char *append, char c)
 	j = 0;
 	new = malloc (sizeof(char) * ft_strlen(first) + ft_strlen(append) + 2);
 	if (!new)
-		error_malloc(1);
+		return (NULL);
 	while (first && first[i])
 	{
 		new[j] = first[i];
@@ -69,23 +69,33 @@ static char	*slash_path(t_scmd *scmd)
 char	*find_path(t_scmd *scmd)
 {
 	char	**paths;
+	t_env	*env_tmp;
 	char	*target;
 	char	*tmp;
 	size_t	i;
 
+	i = 0;
 	target = NULL;
+	// is there an exec ?
 	if (!scmd->tokens || !scmd->tokens[0])
 		return (NULL);
+	// is the provided exec a path ?
 	if (access(scmd->tokens[0], F_OK) == 0)
 		return (slash_path(scmd));
-	i = 0;
-	g_fcmd->envp = find_env(g_fcmd->envp, "PATH");
-	paths = ft_split(g_fcmd->envp->value, ':');
+	// is the exec in the PATH ? If so find it
+	env_tmp = find_env(g_fcmd->envp, "PATH");
+	if (!env_tmp)
+		return (NULL);
+	// split found PATH value on :
+	paths = ft_split(env_tmp->value, ':');
 	if (!paths)
 		return (NULL);
+	// check for the exec in every directory given in PATH
 	while (paths && paths[i])
 	{
 		tmp = concat(paths[i], scmd->tokens[0], '/');
+		if (!tmp)
+			return (NULL);
 		if (access(tmp, F_OK) == 0)
 		{
 			target = tmp;
