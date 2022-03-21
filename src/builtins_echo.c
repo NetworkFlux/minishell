@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/21 14:22:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:24:30 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	output_echo(t_scmd *scmd, char **args)
 			ft_putchar_fd(' ', 1);
 			ft_putstr_fd(scmd->tokens[i], 1);
 		}
-		if (!is_option_ok(scmd->tokens[0]))
+		if (!is_option_ok(scmd->tokens[1]))
 			ft_putchar_fd('\n', 1);
 	}
 	else

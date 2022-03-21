@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   __exec_full.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 14:45:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 15:47:17 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ char	**parent(int p1[2], size_t index, char **args)
 		g_fcmd->exitcode = WEXITSTATUS(wstatus);
 	if (index != g_fcmd->nb_scmd - 1)
 	{
-		printf("--- parent looking for args\n");
+		//printf("--- parent looking for args\n");
 		args = find_in_tab(g_fcmd->s_cmd[index + 1], p1[0]);
 		close(p1[0]);
 		return (args);
 	}
 	else
 	{
-		printf("--- parent ending command\n");
+		//printf("--- parent ending command\n");
 		close(p1[0]);
 	}
 	unlink("temp.ms");
