@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:24:41 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 22:35:52 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 23:06:54 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*take_input(void)
 	if (!strlen(cmd) || is_empty(cmd))
 	{
 		free(cmd);
+		rl_on_new_line();
 		take_input();
 	}
 	else
