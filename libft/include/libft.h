@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 23:35:02 by npinheir          #+#    #+#             */
-/*   Updated: 2022/02/21 09:28:30 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:52:33 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_itoa(int n);
 char	*ft_strcpy(char *dest, const char *src);
+char	*ft_strcat(char *str1, char *str2);
 char	**ft_split(char const *s, char c);
 char	**ft_split_quote(char const *s, char c);
 

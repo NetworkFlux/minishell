@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/21 16:32:53 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:28:11 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	output_echo(t_scmd *scmd, char **args)
 			ft_putchar_fd(' ', 1);
 			ft_putstr_fd(scmd->tokens[i], 1);
 		}
-		if (!is_option_ok(scmd->tokens[0]))
+		if (!is_option_ok(scmd->tokens[1]))
 			ft_putchar_fd('\n', 1);
 	}
 	else
