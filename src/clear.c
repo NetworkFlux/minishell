@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 11:48:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 09:53:02 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,30 +103,38 @@ g_fcmd t_fcmd *
 */
 
 /* dives into our command tree and tries to free everything */
-int	clear_all(void)
+int	kill_child(void)
 {
 	if (g_fcmd)
 	{
 		if (g_fcmd->child_id != -1)
 		{
-			printf("killing child process: %d\n", g_fcmd->child_id); // remove
-			kill(g_fcmd->child_id, SIGINT);
+			// printf("killing child process: %d\n", g_fcmd->child_id); // remove
+			kill(g_fcmd->child_id, SIGTERM);
 			g_fcmd->exitcode = 128 + (int) SIGINT;
 			g_fcmd->child_id = -1;
-		}
-		else
+			return (1);
+		}	
+	}
+	return (0);
+}
+
+
+int	clear_all(void)
+{
+	if (g_fcmd)
+	{
+		kill_child();
+		if (g_fcmd->s_cmd)
 		{
-			if (g_fcmd->s_cmd)
-			{
-				if (g_fcmd->s_cmd[0])
-					clear_scmd();
-				free(g_fcmd->s_cmd);
-				g_fcmd->s_cmd = NULL;
-			}
-			g_fcmd->nb_scmd = 0;
-			free(g_fcmd->f_cmd);
-			g_fcmd->f_cmd = NULL;
+			if (g_fcmd->s_cmd[0])
+				clear_scmd();
+			free(g_fcmd->s_cmd);
+			g_fcmd->s_cmd = NULL;
 		}
+		g_fcmd->nb_scmd = 0;
+		free(g_fcmd->f_cmd);
+		g_fcmd->f_cmd = NULL;
 	}
 	return (0);
 }

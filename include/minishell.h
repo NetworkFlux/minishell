@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 18:51:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 10:12:32 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <errno.h>
+// # include <termios.h>
 
 typedef	struct	s_env
 {
@@ -71,9 +72,6 @@ typedef struct s_full_command
 
 // GLOBAL
 t_fcmd	*g_fcmd;
-
-
-
 
 // take_input
 char	*take_input(void);
@@ -134,6 +132,7 @@ void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(void);
 void	clear_env(void);
+int		kill_child(void);
 // void	clear_envp(char **array, size_t i);		// never used
 
 // exec

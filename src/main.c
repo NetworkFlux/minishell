@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/21 11:48:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 10:12:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ int	main(int argc, char **argv, char **envp)
 	init_global(envp);
 	while (1)
 	{
-		take_input();
-		init_full_cmd(g_fcmd->f_cmd);
-		env_variables();
-		parse_redir();
-		parse_cmd();
-		// exec_full(0, g_fcmd->s_cmd[0]->tokens);
-		__exec_full(0, g_fcmd->s_cmd[0]->tokens);
+		if (take_input())
+		{
+			init_full_cmd(g_fcmd->f_cmd);
+			env_variables();
+			parse_redir();
+			parse_cmd();
+			__exec_full(0, g_fcmd->s_cmd[0]->tokens);
+		}
 		clear_all();
 	}
 	return (0);
