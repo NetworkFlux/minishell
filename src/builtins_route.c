@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 16:23:40 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 20:03:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		find_builtin(t_scmd *s_cmd)
 		"env", "pwd", "unset", "echo", "export"};
 
 	i = 0;
+	if (!s_cmd->tokens || !s_cmd->tokens[0])
+		return (-1);
 	while (i < 7 && builtins[i])
 	{
 		if (ft_strcompare(builtins[i], s_cmd->tokens[0]))
