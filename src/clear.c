@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 16:23:45 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 22:52:01 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	clear_env(void)
 	free(current);
 	current = NULL;
 	if (g_fcmd->env)
+	{
 		clear_array(g_fcmd->env, ft_arrlen(g_fcmd->env));
+	}
 }
 
 /*
@@ -132,9 +134,23 @@ int	clear_all(void)
 			free(g_fcmd->s_cmd);
 			g_fcmd->s_cmd = NULL;
 		}
+		if (g_fcmd->exec_path)
+		{
+			free(g_fcmd->exec_path);
+			g_fcmd->exec_path = NULL;
+		}
 		g_fcmd->nb_scmd = 0;
 		free(g_fcmd->f_cmd);
 		g_fcmd->f_cmd = NULL;
 	}
 	return (0);
+}
+
+void	clear_exit(int	n)
+{
+	clear_all();
+	clear_env();
+	free(g_fcmd);
+	g_fcmd = NULL;
+	exit(n);
 }

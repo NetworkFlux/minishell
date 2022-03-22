@@ -6,20 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 17:34:41 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 21:48:29 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	clear_exit(int	n)
-{
-	clear_all();
-	clear_env();
-	free(g_fcmd);
-	g_fcmd = NULL;
-	exit(n);
-}
 
 void	ctrlc(int sig)
 {

@@ -81,8 +81,9 @@ void	print_array(char **array, char *str)
 	i = 0;
 	while (i < ft_arrlen(array) && array[i])
 	{
-		printf("|%s|\n", array[i]);
+		printf("|%s| %p\n", array[i], array[i]);
 		i++;
 	}
+	printf("array: %p\n", array);
 	printf("-----------\n");
 }

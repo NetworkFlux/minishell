@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   __exec_full.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 15:33:34 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/22 22:51:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,15 @@ void	__exec_full(size_t index, char **args, int readpipe)
 	new_piperead = 0;
 	// updates env in case export was previously called
 	if (g_fcmd->env)
-		free(g_fcmd->env);
+		clear_array(g_fcmd->env, ft_arrlen(g_fcmd->env));
 	g_fcmd->env = env_listtoarray(g_fcmd->envp);
 
 	// get path to exec (NULL if not found)
-	if (g_fcmd->exec_path) 
+	if (g_fcmd->exec_path)
+	{
 		free(g_fcmd->exec_path);
+		g_fcmd->exec_path = NULL;
+	}
 	g_fcmd->exec_path = find_path(g_fcmd->s_cmd[index]);
 
 	if (!g_fcmd->s_cmd[index]->redir->in && !g_fcmd->s_cmd[index]->redir->inin && index != g_fcmd->nb_scmd - 1)

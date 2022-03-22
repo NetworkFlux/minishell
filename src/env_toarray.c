@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:48:43 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 18:14:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 22:52:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	**env_listtoarray(t_env *env)
 	i = 0;
 	len = env_len(env);
 	env = env_first(env);
-	array = malloc(sizeof(char *) * len + 1);
+	array = malloc(sizeof(char *) * (len + 1));
 	if (!array)
 		return (NULL);
 	while (env)
 	{
-		array[i] = malloc(sizeof(char) * ft_strlen(env->line) + 1);
+		array[i] = malloc(sizeof(char) * (ft_strlen(env->line) + 1));
 		if (!array[i])
 		{
 			clear_array(array, i);

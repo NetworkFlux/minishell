@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:05:57 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 18:51:33 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 22:52:04 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	clear_array(char **array, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		free (array[i]);
+		free(array[i]);
 		i++;
 	}
 	free(array);

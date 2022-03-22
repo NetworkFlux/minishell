@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/19 19:47:07 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 21:30:26 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ void	exec_full(size_t index, char **args)
 	if (find_builtin(g_fcmd->s_cmd[index]) == 0) // exit
 			route_builtins(g_fcmd->s_cmd[index], 0);
 	if (g_fcmd->exec_path)
+	{
 		free(g_fcmd->exec_path);
+		g_fcmd->exec_path = NULL;
+	}
 	g_fcmd->exec_path = find_path(g_fcmd->s_cmd[index]);
 	printf("<exec_full> target: |%s|\n", g_fcmd->exec_path); // remove
 
