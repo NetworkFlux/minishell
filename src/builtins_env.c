@@ -6,17 +6,15 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:10:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 14:35:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:56:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // called from child process
-void	output_env(t_scmd *scmd, char **args)
+void	output_env(t_scmd *scmd)
 {
-	(void)scmd;
-	(void)args;
 	if (redir_files_ok(scmd) < 0)
 		exit(1);
 	while (g_fcmd->envp)
@@ -31,9 +29,9 @@ void	output_env(t_scmd *scmd, char **args)
 	exit(0);
 }
 
-char	**builtins_env(t_scmd *scmd, char **args)
+void	builtins_env(t_scmd *scmd)
 {
 	g_fcmd->envp = env_first(g_fcmd->envp);
-	args = pipeline(scmd, args, &output_env);
-	return (args);
+	pipeline(scmd, &output_env);
+	return ;
 }

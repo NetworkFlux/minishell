@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/21 18:28:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:55:35 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ static int	is_option_ok(char *str)
 }
 
 // called from child process
-void	output_echo(t_scmd *scmd, char **args)
+void	output_echo(t_scmd *scmd)
 {
-	(void)args;
 	size_t	i;
 
 	i = 1;
@@ -57,8 +56,8 @@ void	output_echo(t_scmd *scmd, char **args)
 }
 
 // Runs the echo command
-char	**buildins_echo(t_scmd *scmd, char **args)
+void	buildins_echo(t_scmd *scmd)
 {
-	args = pipeline(scmd, args, &output_echo);
-	return (args);
+	pipeline(scmd, &output_echo);
+	return ;
 }

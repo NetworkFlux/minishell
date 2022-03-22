@@ -6,12 +6,12 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 18:59:25 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:05:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 char	**find_in_tab(t_scmd *s_cmd, int fd)
 {
 	char	**res;
@@ -36,11 +36,16 @@ char	**find_in_tab(t_scmd *s_cmd, int fd)
 	}
 	return (res);
 }
+*/
 
-void	execute(t_scmd *s_cmd, char **args)
+void	execute(t_scmd *s_cmd)
 {
+	char	**args;
+
 	if (s_cmd->redir->in || s_cmd->redir->inin)
 		args = apply_inredir(s_cmd);
+	else
+		args = s_cmd->tokens;
 	if (g_fcmd->exec_path == NULL)
 	{
 		printf("%s: command not found\n", s_cmd->tokens[0]);
@@ -68,7 +73,7 @@ void	child(int p1[2], size_t index)
 	close(p1[1]);
 }
 
-char	**parent(int p1[2], size_t index, char **args)
+void	parent(int p1[2], size_t index)
 {
 	int	wstatus;
 	
@@ -77,24 +82,22 @@ char	**parent(int p1[2], size_t index, char **args)
 	g_fcmd->child_id = -1;
 	if (WIFEXITED(wstatus))
 		g_fcmd->exitcode = WEXITSTATUS(wstatus);
+
 	if (index != g_fcmd->nb_scmd - 1)
 	{
-		//printf("--- parent looking for args\n");
-		args = find_in_tab(g_fcmd->s_cmd[index + 1], p1[0]);
+		// args = find_in_tab(g_fcmd->s_cmd[index + 1], p1[0]);
 		close(p1[0]);
-		return (args);
 	}
 	else
 	{
-		//printf("--- parent ending command\n");
 		close(p1[0]);
 	}
+	
 	unlink("temp.ms");
 	unlink("heredoc.ms");
-	return (NULL);
 }
 
-char	**pipeline(t_scmd	*scmd, char **args, void(foutput)(t_scmd *, char **))
+void	pipeline(t_scmd	*scmd, void(foutput)(t_scmd *))
 {
 	// printf("-- builtin pipeline\n");
 	int		p1[2]; // p1[0] - read || p1[1] - write
@@ -104,13 +107,12 @@ char	**pipeline(t_scmd	*scmd, char **args, void(foutput)(t_scmd *, char **))
 	if (g_fcmd->child_id == 0)
 	{
 		child(p1, scmd->index);
-		foutput(scmd, args);
+		foutput(scmd);
 	}
 	else
 	{
-		args = parent(p1, scmd->index, args);
+		parent(p1, scmd->index);
 	}
-	return (args);
 	// printf("-- builtin pipeline end\n");
 }
 
@@ -133,18 +135,18 @@ void	__exec_full(size_t index, char **args)
 	if (builtin != -1)
 	{
 		// returns args from pipe~parent or NULL from main process 
-		args = route_builtins(g_fcmd->s_cmd[index], builtin, args);
+		route_builtins(g_fcmd->s_cmd[index], builtin);
 	}
 	else
 	{
 		// returns args from pipe~parent
-		args = pipeline(g_fcmd->s_cmd[index], args, &execute);
+		pipeline(g_fcmd->s_cmd[index], &execute);
 	}
 	if (index != g_fcmd->nb_scmd - 1)
 	{
 		if (!args)
 			args = g_fcmd->s_cmd[index + 1]->tokens;
-		print_array(args, "next args");
+		// print_array(args, "next args");
 		__exec_full(index + 1, args);
 	}
 	return ;

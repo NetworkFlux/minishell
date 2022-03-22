@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 10:12:32 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:00:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,14 @@ void	route_exec(void);						// doesn't exist
 char	**find_in_tab(t_scmd *s_cmd, int fd);
 
 // builtins
-char	**buildins_pwd(t_scmd *scmd, char **args);
-char	**buildins_cd(t_scmd *scmd, char **args);
-char	**builtin_unset(t_scmd *scmd, char **args);
-char	**buildins_echo(t_scmd *scmd, char **args);
+void	buildins_pwd(t_scmd *scmd);
+void	buildins_cd(t_scmd *scmd);
+void	builtin_unset(t_scmd *scmd);
+void	buildins_echo(t_scmd *scmd);
 // int		is_option_ok(char *str);
-char	**builtins_export(t_scmd *scmd, char **args);
-char	**builtins_env(t_scmd *scmd, char **args);
-char	**builtins_exit(t_scmd *scmd, char **args);
+void	builtins_export(t_scmd *scmd);
+void	builtins_env(t_scmd *scmd);
+void	builtins_exit(t_scmd *scmd);
 // void	is_builtin(t_scmd *s_cmd, char **args, char *target); // never used
 
 // realloc
@@ -182,8 +182,8 @@ void	print_array(char **array, char *str);
 // new
 void	__exec_full(size_t index, char **args);
 int		find_builtin(t_scmd *s_cmd);
-char	**route_builtins(t_scmd *scmd, size_t i, char **args);
-char	**pipeline(t_scmd	*scmd, char **args, void(foutput)(t_scmd *, char **));
+void	route_builtins(t_scmd *scmd, size_t i);
+void	pipeline(t_scmd	*scmd, void(foutput)(t_scmd *));
 char	*find_path(t_scmd *scmd);
 
 // useful functions

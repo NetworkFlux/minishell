@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 14:22:21 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 14:04:04 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 // Probably not a good way to output it
 // Should test if it works alongside with `cd`
 
-void	output_pwd(t_scmd *scmd, char **args)
+void	output_pwd(t_scmd *scmd)
 {
-	(void)args;
 	(void)scmd;
 	if (redir_files_ok(scmd) < 0)
 		exit(1);
@@ -26,8 +25,7 @@ void	output_pwd(t_scmd *scmd, char **args)
 	exit(0);
 }
 
-char	**buildins_pwd(t_scmd *scmd, char **args)
+void	buildins_pwd(t_scmd *scmd)
 {
-	args = pipeline(scmd, args, &output_pwd);
-	return (args);
+	pipeline(scmd, &output_pwd);
 }

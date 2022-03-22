@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 16:30:36 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:59:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,24 @@
 
 // if the exec is a builtin and files permissions are ok,
 // calls the appropriate function
-char **route_builtins(t_scmd *scmd, size_t i, char **args)
+void	route_builtins(t_scmd *scmd, size_t i)
 {
 	if (i == 0)
-		args = builtins_exit(scmd, args); // ok
+		builtins_exit(scmd); // ok
 	else if (i == 1)
-		args = buildins_cd(scmd, args); // ok
+		buildins_cd(scmd); // ok
 	else if (i == 2)
-		args = builtins_env(scmd, args); // output
+		builtins_env(scmd); // output
 	else if (i == 3)
-		args = buildins_pwd(scmd, args); // output
+		buildins_pwd(scmd); // output
 	else if (i == 4)
-		args = builtin_unset(scmd, args); // ok
+		builtin_unset(scmd); // ok
 	else if (i == 5)
-		args = buildins_echo(scmd, args); // input && output
+		buildins_echo(scmd); // input && output
 	else if (i == 6)
-		args = builtins_export(scmd, args); // input && output
+		builtins_export(scmd); // input && output
 	// if no child process was executed
 	g_fcmd->exitcode = 0;
-	return (args);
 }
 
 //	checks if exec is a builtin

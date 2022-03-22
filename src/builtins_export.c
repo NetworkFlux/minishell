@@ -6,17 +6,16 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 14:45:11 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:57:25 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // called from child process
-void	output_envp(t_scmd *scmd, char **args)
+void	output_envp(t_scmd *scmd)
 {
 	(void)scmd;
-	(void)args;
 	g_fcmd->envp = env_first(g_fcmd->envp);
 	while (g_fcmd->envp)
 	{
@@ -53,30 +52,29 @@ static void	export_update(t_env *tmp, char **array)
 	free(array);
 }
 
-char **builtins_export(t_scmd *scmd, char **args)
+void	builtins_export(t_scmd *scmd)
 {
 	char	**array;
 	t_env	*tmp;
 
 	if (scmd->tokens && scmd->ntokens == 1)
 	{
-		args = pipeline(scmd, args, &output_envp);
-		return (NULL);
+		pipeline(scmd, &output_envp);
+		return ;
 	}
 	if (!scmd->tokens[1])
-		return (NULL);
+		return ;
 	array = split_once(scmd->tokens[1], '=');
 	if (!array)
 		error_malloc(1);
 	if (!ft_strisalpha(array[0]))
 	{
 		printf("bash: export: `%s': not a valid identifier\n", array[0]);
-		return (NULL);
+		return ;
 	}
 	tmp = find_env(g_fcmd->envp, array[0]);
 	if (!tmp)
 		export_new(array);
 	else
 		export_update(tmp, array);
-	return (NULL);
 }

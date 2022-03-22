@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/21 17:04:36 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:54:56 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ static	char	*check_tilde(char *path)
 	return (res);
 }
 
-char **buildins_cd(t_scmd *scmd, char **args)
+void	buildins_cd(t_scmd *scmd)
 {
-	(void)args;
 	int	res;
 
 	if (scmd->ntokens == 1)
 	{
 		res = chdir(getenv("HOME"));
-		return (args);
+		return ;
 	}
 	else
 	{
@@ -57,5 +56,4 @@ char **buildins_cd(t_scmd *scmd, char **args)
 	}
 	if (res == -1)
 		printf("bash: cd: %s: No such file or directory\n", scmd->tokens[1]);
-	return (args);
 }
