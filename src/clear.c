@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 09:53:02 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:45:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	clear_redir(t_redir *redir)
 {
 	if (redir->in_args)
-		free(redir->in_args);
+		clear_array(redir->in_args, redir->in);
 	if (redir->inin_args)
-		free(redir->inin_args);
+		clear_array(redir->inin_args, redir->inin);
 	if (redir->out_args)
-		free(redir->out_args);
+		clear_array(redir->out_args, redir->out);
 	if (redir->outout_args)
-		free(redir->outout_args);
+		clear_array(redir->outout_args, redir->outout);
 	free(redir);
 }
 
@@ -53,7 +53,8 @@ static void	clear_scmd(void)
 			clear_tokens(g_fcmd->s_cmd[i]);
 		if (g_fcmd->s_cmd[i]->redir)
 			clear_redir(g_fcmd->s_cmd[i]->redir);
-		free(g_fcmd->s_cmd[i]->s_cmd);
+		if (g_fcmd->s_cmd[i]->s_cmd)
+			free(g_fcmd->s_cmd[i]->s_cmd);
 		free(g_fcmd->s_cmd[i]);
 		i++;
 	}

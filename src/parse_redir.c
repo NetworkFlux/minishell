@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/16 15:33:14 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:47:38 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,15 @@ void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	char	*temp;
 
 	temp_left = ft_substr(s_cmd->s_cmd, 0, i);
-	//printf("TEMP LEFT : %s\n", temp_left);
 	temp = ft_substr(s_cmd->s_cmd, i + 1, ft_strlen(s_cmd->s_cmd));
 	temp_right = remove_spaces(temp);
-	//printf("TEMP RIGHT : %s\n", temp_right);
-	temp = first_word(temp_right);
-	//printf("TEMP : %s\n", temp);
+	temp = first_word(temp_right); // leak previous temp
 	if (c == '>')
 		s_cmd->redir->out_args[j] = remove_spaces(temp);
 	else
 		s_cmd->redir->in_args[j] = remove_spaces(temp);
 	temp_right += ft_strlen(temp);
-	s_cmd->s_cmd = strcat(temp_left, remove_spaces(temp_right));
+	s_cmd->s_cmd = ft_strcat(temp_left, remove_spaces(temp_right));
 }
 
 // Remplie le tableau de la redirection simple c
