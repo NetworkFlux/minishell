@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   __exec_full.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 14:05:07 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:33:34 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ void	execute(t_scmd *s_cmd)
 	}
 }
 
-void	child(int p1[2], size_t index)
+void	child(int p1[2], size_t index, int readpipe)
 {
 	int		redir_out;
-		
+
 	close(p1[0]);
+	if (!g_fcmd->s_cmd[index]->redir->in && !g_fcmd->s_cmd[index]->redir->inin && readpipe)
+	{
+		dup2(readpipe, STDIN_FILENO);
+		close(readpipe);
+	}
 	redir_out = apply_outredir(g_fcmd->s_cmd[index]);
 	if (redir_out == 1 && index != g_fcmd->nb_scmd - 1)
 		dup2(p1[1], STDOUT_FILENO);
@@ -86,7 +91,7 @@ void	parent(int p1[2], size_t index)
 	if (index != g_fcmd->nb_scmd - 1)
 	{
 		// args = find_in_tab(g_fcmd->s_cmd[index + 1], p1[0]);
-		close(p1[0]);
+		//close(p1[0]);
 	}
 	else
 	{
@@ -97,7 +102,7 @@ void	parent(int p1[2], size_t index)
 	unlink("heredoc.ms");
 }
 
-void	pipeline(t_scmd	*scmd, void(foutput)(t_scmd *))
+int		pipeline(t_scmd	*scmd, void(foutput)(t_scmd *), int readpipe)
 {
 	// printf("-- builtin pipeline\n");
 	int		p1[2]; // p1[0] - read || p1[1] - write
@@ -106,20 +111,25 @@ void	pipeline(t_scmd	*scmd, void(foutput)(t_scmd *))
 	g_fcmd->child_id = fork();
 	if (g_fcmd->child_id == 0)
 	{
-		child(p1, scmd->index);
+		child(p1, scmd->index, readpipe);
 		foutput(scmd);
 	}
 	else
 	{
 		parent(p1, scmd->index);
 	}
+	return (p1[0]);
 	// printf("-- builtin pipeline end\n");
 }
 
-void	__exec_full(size_t index, char **args)
+void	__exec_full(size_t index, char **args, int readpipe)
 {
 	int		builtin;
+	int		needpipe;
+	int		new_piperead;
 
+	needpipe = 0;
+	new_piperead = 0;
 	// updates env in case export was previously called
 	if (g_fcmd->env)
 		free(g_fcmd->env);
@@ -130,24 +140,28 @@ void	__exec_full(size_t index, char **args)
 		free(g_fcmd->exec_path);
 	g_fcmd->exec_path = find_path(g_fcmd->s_cmd[index]);
 
+	if (!g_fcmd->s_cmd[index]->redir->in && !g_fcmd->s_cmd[index]->redir->inin && index != g_fcmd->nb_scmd - 1)
+		needpipe = 1;
 	// check if the command is a builtin
 	builtin = find_builtin(g_fcmd->s_cmd[index]);
 	if (builtin != -1)
 	{
 		// returns args from pipe~parent or NULL from main process 
-		route_builtins(g_fcmd->s_cmd[index], builtin);
+		new_piperead = route_builtins(g_fcmd->s_cmd[index], builtin, readpipe);
 	}
 	else
 	{
 		// returns args from pipe~parent
-		pipeline(g_fcmd->s_cmd[index], &execute);
+		new_piperead = pipeline(g_fcmd->s_cmd[index], &execute, readpipe);
 	}
 	if (index != g_fcmd->nb_scmd - 1)
 	{
 		if (!args)
 			args = g_fcmd->s_cmd[index + 1]->tokens;
 		// print_array(args, "next args");
-		__exec_full(index + 1, args);
+		if (!needpipe)
+			new_piperead = 0;
+		__exec_full(index + 1, args, new_piperead);
 	}
 	return ;
 }

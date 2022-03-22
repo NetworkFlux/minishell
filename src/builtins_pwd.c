@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 14:04:04 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:26:11 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	output_pwd(t_scmd *scmd)
 	exit(0);
 }
 
-void	buildins_pwd(t_scmd *scmd)
+int		buildins_pwd(t_scmd *scmd, int readpipe)
 {
-	pipeline(scmd, &output_pwd);
+	return (pipeline(scmd, &output_pwd, readpipe));
 }

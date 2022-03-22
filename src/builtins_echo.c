@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:39:19 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 13:55:35 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:26:07 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	output_echo(t_scmd *scmd)
 }
 
 // Runs the echo command
-void	buildins_echo(t_scmd *scmd)
+int		buildins_echo(t_scmd *scmd, int readpipe)
 {
-	pipeline(scmd, &output_echo);
-	return ;
+	return (pipeline(scmd, &output_echo, readpipe));
 }

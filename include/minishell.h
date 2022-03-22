@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 14:00:48 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:27:21 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,13 @@ void	route_exec(void);						// doesn't exist
 char	**find_in_tab(t_scmd *s_cmd, int fd);
 
 // builtins
-void	buildins_pwd(t_scmd *scmd);
+int		buildins_pwd(t_scmd *scmd, int readpipe);
 void	buildins_cd(t_scmd *scmd);
 void	builtin_unset(t_scmd *scmd);
-void	buildins_echo(t_scmd *scmd);
+int		buildins_echo(t_scmd *scmd, int readpipe);
 // int		is_option_ok(char *str);
-void	builtins_export(t_scmd *scmd);
-void	builtins_env(t_scmd *scmd);
+int		builtins_export(t_scmd *scmd, int readpipe);
+int		builtins_env(t_scmd *scmd, int readpipe);
 void	builtins_exit(t_scmd *scmd);
 // void	is_builtin(t_scmd *s_cmd, char **args, char *target); // never used
 
@@ -180,10 +180,10 @@ void	print_array(char **array, char *str);
 
 
 // new
-void	__exec_full(size_t index, char **args);
+void	__exec_full(size_t index, char **args, int piperead);
 int		find_builtin(t_scmd *s_cmd);
-void	route_builtins(t_scmd *scmd, size_t i);
-void	pipeline(t_scmd	*scmd, void(foutput)(t_scmd *));
+int		route_builtins(t_scmd *scmd, size_t i, int readpipe);
+int		pipeline(t_scmd	*scmd, void(foutput)(t_scmd *), int readpipe);
 char	*find_path(t_scmd *scmd);
 
 // useful functions
@@ -195,5 +195,9 @@ char	*ft_strcopy(char *dest, char *src, size_t index_dest);
 int		clear_array(char **array, size_t len);
 int		ft_strcompare(const char *str, char *test);
 size_t	ft_arrlen(char **arr);
+
+
+
+void rl_replace_line (const char *text, int clear_undo);
 
 #endif
