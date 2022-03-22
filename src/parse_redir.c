@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 13:47:38 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:53:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,29 @@
 // et retire cette redirection de la commande simple
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 {
-	char	*temp_right;
-	char	*temp_left;
+	char	*right;
+	char	*left;
 	char	*temp;
+	char	*temp2;
 
-	temp_left = ft_substr(s_cmd->s_cmd, 0, i);
+	left = ft_substr(s_cmd->s_cmd, 0, i);
 	temp = ft_substr(s_cmd->s_cmd, i + 1, ft_strlen(s_cmd->s_cmd));
-	temp_right = remove_spaces(temp);
-	temp = first_word(temp_right); // leak previous temp
+	right = remove_spaces(temp);
+	temp2 = first_word(right);
 	if (c == '>')
-		s_cmd->redir->out_args[j] = remove_spaces(temp);
+		s_cmd->redir->out_args[j] = remove_spaces(temp2);
 	else
-		s_cmd->redir->in_args[j] = remove_spaces(temp);
-	temp_right += ft_strlen(temp);
-	s_cmd->s_cmd = ft_strcat(temp_left, remove_spaces(temp_right));
+		s_cmd->redir->in_args[j] = remove_spaces(temp2);
+	free(temp);
+	temp = right;
+	right += ft_strlen(temp2);
+	free(temp2);
+	temp2 = remove_spaces(right);
+	free(s_cmd->s_cmd);
+	s_cmd->s_cmd = ft_strcat(left, temp2);
+	free(temp);
+	free(temp2);
+	free(left);
 }
 
 // Remplie le tableau de la redirection simple c
