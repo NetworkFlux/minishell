@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 13:59:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:26:18 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,28 @@
 
 // if the exec is a builtin and files permissions are ok,
 // calls the appropriate function
-void	route_builtins(t_scmd *scmd, size_t i)
+int		route_builtins(t_scmd *scmd, size_t i, int readpipe)
 {
+	int	new_piperead;
+
+	new_piperead = 0;
 	if (i == 0)
 		builtins_exit(scmd); // ok
 	else if (i == 1)
 		buildins_cd(scmd); // ok
 	else if (i == 2)
-		builtins_env(scmd); // output
+		new_piperead = builtins_env(scmd, readpipe); // output
 	else if (i == 3)
-		buildins_pwd(scmd); // output
+		new_piperead = buildins_pwd(scmd, readpipe); // output
 	else if (i == 4)
 		builtin_unset(scmd); // ok
 	else if (i == 5)
-		buildins_echo(scmd); // input && output
+		new_piperead = buildins_echo(scmd, readpipe); // input && output
 	else if (i == 6)
-		builtins_export(scmd); // input && output
+		new_piperead = builtins_export(scmd, readpipe); // input && output
 	// if no child process was executed
 	g_fcmd->exitcode = 0;
+	return (new_piperead);
 }
 
 //	checks if exec is a builtin

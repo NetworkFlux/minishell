@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 13:57:25 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:26:33 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,27 @@ static void	export_update(t_env *tmp, char **array)
 	free(array);
 }
 
-void	builtins_export(t_scmd *scmd)
+int		builtins_export(t_scmd *scmd, int readpipe)
 {
 	char	**array;
 	t_env	*tmp;
 
 	if (scmd->tokens && scmd->ntokens == 1)
-	{
-		pipeline(scmd, &output_envp);
-		return ;
-	}
+		return (pipeline(scmd, &output_envp, readpipe));
 	if (!scmd->tokens[1])
-		return ;
+		return (0);
 	array = split_once(scmd->tokens[1], '=');
 	if (!array)
 		error_malloc(1);
 	if (!ft_strisalpha(array[0]))
 	{
 		printf("bash: export: `%s': not a valid identifier\n", array[0]);
-		return ;
+		return (0);
 	}
 	tmp = find_env(g_fcmd->envp, array[0]);
 	if (!tmp)
 		export_new(array);
 	else
 		export_update(tmp, array);
+	return (0);
 }
