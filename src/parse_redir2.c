@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 19:47:30 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:43:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	char	*temp;
 
 	temp_left = ft_substr(s_cmd->s_cmd, 0, i);
-	//printf("TEMP LEFT : %s\n", temp_left);
 	temp = ft_substr(s_cmd->s_cmd, i + 2, ft_strlen(s_cmd->s_cmd));
 	temp_right = remove_spaces(temp);
-	//printf("TEMP RIGHT : %s\n", temp_right);
 	temp = first_word(temp_right);
-	//printf("TEMP : %s\n", temp);
 	if (c == '>')
 		s_cmd->redir->outout_args[j] = remove_spaces(temp);
 	else
@@ -121,17 +118,14 @@ int		redir_files_ok(t_scmd *scmd)
 {
 	if (scmd->redir->last_out == 1 && access(scmd->redir->out_args[scmd->redir->out - 1], W_OK) < 0)
 	{
-			//printf("%s : Pernission denied\n",scmd->redir->out_args[scmd->redir->out - 1]);
 			scmd->redir->last_out = -1;
 	}
 	else if (scmd->redir->last_out == 2 && access(scmd->redir->outout_args[scmd->redir->outout - 1], W_OK) < 0)
 	{
-			//printf("%s : Pernission denied\n",scmd->redir->outout_args[scmd->redir->outout - 1]);
 			scmd->redir->last_out = -1;
 	}
 	if (scmd->redir->in && access(scmd->redir->in_args[scmd->redir->in - 1], R_OK) < 0)
 	{
-		//printf("%s : Pernission denied\n",scmd->redir->in_args[scmd->redir->in - 1]);
 		scmd->redir->last_out = -1;
 	}
 	return (scmd->redir->last_out);

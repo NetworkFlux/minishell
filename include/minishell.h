@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 15:27:21 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:56:35 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ t_env 	*find_env(t_env *env, char *str);
 t_env	*add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
 char	**env_listtoarray(t_env *env);
+int		insert_update_env(char *name, char *value);
 // void	print_envp(void);					// doesn't exist
 char	*strrebuild(char *src1, char *src2, char *src3);
 
@@ -130,7 +131,7 @@ size_t	find_block_end(char *input, size_t position);
 // memory free
 void	init_signals(void);
 int		clear_all(void);
-void	clear_exit(void);
+void	clear_exit(int n);
 void	clear_env(void);
 int		kill_child(void);
 // void	clear_envp(char **array, size_t i);		// never used

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 13:54:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:52:11 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ void	buildins_cd(t_scmd *scmd)
 	{
 		scmd->tokens[1] = check_tilde(scmd->tokens[1]);
 		res = chdir(scmd->tokens[1]);
+		insert_update_env("PWD", getcwd(NULL, sizeof(NULL) * ft_strlen(NULL)));
 	}
 	if (res == -1)
-		printf("bash: cd: %s: No such file or directory\n", scmd->tokens[1]);
+	{
+		write(2, "bash: cd: ", 10);
+		write(2,  scmd->tokens[1], ft_strlen(scmd->tokens[1]));
+		write(2, ": No such file or directory\n", 28);
+	}
 }

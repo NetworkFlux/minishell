@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/21 18:56:33 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:43:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	env_variables(void)
 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 	{
 		g_fcmd->s_cmd[i]->s_cmd = find_variable(g_fcmd->s_cmd[i]->s_cmd, 0, 0);
-		// printf("cmd: %s\n", g_fcmd->s_cmd[i]->s_cmd);
 		i++;
 	}
 	return ;

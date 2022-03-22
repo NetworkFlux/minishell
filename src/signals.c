@@ -6,20 +6,19 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 10:13:28 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:34:41 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_exit(void)
+void	clear_exit(int	n)
 {
 	clear_all();
 	clear_env();
 	free(g_fcmd);
 	g_fcmd = NULL;
-	printf("<clear_exit> ---- done\n");	// remove
-	exit(0);
+	exit(n);
 }
 
 void	ctrlc(int sig)
@@ -45,28 +44,6 @@ void	ctrlc(int sig)
 // CTRL+\ OK
 void	init_signals(void)
 {
-	// struct termios	*termios_p;
-	// int		tty_fd;
-	// char	*tty;
-	// // int		control;
-
-	// termios_p = malloc(sizeof(struct termios));
-	// if (!termios_p)
-	// 	return ;
-
-	// tty_fd = ttyslot();
-	// printf("ttyslot: %d\n", tty_fd);
-	// if (tty_fd > -1)
-	// {
-	// 	tty = ttyname(tty_fd);
-	// 	printf("name: %s\n", tty);
-	// 	if (tcgetattr(tty_fd, termios_p) != -1)
-	// 	{
-	// 		termios_p->c_cflag |= ECHO;
-	// 		tcsetattr(tty_fd, TCSANOW, termios_p);
-	// 		printf("OK\n");
-	// 	}
-	// }
 	signal(SIGINT, &ctrlc);
 	signal(SIGQUIT, SIG_IGN);
 }

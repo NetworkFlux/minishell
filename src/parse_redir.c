@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 15:53:03 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:43:17 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ int	parse_redir(void)
 		redir->inin_args = malloc(sizeof(char *) * redir->inin);
 		redir->last_out = find_last_out(g_fcmd->s_cmd[i]->s_cmd);
 		redir->last_in = find_last_in(g_fcmd->s_cmd[i]->s_cmd);
-		//printf("<redirections> Last output redirection : %d\n", redir->last_out);
 		if (!redir->out_args
 			|| !redir->in_args
 			|| !redir->outout_args

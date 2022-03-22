@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 15:26:33 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:51:22 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,42 @@ void	output_envp(t_scmd *scmd)
 	exit(0);
 }
 
-static void	export_new(char **array)
+static int	export_new(char *name, char *value)
 {
 	char	*str;
 
-	if (ft_strlen(array[0]))
+	if (ft_strlen(name))
 	{
-		str = malloc(sizeof(char) * ft_strlen(array[0]) + \
-			ft_strlen(array[1]) + 4);
+		str = malloc(sizeof(char) * ft_strlen(name) + \
+			ft_strlen(value) + 4);
 		if (!str)
-			error_malloc(1);
-		str = strrebuild(array[0], "=", array[1]);
-		g_fcmd->envp = add_env(g_fcmd->envp, array[0], array[1], str);
+			return (0);
+		str = strrebuild(name, "=", value);
+		g_fcmd->envp = add_env(g_fcmd->envp, name, value, str);
 	}
+	return (1);
 }
 
-static void	export_update(t_env *tmp, char **array)
+int	insert_update_env(char *name, char *value)
 {
-	tmp->name = array[0];
-	tmp->value = array[1];
-	free(array);
+	t_env	*tmp;
+
+	tmp = find_env(g_fcmd->envp, name);
+	if (!tmp)
+	{
+		return (export_new(name, value));
+	}
+	else
+	{
+		tmp->name = name;
+		tmp->value = value;
+	}
+	return (1);
 }
 
 int		builtins_export(t_scmd *scmd, int readpipe)
 {
 	char	**array;
-	t_env	*tmp;
 
 	if (scmd->tokens && scmd->ntokens == 1)
 		return (pipeline(scmd, &output_envp, readpipe));
@@ -66,13 +76,16 @@ int		builtins_export(t_scmd *scmd, int readpipe)
 		error_malloc(1);
 	if (!ft_strisalpha(array[0]))
 	{
-		printf("bash: export: `%s': not a valid identifier\n", array[0]);
+		clear_array(array, ft_arrlen(array));
+		errno = EINVAL;
+		perror("bash: export");
 		return (0);
 	}
-	tmp = find_env(g_fcmd->envp, array[0]);
-	if (!tmp)
-		export_new(array);
-	else
-		export_update(tmp, array);
+	if (!insert_update_env(array[0], array[1]))
+	{
+		clear_array(array, ft_arrlen(array));
+		error_malloc(1);
+	}
+	clear_array(array, ft_arrlen(array));
 	return (0);
 }
