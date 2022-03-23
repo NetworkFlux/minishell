@@ -6,14 +6,14 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:38:37 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:41:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 21:58:00 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // search for a $variable then replace it by its env value
-static char	*find_var(char *str, size_t i, size_t j)
+static char	*find_var(char *str, int i, int j)
 {
 	while (str && str[i])
 	{
@@ -33,7 +33,7 @@ static char	*find_var(char *str, size_t i, size_t j)
 					str = exit_code(str, i, j);
 				else
 					str = replace_var(str, get_env(str, i, j), i, j);
-				find_var(str, 0, 0);
+				i = -1;
 			}
 		}
 		i++;
