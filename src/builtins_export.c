@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 12:24:50 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 20:36:27 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,16 @@ int	insert_update_env(char *name, char *value)
 
 	tmp = find_env(g_fcmd->envp, name);
 	if (!tmp)
-	{
 		return (export_new(name, value));
-	}
 	else
 	{
-		tmp->name = name;
-		tmp->value = value;
+		free(tmp->name);
+		tmp->name = NULL;
+		tmp->name = ft_strdup(name);
+		free(tmp->value);
+		tmp->value = NULL;
+		tmp->value = ft_strdup(value);
+		g_fcmd->envp = tmp;
 	}
 	return (1);
 }

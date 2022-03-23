@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 12:29:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 20:42:55 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 void	output_pwd(t_scmd *scmd)
 {
 	(void)scmd;
+	char	*pwd;
+
 	if (redir_files_ok(scmd) < 0)
 		exit(1);
-	ft_putendl_fd(getcwd(NULL, sizeof(NULL) * ft_strlen(NULL)), 1);
+	pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
+	ft_putendl_fd(pwd, 1);
+	free(pwd);
 	exit(0);
 }
 

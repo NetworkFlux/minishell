@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 12:29:02 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 20:40:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,15 @@ static	char	*check_tilde(char *path, int i, int begin)
 	}
 	if (!res)
 		return (path);
+	free(path);
 	return (res);
 }
 
 void	buildins_cd(t_scmd *scmd)
 {
 	int	res;
+	t_env	*tmp;
+	char	*pwd;
 
 	if (scmd->ntokens == 1)
 	{
@@ -54,7 +57,12 @@ void	buildins_cd(t_scmd *scmd)
 	{
 		scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0);
 		res = chdir(scmd->tokens[1]);
-		insert_update_env("PWD", getcwd(NULL, sizeof(NULL) * ft_strlen(NULL)));
+		tmp = find_env(g_fcmd->envp, "PWD");
+		if (tmp)
+			insert_update_env("OLDPWD", tmp->value);
+		pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
+		insert_update_env("PWD", pwd);
+		free(pwd);
 	}
 	if (res == -1)
 	{
