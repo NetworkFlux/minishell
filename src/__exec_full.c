@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:25:42 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:18:45 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	execute(t_scmd *s_cmd)
 	}
 }
 
-void	child(int p1[2], size_t index, int readpipe)
+static void	child(int p1[2], size_t index, int readpipe)
 {
 	int		redir_out;
 
@@ -53,26 +53,26 @@ void	child(int p1[2], size_t index, int readpipe)
 	close(p1[1]);
 }
 
-void	parent(int p1[2], size_t index)
+static void	parent(int p1[2], size_t index)
 {
-	int	wstatus;
-	
-	close(p1[1]);
-	waitpid(g_fcmd->child_id, &wstatus, 0);
-	g_fcmd->child_id = -1;
-	if (WIFEXITED(wstatus))
-		g_fcmd->exitcode = WEXITSTATUS(wstatus);
+	size_t	i;
+	int		wstatus;
 
-	if (index != g_fcmd->nb_scmd - 1)
+	wstatus = 0;
+	i = 0;
+	close(p1[1]);
+	if (index == g_fcmd->nb_scmd - 1)
 	{
-		// args = find_in_tab(g_fcmd->s_cmd[index + 1], p1[0]);
-		//close(p1[0]);
-	}
-	else
-	{
+		while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
+		{
+			waitpid(g_fcmd->s_cmd[i]->pid, &wstatus, 0);
+			g_fcmd->s_cmd[i]->pid = -1;
+			if (WIFEXITED(wstatus))
+				g_fcmd->exitcode = WEXITSTATUS(wstatus);
+			i++;
+		}
 		close(p1[0]);
 	}
-	
 }
 
 int		pipeline(t_scmd	*scmd, void(foutput)(t_scmd *), int readpipe)
@@ -81,8 +81,8 @@ int		pipeline(t_scmd	*scmd, void(foutput)(t_scmd *), int readpipe)
 	int		p1[2]; // p1[0] - read || p1[1] - write
 
 	pipe(p1);
-	g_fcmd->child_id = fork();
-	if (g_fcmd->child_id == 0)
+	scmd->pid = fork();
+	if (scmd->pid == 0)
 	{
 		child(p1, scmd->index, readpipe);
 		foutput(scmd);

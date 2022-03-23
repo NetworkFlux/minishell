@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 14:05:50 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:30:15 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_redirection
 
 typedef struct s_single_command
 {
+	pid_t	pid;
 	size_t	index;
 	char	*s_cmd;
 	char	*instructions;
@@ -67,7 +68,6 @@ typedef struct s_full_command
 	char			**env;
 	int				exitcode;
 	char			*exec_path;
-	pid_t			child_id;
 }	t_fcmd;
 
 // GLOBAL

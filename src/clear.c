@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:45:23 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:29:33 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,30 @@ static void	clear_env(void)
 	}
 }
 
-/* dives into our command tree and tries to free everything */
+// kill all remaining child processes
+// return 1 if a child has been terminated
 int	kill_child(void)
 {
-	if (g_fcmd)
+	size_t	i;
+	int		res;
+
+	i = 0;
+	res = 0;
+	if (g_fcmd && g_fcmd->s_cmd)
 	{
-		if (g_fcmd->child_id != -1)
+		while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 		{
-			kill(g_fcmd->child_id, SIGTERM);
-			g_fcmd->exitcode = 128 + (int) SIGINT;
-			g_fcmd->child_id = -1;
-			return (1);
-		}	
+			if (g_fcmd->s_cmd[i]->pid != -1)
+			{
+				kill(g_fcmd->s_cmd[i]->pid, SIGTERM);
+				g_fcmd->exitcode = 128 + (int) SIGINT;
+				g_fcmd->s_cmd[i]->pid = -1;
+				res = 1;
+			}
+			i++;
+		}
 	}
-	return (0);
+	return (res);
 }
 
 void	clear_exit(int n)
