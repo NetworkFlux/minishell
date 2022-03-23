@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/23 14:01:55 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/23 18:34:19 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,12 @@ SRC_FILES = main.c		\
 	parse_params.c		\
 	parse_cmd.c			\
 	parse_verify.c		\
-	utils.c				\
 	clear.c				\
 	clear_all.c			\
 	parse_redir.c		\
 	parse_redir2.c		\
 	parse_redir_fill.c	\
 	find_path.c			\
-	debug.c				\
 	variables.c			\
 	variables_replace.c	\
 	env_tolist.c 	 	\
@@ -55,10 +53,12 @@ SRC_FILES = main.c		\
 	apply_redir.c		\
 	apply_redir_create_files.c	\
 	error_handling.c	\
-	_ft_functions.c		\
-	__exec_full.c		\
+	utils.c				\
+	utils_bis.c			\
+	exec.c				\
+	exec_pipeline.c		\
 	ft_realloc.c		\
-	# exec.c				\
+	debug.c				\
 	
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

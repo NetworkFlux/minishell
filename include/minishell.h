@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 17:30:15 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 18:29:45 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,9 @@ size_t	find_block_end(char *input, size_t position);
 // exec
 void	__exec_full(size_t index, char **args, int piperead);
 char	*find_path(t_scmd *scmd);
+
+// pipeline
+void	execute(t_scmd *s_cmd);
 int		pipeline(t_scmd *scmd, void (foutput)(t_scmd *scmd), int readpipe);
 
 // builtins
