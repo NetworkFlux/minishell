@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 20:08:30 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:24:50 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	insert_update_env(char *name, char *value)
 	return (1);
 }
 
-int		builtins_export(t_scmd *scmd, int readpipe)
+int	builtins_export(t_scmd *scmd, int readpipe)
 {
 	char	**array;
 
@@ -77,8 +77,7 @@ int		builtins_export(t_scmd *scmd, int readpipe)
 	if (!ft_strisalpha(array[0]))
 	{
 		clear_array(array, ft_arrlen(array));
-		errno = EINVAL;
-		perror("bash: export");
+		perr(EINVAL, "bash: export");
 		return (0);
 	}
 	if (!insert_update_env(array[0], array[1]))

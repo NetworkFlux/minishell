@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:10:03 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 15:25:21 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:06:50 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	output_env(t_scmd *scmd)
 	exit(0);
 }
 
-int		builtins_env(t_scmd *scmd, int readpipe)
+int	builtins_env(t_scmd *scmd, int readpipe)
 {
 	g_fcmd->envp = env_first(g_fcmd->envp);
 	return (pipeline(scmd, &output_env, readpipe));

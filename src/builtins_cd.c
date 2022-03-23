@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 19:26:35 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:29:02 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static	char	*check_tilde(char *path, int i, int begin)
 
 	home = getenv("HOME");
 	res = NULL;
-	while(path[i])
+	while (path[i])
 	{
 		if (path[i] == '~')
 		{
@@ -29,7 +29,7 @@ static	char	*check_tilde(char *path, int i, int begin)
 			tmp2 = ft_strcat(tmp, home);
 			free(tmp);
 			tmp = ft_substr(path, i + 1, ft_strlen(path));
-			res = ft_strcat(tmp2, tmp); // we should make a strcat that frees its inputs
+			res = ft_strcat(tmp2, tmp);
 			free(tmp2);
 			free(tmp);
 			begin = i;
@@ -59,7 +59,6 @@ void	buildins_cd(t_scmd *scmd)
 	if (res == -1)
 	{
 		write(2, "bash: cd: ", 10);
-		write(2,  scmd->tokens[1], ft_strlen(scmd->tokens[1]));
-		write(2, ": Not a directory\n", 18);
+		perr(20, scmd->tokens[1]);
 	}
 }

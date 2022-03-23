@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 20:03:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:25:59 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 
 // if the exec is a builtin and files permissions are ok,
 // calls the appropriate function
-int		route_builtins(t_scmd *scmd, size_t i, int readpipe)
+// if no child process is executed sets exitcode to 0;
+int	route_builtins(t_scmd *scmd, size_t i, int readpipe)
 {
 	int	new_piperead;
 
 	new_piperead = 0;
 	if (i == 0)
-		builtins_exit(scmd); // ok
+		builtins_exit(scmd);
 	else if (i == 1)
-		buildins_cd(scmd); // ok
+		buildins_cd(scmd);
 	else if (i == 2)
-		new_piperead = builtins_env(scmd, readpipe); // output
+		new_piperead = builtins_env(scmd, readpipe);
 	else if (i == 3)
-		new_piperead = buildins_pwd(scmd, readpipe); // output
+		new_piperead = buildins_pwd(scmd, readpipe);
 	else if (i == 4)
-		builtin_unset(scmd); // ok
+		builtin_unset(scmd);
 	else if (i == 5)
-		new_piperead = buildins_echo(scmd, readpipe); // input && output
+		new_piperead = buildins_echo(scmd, readpipe);
 	else if (i == 6)
-		new_piperead = builtins_export(scmd, readpipe); // input && output
-	// if no child process was executed
+		new_piperead = builtins_export(scmd, readpipe);
 	g_fcmd->exitcode = 0;
 	return (new_piperead);
 }
 
 //	checks if exec is a builtin
 // returns -1 if not a builtin / index if it is
-int		find_builtin(t_scmd *s_cmd)
+int	find_builtin(t_scmd *s_cmd)
 {
 	size_t		i;
 	const char	*builtins[7] = {"exit", "cd",
@@ -55,5 +55,5 @@ int		find_builtin(t_scmd *s_cmd)
 			return (i);
 		i++;
 	}
-	return (-1);	
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 10:46:28 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 16:44:21 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:17:30 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@
 int	error_malloc(int n)
 {
 	(void)n;
-	printf("Memory allocation failed.\n"); // remove
+	perr(12, "malloc");
 	clear_exit(n);
 	return (0);
+}
+
+void	perr(int code, char *str)
+{
+	errno = code;
+	perror(str);
 }

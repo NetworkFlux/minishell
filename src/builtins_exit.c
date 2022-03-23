@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:16:55 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 18:00:13 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:12:16 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	builtins_exit(t_scmd *scmd)
 
 	i = 0;
 	if (scmd->ntokens > 2)
-	{
-		errno = E2BIG;
-		perror("bash: exit");
-	}
+		perr(E2BIG, "bash: exit");
 	else
 	{
 		if (scmd->tokens[1])

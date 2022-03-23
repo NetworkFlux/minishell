@@ -6,37 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 22:51:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:27:37 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	**find_in_tab(t_scmd *s_cmd, int fd)
-{
-	char	**res;
-	char	*line;
-	int		new_fd = 0;
-
-	line = NULL;
-	if (s_cmd->redir->in || s_cmd->redir->inin)
-	{
-		res = apply_inredir(s_cmd);
-	}
-	else
-	{
-		new_fd = open("./temp.ms", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		if (!new_fd)
-			return (NULL);
-		while (get_next_line(fd, &line))
-			ft_putendl_fd(line, new_fd);
-		res = s_cmd->tokens;
-		res = ft_realloc(res, "./temp.ms");
-		close(new_fd);
-	}
-	return (res);
-}
-*/
 
 void	execute(t_scmd *s_cmd)
 {
@@ -48,7 +22,8 @@ void	execute(t_scmd *s_cmd)
 		args = s_cmd->tokens;
 	if (g_fcmd->exec_path == NULL)
 	{
-		printf("%s: command not found\n", s_cmd->tokens[0]);
+		write(2, s_cmd->tokens[0], ft_strlen(s_cmd->tokens[0]));
+		write(2, ": command not found\n", 20);
 		exit(127);
 	}
 	if (execve(g_fcmd->exec_path, args, g_fcmd->env) == -1)
@@ -98,8 +73,6 @@ void	parent(int p1[2], size_t index)
 		close(p1[0]);
 	}
 	
-	unlink("temp.ms");
-	unlink("heredoc.ms");
 }
 
 int		pipeline(t_scmd	*scmd, void(foutput)(t_scmd *), int readpipe)
