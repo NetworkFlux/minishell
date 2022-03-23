@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:06:46 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 12:27:37 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:25:42 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	__exec_full(size_t index, char **args, int readpipe)
 	// updates env in case export was previously called
 	if (g_fcmd->env)
 		clear_array(g_fcmd->env, ft_arrlen(g_fcmd->env));
-	g_fcmd->env = env_listtoarray(g_fcmd->envp);
+	g_fcmd->env = env_listtoarray(g_fcmd->envp, env_len(g_fcmd->envp), 0);
 
 	// get path to exec (NULL if not found)
 	if (g_fcmd->exec_path)

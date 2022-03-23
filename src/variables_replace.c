@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_variables.c                                    :+:      :+:    :+:   */
+/*   variables_replace.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/27 18:35:07 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 16:43:48 by fcaquard         ###   ########.fr       */
+/*   Created: 2022/03/23 13:43:09 by fcaquard          #+#    #+#             */
+/*   Updated: 2022/03/23 13:43:10 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // returns the env value of a given $variable
-static char	*get_env(char *str, size_t start, size_t end)
+char	*get_env(char *str, size_t start, size_t end)
 {
 	char	*variable;
 	t_env	*result;
@@ -41,7 +41,7 @@ static char	*insert_var(char *dest, char *src, size_t *i, size_t j)
 }
 
 // in str replace $variable by $variable env's value
-static char	*replace(char *str, char *env, size_t start, size_t end)
+char	*replace_var(char *str, char *env, size_t start, size_t end)
 {
 	char	*dest;
 	size_t	i;
@@ -67,64 +67,26 @@ static char	*replace(char *str, char *env, size_t start, size_t end)
 	free(str);
 	return (dest);
 }
-static char	*exit_code(char	*str, size_t i, size_t j)
+
+char	*exit_code(char	*str, size_t i, size_t j)
 {
-	char *exitcode;
-	
+	char	*exitcode;
+
 	exitcode = ft_itoa(g_fcmd->exitcode);
-	str = replace(str, exitcode, i, j + 1);
+	str = replace_var(str, exitcode, i, j + 1);
 	free(exitcode);
 	return (str);
 }
 
-// search for a $variable then replace it by its env value
-static char	*find_variable(char *str, size_t i, size_t j)
+size_t	end_var(char *str, size_t i, size_t j)
 {
-	while (str && str[i])
+	while (str && str[j])
 	{
-		// jump single quote block
-		if (str[i] == '\'')
-		{
-			i += 1;
-			while (str && str[i] && str[i] != '\'')
-				i++;
-		}
-		// on $ sign
-		if (str[i] == '$')
-		{
-			j = i + 1;	// jump $ sign
-			while (str && str[j])
-			{
-				if (j - 1 == i && str[j] == '?') // if first char just after $ is ?
-					break ;
-				if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j])) // find end of $variable
-					break ;
-				j++;
-			}
-			if (j - i >= 1)
-			{
-				if (str[j] == '?')
-					str = exit_code(str, i, j);
-				else
-					str = replace(str, get_env(str, i, j), i, j);
-				find_variable(str, 0, 0);
-			}
-		}
-		i++;
+		if (j - 1 == i && str[j] == '?')
+			break ;
+		if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j]))
+			break ;
+		j++;
 	}
-	return (str);
-}
-
-// entry point for the search and replacement of env $variables
-void	env_variables(void)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
-	{
-		g_fcmd->s_cmd[i]->s_cmd = find_variable(g_fcmd->s_cmd[i]->s_cmd, 0, 0);
-		i++;
-	}
-	return ;
+	return (j);
 }

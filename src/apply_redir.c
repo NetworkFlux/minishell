@@ -3,49 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/18 15:44:07 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:01:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	create_redir_file_s(t_scmd *scmd)
-{
-	size_t	i;
-	int		temp;
-
-	temp = 1;
-	i = 0;
-	while (scmd->redir->out_args[i] && i < scmd->redir->out - 1)
-	{
-		temp = open(scmd->redir->out_args[i++], O_CREAT | O_WRONLY, 0777);
-		if (!temp)
-			return; // gerer l'erreur
-		close(temp);
-	}
-}
-
-void	create_redir_file_d(t_scmd *scmd)
-{
-	size_t	i;
-	int		temp;
-
-	temp = 1;
-	i = 0;
-	while (scmd->redir->outout_args[i] && i < scmd->redir->out - 1)
-	{
-		temp = open(scmd->redir->outout_args[i++], O_CREAT | O_WRONLY | O_APPEND, 0777);
-		if (!temp)
-			return; // gerer l'erreur
-		close(temp);
-	}
-}
-
-// creates all de desired files and closes them but leaves the last one open
-int		apply_outredir(t_scmd *scmd)
+// creates all de desired files and closes 
+// them but leaves the last one open
+int	apply_outredir(t_scmd *scmd)
 {
 	int		fd;
 	int		temp;
@@ -54,12 +23,14 @@ int		apply_outredir(t_scmd *scmd)
 	if (!scmd->redir->out && !scmd->redir->outout)
 		return (1);
 	create_redir_file_s(scmd);
-	temp = open(scmd->redir->out_args[scmd->redir->out - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	temp = open(scmd->redir->out_args[scmd->redir->out - 1], \
+		O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (!temp)
 		return (1); // gere l'erreur
 	fd = temp;
 	create_redir_file_d(scmd);
-	temp = open(scmd->redir->outout_args[scmd->redir->outout - 1], O_CREAT | O_WRONLY | O_APPEND, 0777);
+	temp = open(scmd->redir->outout_args[scmd->redir->outout - 1], \
+		O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (!temp)
 		return (1); // gere l'erreur
 	if (scmd->redir->last_out == 2)
@@ -86,7 +57,7 @@ char	**apply_heredoc(t_scmd *scmd)
 	while (hered[i])
 		ft_putendl_fd(hered[i++], fd);
 	close(fd);
-	return(ft_realloc(scmd->tokens, "heredoc.ms"));
+	return (ft_realloc(scmd->tokens, "heredoc.ms"));
 }
 
 char	**get_heredoc(t_scmd *scmd)
@@ -102,7 +73,8 @@ char	**get_heredoc(t_scmd *scmd)
 	while (i < scmd->redir->inin)
 	{
 		input = readline("> ");
-		while (ft_strncmp(input, scmd->redir->inin_args[i], ft_strlen(scmd->redir->inin_args[i])) != 0)
+		while (ft_strncmp(input, scmd->redir->inin_args[i], \
+			ft_strlen(scmd->redir->inin_args[i])) != 0)
 		{
 			if (i == scmd->redir->inin - 1)
 				res = ft_realloc(res, input);

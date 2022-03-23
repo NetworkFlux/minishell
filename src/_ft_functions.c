@@ -6,41 +6,11 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:05:57 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 22:52:04 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:45:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// checks if the string provided is only alphanumerical
-int	ft_strisalpha(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (!ft_isalnum(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-// counts until if finds char c
-size_t	find_char(char *str, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == c)
-			break ;
-		i++;
-	}
-	return (i);
-}
 
 //	fills dest with the content of src from the position `start` to `end`
 //	returns at least '\0'
@@ -108,20 +78,6 @@ char	*ft_strcopy(char *dest, char *src, size_t index_dest)
 		i++;
 	}
 	return (dest);
-}
-
-int	clear_array(char **array, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (1);
 }
 
 // compares 2 strings. 1 if same, 0 if not

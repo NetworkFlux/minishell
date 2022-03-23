@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:24:41 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 16:32:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:26:08 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*total_input(char *cmd, char *tmp)
 	return (total);
 }
 
-static	size_t is_empty(char *str)
+static size_t	is_empty(char *str)
 {
 	size_t	i;
 	size_t	len;

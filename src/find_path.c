@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:22:48 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 22:03:06 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:04:37 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*concat(char *first, char *append, char c)
 	char	*new;
 	size_t	i;
 	size_t	j;
+
 	i = 0;
 	j = 0;
 	new = malloc (sizeof(char) * ft_strlen(first) + ft_strlen(append) + 2);
@@ -51,7 +52,8 @@ static char	*slash_path(t_scmd *scmd)
 	i = 0;
 	len = ft_strlen(scmd->tokens[0]);
 	target = scmd->tokens[0];
-	while (len > 0 && scmd->tokens[0][len - 1] && scmd->tokens[0][len - 1] != '/' )
+	while (len > 0 && scmd->tokens[0][len - 1]
+		&& scmd->tokens[0][len - 1] != '/' )
 	{
 		i++;
 		len--;
@@ -63,34 +65,12 @@ static char	*slash_path(t_scmd *scmd)
 	return (target);
 }
 
-// split PATH onto :
-// loop & concat with the current exec to create a path to the exec file
-// check if file exist
-char	*find_path(t_scmd *scmd)
+static char	*loop_paths(t_scmd *scmd, char **paths, char *target)
 {
-	char	**paths;
-	t_env	*env_tmp;
-	char	*target;
 	char	*tmp;
 	size_t	i;
 
 	i = 0;
-	target = NULL;
-	// is there an exec ?
-	if (!scmd->tokens || !scmd->tokens[0])
-		return (NULL);
-	// is the provided exec a path ?
-	if (access(scmd->tokens[0], F_OK) == 0)
-		return (slash_path(scmd));
-	// is the exec in the PATH ? If so find it
-	env_tmp = find_env(g_fcmd->envp, "PATH");
-	if (!env_tmp)
-		return (NULL);
-	// split found PATH value on :
-	paths = ft_split(env_tmp->value, ':');
-	if (!paths)
-		return (NULL);
-	// check for the exec in every directory given in PATH
 	while (paths && paths[i])
 	{
 		tmp = concat(paths[i], scmd->tokens[0], '/');
@@ -107,7 +87,30 @@ char	*find_path(t_scmd *scmd)
 		free (tmp);
 		i++;
 	}
-	clear_array(paths, ft_arrlen(paths));
 	return (target);
 }
 
+// split PATH on :
+// loop & concat to get PATH/exec
+// checks if file exist
+char	*find_path(t_scmd *scmd)
+{
+	char	**paths;
+	t_env	*env_tmp;
+	char	*target;
+
+	target = NULL;
+	if (!scmd->tokens || !scmd->tokens[0])
+		return (NULL);
+	if (access(scmd->tokens[0], F_OK) == 0)
+		return (slash_path(scmd));
+	env_tmp = find_env(g_fcmd->envp, "PATH");
+	if (!env_tmp)
+		return (NULL);
+	paths = ft_split(env_tmp->value, ':');
+	if (!paths)
+		return (NULL);
+	target = loop_paths(scmd, paths, target);
+	clear_array(paths, ft_arrlen(paths));
+	return (target);
+}

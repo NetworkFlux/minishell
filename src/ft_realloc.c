@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:10:34 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/17 20:41:52 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:33:13 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ char	**ft_realloc(char **tab, char *str)
 		i++;
 	}
 	res[i] = NULL;
-	//free_realloc(tab);
 	return (res);
 }

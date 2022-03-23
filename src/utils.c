@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 13:03:06 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:44:52 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,29 +94,32 @@ char	*remove_spaces(char *str)
 	return (temp);
 }
 
-// char	**realloc_heredoc(char **tab, size_t res_len, char *input)
-// {
-// 	char	**res;
-// 	size_t	i;
+// checks if the string provided is only alphanumerical
+int	ft_strisalpha(char *str)
+{
+	size_t	i;
 
-// 	i = 0;
-// 	res = malloc(sizeof(char *) * (res_len + 1));
-// 	if (!res)
-// 		return (NULL); // gere l'erreur
-// 	while (i < res_len - 1)
-// 	{
-// 		res[i] = malloc(sizeof(char) * (ft_strlen(tab[i]) + 1));
-// 		if (!res[i])
-// 			return (NULL); // gerer l'erreur
-// 		res[i] = tab[i];
-// 		res[i][ft_strlen(tab[i])] = '\0';
-// 		i++;
-// 	}
-// 	res[i] = malloc(sizeof(char) * (ft_strlen(input) + 1));
-// 	if (!res[i])
-// 			return (NULL); // gerer l'erreur
-// 	res[i] = input;
-// 	res[i++][ft_strlen(input)] = '\0';
-// 	res[i] = NULL;
-// 	return (res);
-// }
+	i = 0;
+	while (str && str[i])
+	{
+		if (!ft_isalnum(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+// counts until if finds char c
+size_t	find_char(char *str, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == c)
+			break ;
+		i++;
+	}
+	return (i);
+}

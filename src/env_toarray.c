@@ -6,13 +6,13 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:48:43 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/22 22:52:24 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:05:58 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	env_len(t_env *env)
+size_t	env_len(t_env *env)
 {
 	size_t	len;
 
@@ -50,14 +50,10 @@ char	*strrebuild(char *src1, char *src2, char *src3)
 	return (str);
 }
 
-char	**env_listtoarray(t_env *env)
+char	**env_listtoarray(t_env *env, size_t len, size_t i)
 {
 	char	**array;
-	size_t	len;
-	size_t	i;
 
-	i = 0;
-	len = env_len(env);
 	env = env_first(env);
 	array = malloc(sizeof(char *) * (len + 1));
 	if (!array)

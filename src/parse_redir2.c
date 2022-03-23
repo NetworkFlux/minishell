@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 16:43:28 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:52:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 }
 
 // Trouve si la derniere redirection d'input est simple ou double
-int		find_last_in(char *str)
+int	find_last_in(char *str)
 {
 	size_t	i;
 	int		res;
@@ -93,7 +93,7 @@ int		find_last_in(char *str)
 }
 
 // Trouve si la derniere redirection d'output est simple ou double
-int		find_last_out(char *str)
+int	find_last_out(char *str)
 {
 	size_t	i;
 	int		res;
@@ -111,22 +111,4 @@ int		find_last_out(char *str)
 		i++;
 	}
 	return (res);
-}
-
-// Find if the redirection files have acces rights
-int		redir_files_ok(t_scmd *scmd)
-{
-	if (scmd->redir->last_out == 1 && access(scmd->redir->out_args[scmd->redir->out - 1], W_OK) < 0)
-	{
-			scmd->redir->last_out = -1;
-	}
-	else if (scmd->redir->last_out == 2 && access(scmd->redir->outout_args[scmd->redir->outout - 1], W_OK) < 0)
-	{
-			scmd->redir->last_out = -1;
-	}
-	if (scmd->redir->in && access(scmd->redir->in_args[scmd->redir->in - 1], R_OK) < 0)
-	{
-		scmd->redir->last_out = -1;
-	}
-	return (scmd->redir->last_out);
 }

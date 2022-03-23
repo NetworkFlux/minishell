@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:14:57 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:05:50 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,28 @@ int		parse_redir(void);
 int		nb_redir(char *str, char c);
 int		nb_dredir(char *str, char c);
 void	fill_redir(t_scmd *s_cmd);
-void	fill_s(t_scmd *s_cmd, char c);
-void	fill_d(t_scmd *s_cmd, char c);
 void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c);
 int		redir_files_ok(t_scmd *scmd);
 int		find_last_in(char *str);
 int		find_last_out(char *str);
 
-// env variables
+// variables
 void	env_variables(void);
+size_t	end_var(char *str, size_t i, size_t j);
+char	*exit_code(char	*str, size_t i, size_t j);
+char	*replace_var(char *str, char *env, size_t start, size_t end);
+char	*get_env(char *str, size_t start, size_t end);
+
+// environment
+size_t	env_len(t_env *env);
 t_env	*create_env(char	**envp);
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
 t_env	*find_env(t_env *env, char *str);
 t_env	*add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
-char	**env_listtoarray(t_env *env);
+char	**env_listtoarray(t_env *env, size_t len, size_t i);
 int		insert_update_env(char *name, char *value);
 char	*strrebuild(char *src1, char *src2, char *src3);
 
@@ -142,8 +147,8 @@ int		find_builtin(t_scmd *s_cmd);
 void	init_signals(void);
 int		clear_all(void);
 void	clear_exit(int n);
-void	clear_env(void);
 int		kill_child(void);
+int		clear_array(char **array, size_t len);
 
 // realloc
 char	**ft_realloc(char **tab, char *str);
@@ -164,7 +169,6 @@ size_t	find_char(char *str, char c);
 char	*fillstr(size_t start, size_t end, const char *src);
 char	**split_once(char *str, char c);
 char	*ft_strcopy(char *dest, char *src, size_t index_dest);
-int		clear_array(char **array, size_t len);
 int		ft_strcompare(const char *str, char *test);
 size_t	ft_arrlen(char **arr);
 char	*remove_quotes(char *input);
