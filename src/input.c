@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:24:41 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:26:08 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 21:34:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*take_input(void)
 	}
 	else
 	{
-		while (cmd && is_input_incomplete(cmd))
+		while (cmd && !is_input_incomplete(cmd))
 		{
 			tmp = readline("> ");
 			cmd = total_input(cmd, tmp);
