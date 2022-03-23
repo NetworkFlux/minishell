@@ -6,21 +6,19 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 20:40:36 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 20:47:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	char	*check_tilde(char *path, int i, int begin)
+static	char	*check_tilde(char *path, int i, int begin, char *res)
 {
 	char	*home;
 	char	*tmp;
 	char	*tmp2;
-	char	*res;
 
 	home = getenv("HOME");
-	res = NULL;
 	while (path[i])
 	{
 		if (path[i] == '~')
@@ -44,7 +42,7 @@ static	char	*check_tilde(char *path, int i, int begin)
 
 void	buildins_cd(t_scmd *scmd)
 {
-	int	res;
+	int		res;
 	t_env	*tmp;
 	char	*pwd;
 
@@ -55,7 +53,7 @@ void	buildins_cd(t_scmd *scmd)
 	}
 	else
 	{
-		scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0);
+		scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0, NULL);
 		res = chdir(scmd->tokens[1]);
 		tmp = find_env(g_fcmd->envp, "PWD");
 		if (tmp)
