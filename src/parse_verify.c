@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:42:43 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 21:22:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/23 21:25:50 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_input_incomplete(char *input)
 			c = input[i++];
 			while (input && input[i] && input[i] != c)
 				i++;
-			if (!input || !input[i] == '\0')
+			if (!input || input[i] == '\0')
 				return (0);
 		}
 		i++;
