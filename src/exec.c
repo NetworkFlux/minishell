@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/24 18:54:06 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 18:56:31 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void	__exec_full(size_t index, char **args, int readpipe)
 			g_fcmd->exitcode = WEXITSTATUS(wstatus);
 		i++;
 	}
+	unlink("heredoc.ms");
 	return ;
 }
