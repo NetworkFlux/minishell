@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:28:32 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 18:29:35 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 18:53:54 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,9 @@ static void	child(int p1[2], size_t index, int readpipe)
 
 static void	parent(int p1[2], size_t index)
 {
-	size_t	i;
-	int		wstatus;
-
-	wstatus = 0;
-	i = 0;
 	close(p1[1]);
 	if (index == g_fcmd->nb_scmd - 1)
-	{
-		while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
-		{
-			waitpid(g_fcmd->s_cmd[i]->pid, &wstatus, 0);
-			g_fcmd->s_cmd[i]->pid = -1;
-			if (WIFEXITED(wstatus))
-				g_fcmd->exitcode = WEXITSTATUS(wstatus);
-			i++;
-		}
 		close(p1[0]);
-	}
 }
 
 int	pipeline(t_scmd	*scmd, void (foutput)(t_scmd *), int readpipe)

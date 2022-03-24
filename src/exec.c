@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 18:32:22 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 18:54:06 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	__exec_full(size_t index, char **args, int readpipe)
 	int		needpipe;
 	int		new_piperead;
 
+	size_t	i;
+	int	wstatus;
+
+	i = 0;
+	wstatus = 0;
 	needpipe = 0;
 	new_piperead = 0;
 	exec_prepare(index);
@@ -49,6 +54,14 @@ void	__exec_full(size_t index, char **args, int readpipe)
 		if (!needpipe)
 			new_piperead = 0;
 		__exec_full(index + 1, args, new_piperead);
+	}
+	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
+	{
+		waitpid(g_fcmd->s_cmd[i]->pid, &wstatus, 0);
+		g_fcmd->s_cmd[i]->pid = -1;
+		if (WIFEXITED(wstatus))
+			g_fcmd->exitcode = WEXITSTATUS(wstatus);
+		i++;
 	}
 	return ;
 }
