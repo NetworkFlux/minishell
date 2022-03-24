@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 13:52:14 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:08:19 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ int	find_last_in(char *str)
 	int		res;
 
 	res = 0;
-	if (str[0] && str[0] == '<' && str[1] && str[1] == '<')
+	if (str[0] && str[0] == '<' && str[1] && str[1] == '<' && !is_in_quote(str, 0))
 		res = 2;
 	i = 2;
 	while (str[i])
 	{
-		if (str[i] == '<' && str[i - 1] != '<')
+		if (str[i] == '<' && str[i - 1] != '<' && !is_in_quote(str, i))
 			res = 1;
-		else if (str[i] == '<' && str[i - 1] == '<')
+		else if (str[i] == '<' && str[i - 1] == '<' && !is_in_quote(str, i))
 			res = 2;
 		i++;
 	}
@@ -99,14 +99,14 @@ int	find_last_out(char *str)
 	int		res;
 
 	res = 0;
-	if (str[0] && str[0] == '>' && str[1] && str[1] == '>')
+	if (str[0] && str[0] == '>' && str[1] && str[1] == '>' && !is_in_quote(str, 0))
 		res = 2;
 	i = 2;
 	while (str[i])
 	{
-		if (str[i] == '>' && str[i - 1] != '>')
+		if (str[i] == '>' && str[i - 1] != '>' && !is_in_quote(str, i))
 			res = 1;
-		else if (str[i] == '>' && str[i - 1] == '>')
+		else if (str[i] == '>' && str[i - 1] == '>' && !is_in_quote(str, i))
 			res = 2;
 		i++;
 	}

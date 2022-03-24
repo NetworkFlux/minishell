@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 20:47:51 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 10:59:48 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,22 @@ void	buildins_cd(t_scmd *scmd)
 	}
 	else
 	{
-		scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0, NULL);
-		res = chdir(scmd->tokens[1]);
+		if (ft_strncmp(scmd->tokens[1], "-", 1) == 0)
+		{
+			if (ft_strlen(scmd->tokens[1]) != 1)
+				res = -1;
+			else
+			{
+				tmp = find_env(g_fcmd->envp, "OLDPWD");
+				ft_putendl_fd(tmp->value, 1);
+				res = chdir(tmp->value);
+			}
+		}
+		else
+		{
+			scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0, NULL);
+			res = chdir(scmd->tokens[1]);
+		}
 		tmp = find_env(g_fcmd->envp, "PWD");
 		if (tmp)
 			insert_update_env("OLDPWD", tmp->value);

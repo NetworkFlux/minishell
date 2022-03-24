@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:16:55 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 12:12:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:22:21 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	builtins_exit(t_scmd *scmd)
 		perr(E2BIG, "bash: exit");
 	else
 	{
+		ft_putendl_fd("exit", 1);
 		if (scmd->tokens[1])
 		{
 			while (scmd->tokens[1][i])
