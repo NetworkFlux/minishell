@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 18:32:22 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/24 16:50:14 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	__exec_full(size_t index, char **args, int readpipe)
 			new_piperead = 0;
 		__exec_full(index + 1, args, new_piperead);
 	}
+	unlink("heredoc.ms");
 	return ;
 }
