@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 12:13:36 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:23:08 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	end_recurs(void)
 	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
 	{
 		waitpid(g_fcmd->s_cmd[i]->pid, &wstatus, 0);
+		g_fcmd->s_cmd[i]->pid = -1;
 		g_fcmd->exitcode = exitstatus(wstatus);
 		i++;
 	}
@@ -84,15 +85,9 @@ void	__exec_full(size_t index, char **args, int readpipe)
 		needpipe = 1;
 	builtin = find_builtin(g_fcmd->s_cmd[index]);
 	if (builtin != -1)
-	{
 		new_piperead = route_builtins(g_fcmd->s_cmd[index], builtin, readpipe);
-		g_fcmd->s_cmd[index]->pid = -1;
-	}
 	else
-	{
 		new_piperead = pipeline(g_fcmd->s_cmd[index], &execute, readpipe);
-		g_fcmd->s_cmd[index]->pid = -1;
-	}
 	next_recurs(&args, &index, &needpipe, &new_piperead);
 	end_recurs();
 	unlink("heredoc.ms");
