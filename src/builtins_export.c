@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 20:36:27 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:49:03 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ static int	export_new(char *name, char *value)
 
 	if (ft_strlen(name))
 	{
-		str = malloc(sizeof(char) * ft_strlen(name) + \
-			ft_strlen(value) + 4);
+		str = strrebuild(name, "=", value);
 		if (!str)
 			return (0);
-		str = strrebuild(name, "=", value);
 		g_fcmd->envp = add_env(g_fcmd->envp, name, value, str);
 	}
 	return (1);
@@ -88,5 +86,6 @@ int	builtins_export(t_scmd *scmd, int readpipe)
 		clear_array(array, ft_arrlen(array));
 		error_malloc(1);
 	}
+	free(array);
 	return (0);
 }

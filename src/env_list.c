@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:44:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/17 17:22:39 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/25 13:53:27 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ t_env	*remove_env(t_env *env)
 		env->prev->next = env->next;
 		tmp = env->prev;
 	}
+	if (env->value)
+		free(env->value);
+	if (env->name)
+		free(env->name);
+	if (env->line)
+		free(env->line);
 	free(env);
 	env = NULL;
 	return (tmp);

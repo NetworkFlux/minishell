@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 11:38:18 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/25 11:05:02 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:28:48 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,26 @@ void	add_dredir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	char	*temp_right;
 	char	*temp_left;
 	char	*temp;
+	char	*word;
 
-	temp_left = ft_substr(s_cmd->s_cmd, 0, i);
 	temp = ft_substr(s_cmd->s_cmd, i + 2, ft_strlen(s_cmd->s_cmd));
 	temp_right = remove_spaces(temp);
-	temp = first_word(temp_right);
+	word = first_word(temp_right);
 	if (c == '>')
-		s_cmd->redir->outout_args[j] = remove_spaces(temp);
+		s_cmd->redir->outout_args[j] = remove_spaces(word);
 	else
-		s_cmd->redir->inin_args[j] = remove_spaces(temp);
-	temp_right += ft_strlen(temp);
-	s_cmd->s_cmd = strcat(temp_left, remove_spaces(temp_right));
+		s_cmd->redir->inin_args[j] = remove_spaces(word);
+	free(temp);
+	temp = temp_right;
+	temp_right += ft_strlen(word);
+	free(word);
+	word = remove_spaces(temp_right);
+	temp_left = ft_substr(s_cmd->s_cmd, 0, i);
+	free(s_cmd->s_cmd);
+	s_cmd->s_cmd = ft_strcat(temp_left, word);
+	free(temp);
+	free(word);
+	free(temp_left);
 }
 
 // Trouve si la derniere redirection d'input est simple ou double
