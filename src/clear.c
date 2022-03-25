@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 14:11:33 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 17:29:33 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/25 09:36:12 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int	kill_child(void)
 		{
 			if (g_fcmd->s_cmd[i]->pid != -1)
 			{
-				kill(g_fcmd->s_cmd[i]->pid, SIGTERM);
-				g_fcmd->exitcode = 128 + (int) SIGINT;
+				kill(g_fcmd->s_cmd[i]->pid, SIGQUIT);
 				g_fcmd->s_cmd[i]->pid = -1;
 				res = 1;
 			}

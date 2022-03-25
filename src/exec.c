@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 11:56:48 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/25 12:02:00 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,21 @@ static void	exec_prepare(size_t index)
 	g_fcmd->exec_path = find_path(g_fcmd->s_cmd[index]);
 }
 
-static void	end_exec(void)
+static int	exitstatus(int	wstatus)
 {
-	size_t	i;
-	int		wstatus;
+	int res;
 
-	i = 0;
-	wstatus = 0;
-	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
+	if (WIFEXITED(wstatus) == 1)
 	{
-		waitpid(g_fcmd->s_cmd[i]->pid, &wstatus, 0);
-		g_fcmd->s_cmd[i]->pid = -1;
-		if (WIFEXITED(wstatus))
-			g_fcmd->exitcode = WEXITSTATUS(wstatus);
-		i++;
+		res = 0;
+		return (res + WEXITSTATUS(wstatus));
 	}
-}
-
-static void	next_recurs(char ***args, size_t *index, int *needpipe,
-	int *new_piperead)
-{
-	if (!*args)
-		*args = g_fcmd->s_cmd[*index + 1]->tokens;
-	if (!*needpipe)
-		*new_piperead = 0;
-	__exec_full(*index + 1, *args, *new_piperead);
+	if (WIFSIGNALED(wstatus) == 1)
+	{
+		res = 128;
+		return (res + WTERMSIG(wstatus));
+	}
+	return (0);
 }
 
 void	__exec_full(size_t index, char **args, int readpipe)
@@ -57,7 +47,11 @@ void	__exec_full(size_t index, char **args, int readpipe)
 	int		builtin;
 	int		needpipe;
 	int		new_piperead;
+	int		wstatus;
+	size_t	i;
 
+	i = 0;
+	wstatus = 0;
 	needpipe = 0;
 	new_piperead = 0;
 	exec_prepare(index);
@@ -66,12 +60,29 @@ void	__exec_full(size_t index, char **args, int readpipe)
 		needpipe = 1;
 	builtin = find_builtin(g_fcmd->s_cmd[index]);
 	if (builtin != -1)
+	{
 		new_piperead = route_builtins(g_fcmd->s_cmd[index], builtin, readpipe);
+		g_fcmd->s_cmd[i]->pid = -1;
+	}
 	else
+	{
 		new_piperead = pipeline(g_fcmd->s_cmd[index], &execute, readpipe);
+		g_fcmd->s_cmd[i]->pid = -1;
+	}
 	if (index != g_fcmd->nb_scmd - 1)
-		next_recurs(&args, &index, &needpipe, &new_piperead);
-	end_exec();
+	{
+		if (!args)
+			args = g_fcmd->s_cmd[index + 1]->tokens;
+		if (!needpipe)
+			new_piperead = 0;
+		__exec_full(index + 1, args, new_piperead);
+	}
+	while (i < g_fcmd->nb_scmd && g_fcmd->s_cmd[i])
+	{
+		waitpid(g_fcmd->s_cmd[i]->pid, &wstatus, 0);
+		g_fcmd->exitcode = exitstatus(wstatus);
+		i++;
+	}
 	unlink("heredoc.ms");
 	return ;
 }
