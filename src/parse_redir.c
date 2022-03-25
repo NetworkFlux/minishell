@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/25 23:00:29 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/25 23:19:10 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,6 @@ void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	free(left);
 }
 
-// static int	redir_mallocation(t_redir	*redir)
-// {
-// 	if (redir->out > 0)
-// 	{
-// 		redir->out_args = malloc(sizeof(char *) * redir->out);
-// 		if (!redir->out_args)
-// 			return (0);
-// 	}
-// 	if (redir->outout > 0)
-// 	{
-// 		redir->outout_args = malloc(sizeof(char *) * redir->outout);
-// 		if (!redir->outout_args)
-// 			return (0);
-// 	}
-// 	if (redir->in > 0)
-// 	{
-// 		redir->in_args = malloc(sizeof(char *) * redir->in);
-// 		if (!redir->in_args)
-// 			return (0);
-// 	}
-// 	if (redir->inin > 0)
-// 	{
-// 		redir->inin_args = malloc(sizeof(char *) * redir->inin);
-// 		if (!redir->inin_args)
-// 			return (0);
-// 	}
-// 	return (1);
-// }
-
 // Cette fonction trouve le nombre de chaque redirection et malloc les args
 int	parse_redir(void)
 {
@@ -93,8 +64,6 @@ int	parse_redir(void)
 		if (!redir->out_args || !redir->outout_args
 			|| !redir->in_args || !redir->inin_args)
 			return (error_malloc(1));
-		// if (!redir_mallocation(redir))
-		// 	return (error_malloc(1));
 		fill_redir(g_fcmd->s_cmd[i]);
 		i++;
 	}
