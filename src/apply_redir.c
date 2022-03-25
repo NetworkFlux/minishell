@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/25 11:22:04 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:24:56 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,22 @@ int	apply_outredir(t_scmd *scmd)
 	if (!scmd->redir->out && !scmd->redir->outout)
 		return (1);
 	create_redir_file_s(scmd);
-	temp = open(scmd->redir->out_args[scmd->redir->out - 1], \
-		O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (!temp)
-		clear_all();
+	if (scmd->redir->out_args)
+	{
+		temp = open(scmd->redir->out_args[scmd->redir->out - 1], \
+			O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		if (!temp)
+			clear_all();
+	}
 	fd = temp;
 	create_redir_file_d(scmd);
-	temp = open(scmd->redir->outout_args[scmd->redir->outout - 1], \
-		O_CREAT | O_WRONLY | O_APPEND, 0777);
-	if (!temp)
-		clear_all();
+	if (scmd->redir->outout_args)
+	{
+		temp = open(scmd->redir->outout_args[scmd->redir->outout - 1], \
+			O_CREAT | O_WRONLY | O_APPEND, 0777);
+		if (!temp)
+			clear_all();
+	}
 	if (scmd->redir->last_out == 2)
 	{
 		close(fd);

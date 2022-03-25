@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/25 12:58:23 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:36:23 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,35 @@ void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	free(left);
 }
 
+static int	redir_mallocation(t_redir	*redir)
+{
+	if (redir->out > 0)
+	{
+		redir->out_args = malloc(sizeof(char *) * redir->out);
+		if (!redir->out_args)
+			return (0);
+	}
+	if (redir->outout > 0)
+	{
+		redir->outout_args = malloc(sizeof(char *) * redir->outout);
+		if (!redir->outout_args)
+			return (0);
+	}
+	if (redir->in > 0)
+	{
+		redir->in_args = malloc(sizeof(char *) * redir->in);
+		if (!redir->in_args)
+			return (0);
+	}
+	if (redir->inin > 0)
+	{
+		redir->inin_args = malloc(sizeof(char *) * redir->inin);
+		if (!redir->inin_args)
+			return (0);
+	}
+	return (1);
+}
+
 // Cette fonction trouve le nombre de chaque redirection et malloc les args
 int	parse_redir(void)
 {
@@ -55,16 +84,10 @@ int	parse_redir(void)
 		redir->in = nb_redir(g_fcmd->s_cmd[i]->s_cmd, '<');
 		redir->outout = nb_dredir(g_fcmd->s_cmd[i]->s_cmd, '>');
 		redir->inin = nb_dredir(g_fcmd->s_cmd[i]->s_cmd, '<');
-		redir->out_args = malloc(sizeof(char *) * redir->out);
-		redir->in_args = malloc(sizeof(char *) * redir->in);
-		redir->outout_args = malloc(sizeof(char *) * redir->outout);
-		redir->inin_args = malloc(sizeof(char *) * redir->inin);
 		redir->last_out = find_last_out(g_fcmd->s_cmd[i]->s_cmd);
 		redir->last_in = find_last_in(g_fcmd->s_cmd[i]->s_cmd);
-		if (!redir->out_args || !redir->in_args
-			|| !redir->outout_args
-			|| !redir->inin_args)
-			return (clear_all());
+		if (!redir_mallocation(redir))
+			return (error_malloc(1));
 		fill_redir(g_fcmd->s_cmd[i]);
 		i++;
 	}
