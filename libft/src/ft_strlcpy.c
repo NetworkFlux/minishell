@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 17:19:10 by npinheir          #+#    #+#             */
-/*   Updated: 2021/10/25 12:01:29 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/25 11:50:27 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	if (!dstsize)
 		return (ft_strlen(src));
 	i = -1;
-	while (src[++i] && dstsize-- > 1 )
+	while (src[++i] && dstsize-- > 1)
 		dst[i] = src[i];
 	dst[i] = '\0';
 	return (ft_strlen(src));
