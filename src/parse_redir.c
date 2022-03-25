@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:23:20 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 13:51:58 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/25 12:58:23 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	add_redir_arg(t_scmd *s_cmd, unsigned int i, int j, char c)
 	right = remove_spaces(temp);
 	temp2 = first_word(right);
 	if (c == '>')
-		s_cmd->redir->out_args[j] = remove_spaces(temp2);
+		s_cmd->redir->out_args[j] = remove_quotes(remove_spaces(temp2));
 	else
-		s_cmd->redir->in_args[j] = remove_spaces(temp2);
+		s_cmd->redir->in_args[j] = remove_quotes(remove_spaces(temp2));
 	free(temp);
 	temp = right;
 	right += ft_strlen(temp2);
