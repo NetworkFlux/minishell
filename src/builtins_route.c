@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_route.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 22:28:02 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 12:25:59 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:23:51 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	route_builtins(t_scmd *scmd, size_t i, int readpipe)
 	if (i == 0)
 		builtins_exit(scmd);
 	else if (i == 1)
-		buildins_cd(scmd);
+		buildins_cd(scmd, NULL);
 	else if (i == 2)
 		new_piperead = builtins_env(scmd, readpipe);
 	else if (i == 3)

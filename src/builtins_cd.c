@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/26 11:44:32 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:26:16 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	cd_with_args(t_scmd *scmd, int *res, t_env *tmp, char *pwd)
 	free(pwd);
 }
 
-void	buildins_cd(t_scmd *scmd)
+void	buildins_cd(t_scmd *scmd, char **fail_pwd)
 {
 	int		res;
 	t_env	*tmp;
@@ -74,9 +74,18 @@ void	buildins_cd(t_scmd *scmd)
 
 	tmp = NULL;
 	pwd = NULL;
+	if (fail_pwd)
+	{
+		scmd->ntokens = 2;
+		scmd->tokens = fail_pwd;
+	}
 	if (scmd->ntokens == 1)
 	{
+		pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
+		insert_update_env("OLDPWD", pwd, 1);
 		res = chdir(getenv("HOME"));
+		pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
+		insert_update_env("PWD", pwd, 1);
 		return ;
 	}
 	else

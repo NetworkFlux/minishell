@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 18:50:19 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 20:47:49 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:30:35 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@
 void	output_pwd(t_scmd *scmd)
 {
 	char	*pwd;
+	char	*prev_dir[] = {"cd", "..", NULL};
 
 	(void)scmd;
 	if (redir_files_ok(scmd) < 0)
 		exit(1);
 	pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
+	if (!pwd && errno == 2)
+	{
+		buildins_cd(scmd, prev_dir);
+		pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
+	}
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
 	exit(0);

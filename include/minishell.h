@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 11:43:19 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:28:57 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	execute(t_scmd *s_cmd);
 int		pipeline(t_scmd *scmd, void (foutput)(t_scmd *scmd), int readpipe);
 
 // builtins
-void	buildins_cd(t_scmd *scmd);
+void	buildins_cd(t_scmd *scmd, char **fail_pwd);
 void	builtin_unset(t_scmd *scmd);
 void	builtins_exit(t_scmd *scmd);
 int		buildins_pwd(t_scmd *scmd, int readpipe);

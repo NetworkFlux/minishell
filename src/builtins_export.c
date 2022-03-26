@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 11:42:41 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:22:11 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,18 @@ int	insert_update_env(char *name, char *value, int is_cd)
 	tmp = find_env(g_fcmd->envp, name);
 	if (!tmp)
 		return (export_new(name, value));
-	else if (!is_cd)
+	else
 	{
-		printf("OK12\n");
-		free(name);
-		free(tmp->value);
+		if (!is_cd)
+		{
+			free(name);
+			free(tmp->value);
+		}
 		tmp->value = NULL;
 		tmp->value = ft_strdup(value);
 		g_fcmd->envp = tmp;
-		free(value);
+		if (!is_cd)
+			free(value);
 	}
 	return (1);
 }
