@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/26 13:47:43 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:35:37 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	cd_with_args(t_scmd *scmd, int *res, t_env *tmp, char *pwd)
 	free(pwd);
 }
 
-void	buildins_cd(t_scmd *scmd, char **fail_pwd)
+void	buildins_cd(t_scmd *scmd)
 {
 	int		res;
 	t_env	*tmp;
@@ -74,11 +74,6 @@ void	buildins_cd(t_scmd *scmd, char **fail_pwd)
 
 	tmp = NULL;
 	pwd = NULL;
-	if (fail_pwd)
-	{
-		scmd->ntokens = 2;
-		scmd->tokens = fail_pwd;
-	}
 	if (scmd->ntokens == 1)
 	{
 		pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
