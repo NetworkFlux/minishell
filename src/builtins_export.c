@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 13:22:11 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:45:13 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	export_new(char *name, char *value)
 		str = strrebuild(name, "=", value);
 		if (!str)
 			return (0);
-		g_fcmd->envp = add_env(g_fcmd->envp, name, value, str);
+		add_env(g_fcmd->envp, name, value, str);
 	}
 	return (1);
 }
@@ -84,11 +84,11 @@ int	builtins_export(t_scmd *scmd, int readpipe)
 		perr(EINVAL, "bash: export");
 		return (0);
 	}
-	if (!insert_update_env(array[0], array[1], 0))
+	if (!insert_update_env(array[0], array[1]))
 	{
 		clear_array(array, ft_arrlen(array));
 		error_malloc(1);
 	}
-	free(array);
+	clear_array(array, ft_arrlen(array));
 	return (0);
 }

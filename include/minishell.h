@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 13:28:57 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:44:44 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_env	*create_env(char	**envp);
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
 t_env	*find_env(t_env *env, char *str);
-t_env	*add_env(t_env *env, char *name, char *value, char *line);
+int		add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
 char	**env_listtoarray(t_env *env, size_t len, size_t i);
 int		insert_update_env(char *name, char *value, int is_cd);

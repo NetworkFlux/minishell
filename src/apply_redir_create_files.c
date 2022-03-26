@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:00:47 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 23:25:05 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/25 23:50:18 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	create_redir_file_d(t_scmd *scmd)
 
 	temp = 1;
 	i = 0;
-	while (
-		scmd->redir->out > 0
+	while (scmd->redir->out > 0
 		&& i < scmd->redir->out - 1
 		&& scmd->redir->outout_args
 		&& scmd->redir->outout_args[i])
