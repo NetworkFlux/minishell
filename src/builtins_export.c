@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 13:45:13 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:49:21 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	export_new(char *name, char *value)
 	return (1);
 }
 
-int	insert_update_env(char *name, char *value, int is_cd)
+int	insert_update_env(char *name, char *value)
 {
 	t_env	*tmp;
 
@@ -53,16 +53,10 @@ int	insert_update_env(char *name, char *value, int is_cd)
 		return (export_new(name, value));
 	else
 	{
-		if (!is_cd)
-		{
-			free(name);
-			free(tmp->value);
-		}
+		free(tmp->value);
 		tmp->value = NULL;
 		tmp->value = ft_strdup(value);
 		g_fcmd->envp = tmp;
-		if (!is_cd)
-			free(value);
 	}
 	return (1);
 }

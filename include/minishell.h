@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 13:44:44 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 13:47:53 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_env	*find_env(t_env *env, char *str);
 int		add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
 char	**env_listtoarray(t_env *env, size_t len, size_t i);
-int		insert_update_env(char *name, char *value, int is_cd);
+int		insert_update_env(char *name, char *value);
 char	*strrebuild(char *src1, char *src2, char *src3);
 
 // apply redirections
