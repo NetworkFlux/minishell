@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 22:31:55 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/26 11:42:41 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ static int	export_new(char *name, char *value)
 	return (1);
 }
 
-int	insert_update_env(char *name, char *value)
+int	insert_update_env(char *name, char *value, int is_cd)
 {
 	t_env	*tmp;
 
 	tmp = find_env(g_fcmd->envp, name);
 	if (!tmp)
 		return (export_new(name, value));
-	else
+	else if (!is_cd)
 	{
+		printf("OK12\n");
 		free(name);
 		free(tmp->value);
 		tmp->value = NULL;
@@ -80,7 +81,7 @@ int	builtins_export(t_scmd *scmd, int readpipe)
 		perr(EINVAL, "bash: export");
 		return (0);
 	}
-	if (!insert_update_env(array[0], array[1]))
+	if (!insert_update_env(array[0], array[1], 0))
 	{
 		clear_array(array, ft_arrlen(array));
 		error_malloc(1);

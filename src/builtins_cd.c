@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/25 11:35:47 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/26 11:44:32 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	cd_with_args(t_scmd *scmd, int *res, t_env *tmp, char *pwd)
 	}
 	tmp = find_env(g_fcmd->envp, "PWD");
 	if (tmp)
-		insert_update_env("OLDPWD", tmp->value);
+		insert_update_env("OLDPWD", tmp->value, 1);
 	pwd = getcwd(NULL, sizeof(NULL) * ft_strlen(NULL));
-	insert_update_env("PWD", pwd);
+	insert_update_env("PWD", pwd, 1);
 	free(pwd);
 }
 
