@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:27:16 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/26 00:15:26 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void	init_signals(void)
 {
 	signal(SIGINT, &ctrlc);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
 }

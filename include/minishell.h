@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 18:29:45 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/26 00:00:30 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_env	*create_env(char	**envp);
 t_env	*env_first(t_env *env);
 t_env	*env_last(t_env *env);
 t_env	*find_env(t_env *env, char *str);
-t_env	*add_env(t_env *env, char *name, char *value, char *line);
+int		add_env(t_env *env, char *name, char *value, char *line);
 t_env	*remove_env(t_env *env);
 char	**env_listtoarray(t_env *env, size_t len, size_t i);
 int		insert_update_env(char *name, char *value);
