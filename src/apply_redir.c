@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/25 23:00:39 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:19:32 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ char	**get_heredoc(t_scmd *scmd)
 	while (i < scmd->redir->inin)
 	{
 		input = readline("> ");
-		while (ft_strncmp(input, scmd->redir->inin_args[i], \
-			ft_strlen(scmd->redir->inin_args[i])) != 0)
+		while (ft_strcompare(input, scmd->redir->inin_args[i]) == 0)
 		{
 			if (i == scmd->redir->inin - 1)
 				res = ft_realloc(res, input);
