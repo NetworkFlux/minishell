@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 18:22:48 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 14:04:37 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:41:14 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*find_path(t_scmd *scmd)
 	target = NULL;
 	if (!scmd->tokens || !scmd->tokens[0])
 		return (NULL);
-	if (access(scmd->tokens[0], F_OK) == 0)
+	if (access(scmd->tokens[0], F_OK | X_OK) == 0)
 		return (slash_path(scmd));
 	env_tmp = find_env(g_fcmd->envp, "PATH");
 	if (!env_tmp)
