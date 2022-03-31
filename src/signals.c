@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/28 12:03:39 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:58:28 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ void	ctrlc(int sig)
 {
 	if (sig == SIGINT)
 	{
+		if (g_fcmd->active_heredoc == 1)
+		{
+			write(1, "\b\b", 2);
+			write(1, "  ", 2);
+			write(1, "\b\b", 2);
+			g_fcmd->active_heredoc = 0;
+			exit(130);
+			return ;
+		}
 		write(1, "\n", 1);
 		if (!kill_child())
 		{

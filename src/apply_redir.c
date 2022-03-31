@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/31 17:48:46 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:49:20 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	**get_heredoc(t_scmd *scmd)
 	res[1] = NULL;
 	while (i < scmd->redir->inin)
 	{
+		g_fcmd->active_heredoc = 1;
 		input = readline("> ");
 		while (ft_strcompare(input, scmd->redir->inin_args[i]) == 0)
 		{
@@ -81,6 +82,7 @@ char	**get_heredoc(t_scmd *scmd)
 		}
 		i++;
 	}
+	g_fcmd->active_heredoc = 0;
 	return (res);
 }
 
