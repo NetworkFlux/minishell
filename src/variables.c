@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:38:37 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 22:31:18 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:03:07 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,11 @@ static char	*find_var(char *str, int i, int j)
 		}
 		if (str[i] == '$')
 		{
-			j = i + 1;
-			j = end_var(str, i, j);
-			if (j - i >= 1)
-			{
-				if (str[j] == '?')
-					str = exit_code(str, i, j);
-				else
-					str = replace_var(str, get_env(str, i, j), i, j);
-			}
+			j = end_var(str, i, i);
+			if (j - i > 1)
+				str = replace_var(str, get_env(str, i, j), i, j);
+			else if (str[j] == '?')
+				str = exit_code(str, i, j);
 		}
 		i++;
 	}

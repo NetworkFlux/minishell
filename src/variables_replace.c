@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:43:09 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 13:43:10 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:02:51 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ size_t	end_var(char *str, size_t i, size_t j)
 {
 	while (str && str[j])
 	{
-		if (j - 1 == i && str[j] == '?')
+		if (j + 1 == i && str[j] == '?')
 			break ;
-		if (!ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j]))
+		if (j > i && !ft_isalpha((int) str[j]) && !ft_isdigit((int) str[j]))
 			break ;
 		j++;
 	}
