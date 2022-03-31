@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 18:24:41 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/23 21:34:36 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/28 12:03:33 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,36 @@ static size_t	is_empty(char *str)
 	return (0);
 }
 
+static void	loop_input(char *cmd)
+{
+	char	*tmp;
+
+	while (cmd && !is_input_incomplete(cmd))
+	{
+		tmp = readline("> ");
+		cmd = total_input(cmd, tmp);
+	}
+	if (!cmd)
+		error_malloc(1);
+	add_history(cmd);
+	g_fcmd->f_cmd = cmd;
+}
+
 char	*take_input(void)
 {
 	char	*cmd;
-	char	*tmp;
 
 	cmd = readline("minishell => ");
 	if (!cmd)
 		clear_exit(0);
 	if (!strlen(cmd) || is_empty(cmd))
 	{
+		if (strlen(cmd))
+			add_history(cmd);
 		free(cmd);
 		return (NULL);
 	}
 	else
-	{
-		while (cmd && !is_input_incomplete(cmd))
-		{
-			tmp = readline("> ");
-			cmd = total_input(cmd, tmp);
-		}
-		if (!cmd)
-			error_malloc(1);
-		add_history(cmd);
-		g_fcmd->f_cmd = cmd;
-	}
+		loop_input(cmd);
 	return (cmd);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
+#    By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/23 18:34:19 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/03/28 13:48:41 by npinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,18 +58,15 @@ SRC_FILES = main.c		\
 	exec.c				\
 	exec_pipeline.c		\
 	ft_realloc.c		\
-	debug.c				\
-	
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
-SRC	:= $(wildcard $(SRC_DIR)*.c)
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
 # Libft and Minilibx linkers
-LNK = -L $(LIBFT_DIR) -lft -lreadline
+LNK = -L $(LIBFT_DIR) -lft -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 
 # Colors
 RED = \033[0;31m

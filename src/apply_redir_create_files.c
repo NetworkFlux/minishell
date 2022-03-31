@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir_create_files.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:00:47 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 23:50:18 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/28 12:27:19 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	create_redir_file_d(t_scmd *scmd)
 
 	temp = 1;
 	i = 0;
-	while (scmd->redir->out > 0
-		&& i < scmd->redir->out - 1
+	while (scmd->redir->outout > 0
+		&& i < scmd->redir->outout - 1
 		&& scmd->redir->outout_args
 		&& scmd->redir->outout_args[i])
 	{
