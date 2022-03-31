@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/31 17:19:32 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:48:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	apply_outredir(t_scmd *scmd)
 		return (1);
 	create_redir_file_s(scmd);
 	temp = open(scmd->redir->out_args[scmd->redir->out - 1], \
-		O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (!temp)
 		clear_all();
 	fd = temp;
 	create_redir_file_d(scmd);
 	temp = open(scmd->redir->outout_args[scmd->redir->outout - 1], \
-		O_CREAT | O_WRONLY | O_APPEND, 0777);
+		O_CREAT | O_WRONLY | O_APPEND, 0664);
 	if (!temp)
 		clear_all();
 	if (scmd->redir->last_out == 2)
@@ -50,7 +50,7 @@ char	**apply_heredoc(t_scmd *scmd)
 	int		i;
 
 	hered = get_heredoc(scmd);
-	fd = open("heredoc.ms", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	fd = open("heredoc.ms", O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (!fd)
 		clear_all();
 	i = 1;

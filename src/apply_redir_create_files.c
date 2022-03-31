@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir_create_files.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:00:47 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/28 12:27:19 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:51:35 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	create_redir_file_s(t_scmd *scmd)
 		&& scmd->redir->out_args
 		&& scmd->redir->out_args[i])
 	{
-		temp = open(scmd->redir->out_args[i], O_CREAT | O_WRONLY, 0777);
+		temp = open(scmd->redir->out_args[i], O_CREAT | O_WRONLY, 0664);
 		if (!temp)
 			clear_all();
 		close(temp);
@@ -45,7 +45,7 @@ void	create_redir_file_d(t_scmd *scmd)
 		&& scmd->redir->outout_args[i])
 	{
 		temp = open(scmd->redir->outout_args[i], \
-			O_CREAT | O_WRONLY | O_APPEND, 0777);
+			O_CREAT | O_WRONLY | O_APPEND, 0664);
 		if (!temp)
 			clear_all();
 		close(temp);
