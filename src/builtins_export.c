@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/26 13:49:21 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:46:54 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,38 @@ int	insert_update_env(char *name, char *value)
 int	builtins_export(t_scmd *scmd, int readpipe)
 {
 	char	**array;
+	size_t	i;
 
 	if (scmd->tokens && scmd->ntokens == 1)
 		return (pipeline(scmd, &output_envp, readpipe));
 	if (!scmd->tokens[1])
 		return (0);
-	array = split_once(scmd->tokens[1], '=');
-	if (!array)
-		error_malloc(1);
-	if (!ft_strisalpha(array[0]))
+	i = 1;
+	while (scmd->tokens[i])
 	{
+		if (export_args(scmd->tokens[i]))
+		{
+			perr(EINVAL, "bash: export");
+			i++;
+			continue ;
+		}
+		array = split_once(scmd->tokens[i], '=');
+		if (!array)
+			error_malloc(1);
+		if (!ft_strisalpha(array[0]))
+		{
+			clear_array(array, ft_arrlen(array));
+			perr(EINVAL, "bash: export");
+			i++;
+			continue ;
+		}
+		if (!insert_update_env(array[0], array[1]))
+		{
+			clear_array(array, ft_arrlen(array));
+			error_malloc(1);
+		}
 		clear_array(array, ft_arrlen(array));
-		perr(EINVAL, "bash: export");
-		return (0);
+		i++;
 	}
-	if (!insert_update_env(array[0], array[1]))
-	{
-		clear_array(array, ft_arrlen(array));
-		error_malloc(1);
-	}
-	clear_array(array, ft_arrlen(array));
 	return (0);
 }

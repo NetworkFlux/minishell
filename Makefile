@@ -6,7 +6,7 @@
 #    By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/03/28 13:48:41 by npinheir         ###   ########.fr        #
+#    Updated: 2022/04/01 13:17:45 by npinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC_FILES = main.c		\
 	error_handling.c	\
 	utils.c				\
 	utils_bis.c			\
+	utils_bis_bis.c		\
 	exec.c				\
 	exec_pipeline.c		\
 	ft_realloc.c		\

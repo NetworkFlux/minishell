@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/22 15:32:24 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:31:59 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 			init_full_cmd(g_fcmd->f_cmd);
 			env_variables();
 			parse_redir();
+			//apply_heredoc
 			parse_cmd();
 			__exec_full(0, g_fcmd->s_cmd[0]->tokens, 0);
 		}
