@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/31 18:58:28 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:56:09 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ctrlc(int sig)
 			write(1, "  ", 2);
 			write(1, "\b\b", 2);
 			g_fcmd->active_heredoc = 0;
-			exit(130);
+			clear_exit(130);
 			return ;
 		}
 		write(1, "\n", 1);
