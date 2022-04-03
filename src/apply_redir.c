@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/31 18:49:20 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/03 18:26:11 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,19 @@ char	**apply_heredoc(t_scmd *scmd)
 	int		i;
 
 	hered = get_heredoc(scmd);
-	fd = open("heredoc.ms", O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	fd = open(ft_strcat(".",
+				ft_strcat(scmd->redir->inin_args[scmd->redir->inin - 1],
+					".ms")), O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (!fd)
 		clear_all();
 	i = 1;
 	while (hered[i])
 		ft_putendl_fd(hered[i++], fd);
 	close(fd);
-	return (ft_realloc(scmd->tokens, "heredoc.ms"));
+	return (ft_realloc(scmd->tokens,
+			ft_strcat(".",
+				ft_strcat(scmd->redir->inin_args[scmd->redir->inin - 1],
+					".ms"))));
 }
 
 char	**get_heredoc(t_scmd *scmd)
@@ -101,7 +106,5 @@ char	**apply_inredir(t_scmd *scmd)
 		tab = scmd->tokens;
 		tab = ft_realloc(tab, scmd->redir->in_args[scmd->redir->in - 1]);
 	}
-	else
-		tab = apply_heredoc(scmd);
 	return (tab);
 }

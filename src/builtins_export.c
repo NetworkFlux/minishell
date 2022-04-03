@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:56:38 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/01 15:46:54 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:41:06 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,17 @@ int	insert_update_env(char *name, char *value)
 	return (1);
 }
 
-int	builtins_export(t_scmd *scmd, int readpipe)
+static void	export_norm(t_scmd *scmd, char **array)
 {
-	char	**array;
 	size_t	i;
 
-	if (scmd->tokens && scmd->ntokens == 1)
-		return (pipeline(scmd, &output_envp, readpipe));
-	if (!scmd->tokens[1])
-		return (0);
 	i = 1;
 	while (scmd->tokens[i])
 	{
 		if (export_args(scmd->tokens[i]))
 		{
-			perr(EINVAL, "bash: export");
+			if (export_args(scmd->tokens[i]) == 1)
+				perr(EINVAL, "bash: export");
 			i++;
 			continue ;
 		}
@@ -89,13 +85,20 @@ int	builtins_export(t_scmd *scmd, int readpipe)
 			i++;
 			continue ;
 		}
-		if (!insert_update_env(array[0], array[1]))
-		{
-			clear_array(array, ft_arrlen(array));
-			error_malloc(1);
-		}
-		clear_array(array, ft_arrlen(array));
+		export_norm2(array);
 		i++;
 	}
+}
+
+int	builtins_export(t_scmd *scmd, int readpipe)
+{
+	char	**array;
+
+	array = NULL;
+	if (scmd->tokens && scmd->ntokens == 1)
+		return (pipeline(scmd, &output_envp, readpipe));
+	if (!scmd->tokens[1])
+		return (0);
+	export_norm(scmd, array);
 	return (0);
 }

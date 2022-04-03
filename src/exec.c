@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/25 13:23:08 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:43:09 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ void	__exec_full(size_t index, char **args, int readpipe)
 		new_piperead = pipeline(g_fcmd->s_cmd[index], &execute, readpipe);
 	next_recurs(&args, &index, &needpipe, &new_piperead);
 	end_recurs();
-	unlink("heredoc.ms");
+	ft_unlink(g_fcmd->s_cmd[index]);
 	return ;
 }

@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   export_norm.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 16:36:47 by npinheir         ###   ########.fr       */
+/*   Created: 2022/04/03 18:36:23 by npinheir          #+#    #+#             */
+/*   Updated: 2022/04/03 19:36:23 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	export_norm2(char **array)
 {
-	(void)argv;
-	if (argc != 1)
+	if (!insert_update_env(array[0], array[1]))
 	{
-		ft_putendl_fd("Usage : ./minishell", 1);
-		return (1);
+		clear_array(array, ft_arrlen(array));
+		error_malloc(1);
 	}
-	init_signals();
-	init_global(envp);
-	while (1)
-	{
-		if (take_input())
-		{
-			init_full_cmd(g_fcmd->f_cmd);
-			env_variables();
-			parse_redir();
-			parse_cmd();
-			apply_hd(g_fcmd);
-			__exec_full(0, g_fcmd->s_cmd[0]->tokens, 0);
-		}
-		clear_all();
-	}
-	return (0);
+	clear_array(array, ft_arrlen(array));
 }

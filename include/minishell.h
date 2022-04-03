@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/01 16:20:47 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:41:12 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <sys/types.h>
+# include <dirent.h>
+
 // # include <termios.h>
 
 typedef struct s_env
@@ -120,6 +123,10 @@ void	create_redir_file_d(t_scmd *scmd);
 char	**apply_inredir(t_scmd *scmd);
 char	**apply_heredoc(t_scmd *scmd);
 char	**get_heredoc(t_scmd *scmd);
+void	apply_hd(t_fcmd *g_fcmd);
+void	ft_unlink(t_scmd *s_cmd);
+int		check_outputs(t_scmd *s_cmd);
+int		check_outputs2(t_scmd *s_cmd);
 
 // parsing
 int		parse_cmd(void);
@@ -179,12 +186,7 @@ size_t	ft_arrlen(char **arr);
 char	*remove_quotes(char *input);
 void	rl_replace_line(const char *text, int clear_undo);
 
-// debug
-void	print_cmd(size_t i);
-void	print_redir(t_scmd	*s_cmd, size_t i);
-void	print_tokens(t_scmd *scmd);
-void	print_env_array(char **envp);
-void	print_env_list(void);
-void	print_array(char **array, char *str);
+// norm
+void	export_norm2(char **array);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 08:07:29 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/23 13:44:52 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:05:07 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Retourne le primier mot d'un str
+// Retourne le premier mot d'un str
 char	*first_word(char *str)
 {
 	char	*res;
@@ -24,14 +24,14 @@ char	*first_word(char *str)
 	while (str[i] && ft_isspace(str[i]))
 		i++;
 	j = i;
-	while (str[i] && !ft_isspace(str[i]))
+	while (str[i] && (!ft_isspace(str[i]) && str[i] != '>' && str[i] != '<'))
 		i++;
 	res = malloc(sizeof(char) * (i - j + 1));
 	if (!res)
 		return (NULL);
 	i = j;
 	j = 0;
-	while (str[i] && !ft_isspace(str[i]))
+	while (str[i] && (!ft_isspace(str[i]) && str[i] != '>' && str[i] != '<'))
 	{
 		res[j] = str[i];
 		i++;

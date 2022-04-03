@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bis_bis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 13:08:31 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/01 15:41:45 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:27:48 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ static int	get_equal(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '=')
+		if (str[i] == '=' && i != 0)
 			return (i);
+		else if (str[i] == '=')
+			return (1);
 		i++;
 	}
 	return (-1);
@@ -50,7 +52,7 @@ int	export_args(char *str)
 	equal = 0;
 	equal = get_equal(str);
 	if (equal == -1)
-		return (1);
+		return (2);
 	temp = ft_substr(str, 0, equal);
 	if (str_alpha(temp))
 	{

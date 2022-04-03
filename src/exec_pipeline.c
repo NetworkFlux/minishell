@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:28:32 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/24 18:53:54 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/03 18:21:29 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	execute(t_scmd *s_cmd)
 {
 	char	**args;
 
-	if (s_cmd->redir->in || s_cmd->redir->inin)
+	if (s_cmd->redir->in)
 		args = apply_inredir(s_cmd);
 	else
 		args = s_cmd->tokens;
@@ -41,6 +41,8 @@ static void	child(int p1[2], size_t index, int readpipe)
 		dup2(readpipe, STDIN_FILENO);
 		close(readpipe);
 	}
+	if (check_outputs(g_fcmd->s_cmd[index]))
+		exit(1);
 	redir_out = apply_outredir(g_fcmd->s_cmd[index]);
 	if (redir_out == 1 && index != g_fcmd->nb_scmd - 1)
 		dup2(p1[1], STDOUT_FILENO);
