@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 21:51:20 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:05:31 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ static void	cd_with_args(t_scmd *scmd, int *res, t_env *tmp)
 		}
 	}
 	else
-	{
-		//scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0, NULL);
 		*res = chdir(scmd->tokens[1]);
-	}
 	update_pwds();
 }
 

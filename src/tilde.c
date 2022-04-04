@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 21:06:40 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 21:47:03 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/04 18:05:47 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*tilde(char *str)
 	char	*temp2;
 	size_t	i;
 
-	home = getenv("HOME"); 
+	home = getenv("HOME");
 	i = 0;
 	while (str[i])
 	{
