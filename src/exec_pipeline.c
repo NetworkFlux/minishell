@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:28:32 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/03 18:21:29 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/04 22:38:43 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	execute(t_scmd *s_cmd)
 {
 	char	**args;
 
-	if (s_cmd->redir->in)
+	if (s_cmd->redir->last_in == 1 || (!s_cmd->redir->in
+			&& !s_cmd->redir->inin))
 		args = apply_inredir(s_cmd);
 	else
 		args = s_cmd->tokens;
