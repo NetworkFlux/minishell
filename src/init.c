@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/31 18:48:54 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/03 21:46:25 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	init_full_cmd(char *cmd)
 		error_malloc(1);
 	while (i < g_fcmd->nb_scmd)
 	{
-		g_fcmd->s_cmd[i]->s_cmd = remove_spaces(cmd_split[i]);
+		g_fcmd->s_cmd[i]->s_cmd = one_tilde(remove_spaces(cmd_split[i]));
 		if (!g_fcmd->s_cmd[i]->s_cmd)
 			error_malloc(clear_array(cmd_split, g_fcmd->nb_scmd));
 		g_fcmd->s_cmd[i]->redir = init_redir();

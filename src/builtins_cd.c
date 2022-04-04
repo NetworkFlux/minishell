@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:10:45 by npinheir          #+#    #+#             */
-/*   Updated: 2022/03/26 19:26:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/03 21:51:20 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static	char	*check_tilde(char *path, int i, int begin, char *res)
-{
-	char	*home;
-	char	*tmp;
-	char	*tmp2;
-
-	home = getenv("HOME");
-	while (path[i])
-	{
-		if (path[i] == '~')
-		{
-			tmp = ft_substr(path, begin, i);
-			tmp2 = ft_strcat(tmp, home);
-			free(tmp);
-			tmp = ft_substr(path, i + 1, ft_strlen(path));
-			res = ft_strcat(tmp2, tmp);
-			free(tmp2);
-			free(tmp);
-			begin = i;
-		}
-		i++;
-	}
-	if (!res)
-		return (path);
-	free(path);
-	return (res);
-}
 
 static void	update_pwds(void)
 {
@@ -85,7 +57,7 @@ static void	cd_with_args(t_scmd *scmd, int *res, t_env *tmp)
 	}
 	else
 	{
-		scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0, NULL);
+		//scmd->tokens[1] = check_tilde(scmd->tokens[1], 0, 0, NULL);
 		*res = chdir(scmd->tokens[1]);
 	}
 	update_pwds();
