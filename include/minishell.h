@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/03 19:41:12 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/04 16:56:27 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ char	*parse_param(char *str, size_t *start);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 size_t	find_block_end(char *input, size_t position);
+char	*tilde(char *str);
+char	*one_tilde(char *str);
 
 // exec
 void	__exec_full(size_t index, char **args, int piperead);
