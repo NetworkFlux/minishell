@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:09:24 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 18:24:01 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:26:56 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,22 @@
 
 void	ft_unlink(t_scmd *s_cmd)
 {
-	if (s_cmd->redir->inin)
-		unlink(ft_strcat(".",
-				ft_strcat(s_cmd->redir->inin_args[s_cmd->redir->inin - 1],
-					".ms")));
+	char	*strcat;
+	char	*strcat2;
+
+	if (s_cmd->redir->inin > 0
+		&& s_cmd->redir->inin_args && s_cmd->redir->inin_args[0])
+	{
+		strcat = ft_strcat(s_cmd->redir->inin_args[s_cmd->redir->inin - 1], \
+			".ms");
+		strcat2 = ft_strcat(".", strcat);
+		if (s_cmd->redir->inin)
+			unlink(strcat2);
+		if (strcat)
+			free(strcat);
+		if (strcat2)
+			free(strcat2);
+	}
 }
 
 int	check_outputs2(t_scmd *s_cmd)
@@ -65,12 +77,19 @@ int	check_outputs(t_scmd *s_cmd)
 void	apply_hd(t_fcmd *g_fcmd)
 {
 	size_t	i;
+	char	**tmp;
 
 	i = 0;
 	while (i < g_fcmd->nb_scmd)
 	{
 		if (g_fcmd->s_cmd[i]->redir->inin)
-			g_fcmd->s_cmd[i]->tokens = apply_heredoc(g_fcmd->s_cmd[i]);
+		{
+			tmp = apply_heredoc(g_fcmd->s_cmd[i]);
+			if (g_fcmd->s_cmd[i]->tokens)
+				clear_array(g_fcmd->s_cmd[i]->tokens, \
+					ft_arrlen(g_fcmd->s_cmd[i]->tokens));
+			g_fcmd->s_cmd[i]->tokens = tmp;
+		}
 		i++;
 	}
 	return ;

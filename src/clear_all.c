@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:20:42 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/03/31 17:01:56 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:26:06 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ static void	clear_redir(t_redir *redir)
 	free(redir);
 }
 
-static void	clear_tokens(t_scmd *scmd)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < scmd->ntokens && scmd->tokens[i])
-	{
-		free(scmd->tokens[i]);
-		i++;
-	}
-	free(scmd->tokens);
-}
-
 /*	loops over single command in order to free its content 
 	kill command's child process if still running (pid!=0) */
 static void	clear_scmd(void)
@@ -49,8 +36,9 @@ static void	clear_scmd(void)
 	{
 		if (g_fcmd->s_cmd[i]->instructions)
 			free(g_fcmd->s_cmd[i]->instructions);
-		if (g_fcmd->s_cmd[i]->ntokens > 0)
-			clear_tokens(g_fcmd->s_cmd[i]);
+		if (g_fcmd->s_cmd[i]->tokens && g_fcmd->s_cmd[i]->tokens[0])
+			clear_array(g_fcmd->s_cmd[i]->tokens, \
+				ft_arrlen(g_fcmd->s_cmd[i]->tokens));
 		if (g_fcmd->s_cmd[i]->redir)
 			clear_redir(g_fcmd->s_cmd[i]->redir);
 		if (g_fcmd->s_cmd[i]->s_cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 18:26:11 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:35:01 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,43 @@ char	**apply_heredoc(t_scmd *scmd)
 	char	**hered;
 	int		fd;
 	int		i;
+	char	*tmp;
+	char	*tmp2;
 
+	tmp = ft_strcat(scmd->redir->inin_args[scmd->redir->inin - 1], ".ms");
+	if (!tmp)
+		clear_all();
+	tmp2 = ft_strcat(".", tmp);
+	if (!tmp2)
+		clear_all();
 	hered = get_heredoc(scmd);
-	fd = open(ft_strcat(".",
-				ft_strcat(scmd->redir->inin_args[scmd->redir->inin - 1],
-					".ms")), O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	fd = open(tmp2, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (!fd)
 		clear_all();
 	i = 1;
 	while (hered[i])
 		ft_putendl_fd(hered[i++], fd);
 	close(fd);
-	return (ft_realloc(scmd->tokens,
-			ft_strcat(".",
-				ft_strcat(scmd->redir->inin_args[scmd->redir->inin - 1],
-					".ms"))));
+	free(tmp);
+	clear_array(hered, ft_arrlen(hered));
+	hered = ft_realloc(scmd->tokens, tmp2);
+	free(tmp2);
+	return (hered);
+}
+
+static char	**heredoc_loop(char *input, char **res, t_scmd *scmd, size_t i)
+{
+	char	**tmp;
+
+	if (i == scmd->redir->inin - 1)
+	{
+		tmp = ft_realloc(res, input);
+		clear_array(res, ft_arrlen(res));
+		if (input)
+			free(input);
+		res = tmp;
+	}
+	return (res);
 }
 
 char	**get_heredoc(t_scmd *scmd)
@@ -73,7 +95,7 @@ char	**get_heredoc(t_scmd *scmd)
 
 	i = 0;
 	res = malloc(sizeof(char *) * 2);
-	res[0] = scmd->tokens[0];
+	res[0] = ft_strdup(scmd->tokens[0]);
 	res[1] = NULL;
 	while (i < scmd->redir->inin)
 	{
@@ -81,8 +103,7 @@ char	**get_heredoc(t_scmd *scmd)
 		input = readline("> ");
 		while (ft_strcompare(input, scmd->redir->inin_args[i]) == 0)
 		{
-			if (i == scmd->redir->inin - 1)
-				res = ft_realloc(res, input);
+			res = heredoc_loop(input, res, scmd, i);
 			input = readline("> ");
 		}
 		i++;
