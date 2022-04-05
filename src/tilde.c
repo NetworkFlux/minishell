@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 21:06:40 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/05 17:41:25 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:51:41 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ char	*tilde(char *str)
 			temp = ft_substr(str, 0, i);
 			temp2 = ft_strcat(temp, home);
 			free(temp);
-			free(home);
 			temp = ft_substr(str, i + 1, ft_strlen(str));
 			home = ft_strcat(temp2, temp);
 			free(temp);
 			free(temp2);
+			free(str);
 			return (home);
 		}
 		i++;
