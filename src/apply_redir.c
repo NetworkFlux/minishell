@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/05 17:35:01 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/05 19:45:46 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	apply_outredir(t_scmd *scmd)
 	int		temp;
 
 	temp = 1;
-	if (!scmd->redir->out && !scmd->redir->outout)
+	if (!scmd->redir->last_out)
 		return (1);
 	create_redir_file_s(scmd);
 	temp = open(scmd->redir->out_args[scmd->redir->out - 1], \
