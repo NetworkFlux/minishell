@@ -6,7 +6,7 @@
 #    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/04/04 13:10:17 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/04/05 17:38:15 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,9 @@ SRC_FILES = main.c		\
 	exec.c				\
 	exec_pipeline.c		\
 	ft_realloc.c		\
+	tilde.c				\
 	apply_heredoc.c		\
-	export_norm.c		\
+	export_norm.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
