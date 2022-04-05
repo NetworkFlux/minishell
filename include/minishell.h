@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/04 16:56:27 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/05 19:56:50 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	*strrebuild(char *src1, char *src2, char *src3);
 
 // apply redirections
 int		apply_outredir(t_scmd *scmd);
+int		apply_outredir2(t_scmd *scmd, int fd1);
 void	create_redir_file_s(t_scmd *scmd);
 void	create_redir_file_d(t_scmd *scmd);
 char	**apply_inredir(t_scmd *scmd);

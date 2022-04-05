@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/05 19:45:46 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:14:34 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,18 @@
 int	apply_outredir(t_scmd *scmd)
 {
 	int		fd;
-	int		temp;
 
-	temp = 1;
+	fd = 1;
 	if (!scmd->redir->last_out)
 		return (1);
 	create_redir_file_s(scmd);
-	temp = open(scmd->redir->out_args[scmd->redir->out - 1], \
-		O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (!temp)
-		clear_all();
-	fd = temp;
-	create_redir_file_d(scmd);
-	temp = open(scmd->redir->outout_args[scmd->redir->outout - 1], \
-		O_CREAT | O_WRONLY | O_APPEND, 0664);
-	if (!temp)
-		clear_all();
-	if (scmd->redir->last_out == 2)
+	if (scmd->redir->out)
 	{
-		close(fd);
-		fd = temp;
+		fd = open(scmd->redir->out_args[scmd->redir->out - 1], \
+			O_CREAT | O_WRONLY | O_TRUNC, 0664);
+		if (!fd)
+			clear_all();
 	}
-	else
-		close(temp);
 	return (fd);
 }
 

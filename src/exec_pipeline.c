@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:28:32 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/04 22:38:43 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:13:21 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	child(int p1[2], size_t index, int readpipe)
 	if (check_outputs(g_fcmd->s_cmd[index]))
 		exit(1);
 	redir_out = apply_outredir(g_fcmd->s_cmd[index]);
+	redir_out = apply_outredir2(g_fcmd->s_cmd[index], redir_out);
 	if (redir_out == 1 && index != g_fcmd->nb_scmd - 1)
 		dup2(p1[1], STDOUT_FILENO);
 	else if (redir_out != 1)

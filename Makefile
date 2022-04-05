@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
+#    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/04/05 17:38:15 by fcaquard         ###   ########.fr        #
+#    Updated: 2022/04/05 19:55:59 by npinheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ SRC_FILES = main.c		\
 	ft_realloc.c		\
 	tilde.c				\
 	apply_heredoc.c		\
-	export_norm.c
+	export_norm.c		\
+	apply_redir2.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -70,7 +71,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
 # Libft and Minilibx linkers
-LNK = -L $(LIBFT_DIR) -lft -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
+LNK = -L $(LIBFT_DIR) -lft -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 
 # Colors
 RED = \033[0;31m
