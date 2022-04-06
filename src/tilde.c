@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 21:06:40 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/06 17:06:05 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:12:02 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ char	*one_tilde(char *str)
 	res = str;
 	while (res[i])
 	{
-		if (res[i] == '~' && ft_isspace(res[i - 1]) && (ft_isspace(res[i + 1]) || res[i + 1] == '/' || !res[i + 1]))
+		if (res[i] == '~' && ft_isspace(res[i - 1]) && (ft_isspace(res[i + 1])
+				|| res[i + 1] == '/' || !res[i + 1]))
 		{
 			res = tilde(res, i);
 			i = 0;
-			continue;
+			continue ;
 		}
 		i++;
 	}
