@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 21:46:25 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/06 22:38:58 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_redir	*init_redir(void)
 	res->inin_args = NULL;
 	res->last_out = 0;
 	res->last_in = 0;
+	res->here_name = NULL;
 	return (res);
 }
 

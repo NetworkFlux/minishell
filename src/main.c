@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:02:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/03 16:36:47 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:45:15 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			env_variables();
 			parse_redir();
 			parse_cmd();
-			apply_hd(g_fcmd);
+			apply_hd2();
 			__exec_full(0, g_fcmd->s_cmd[0]->tokens, 0);
 		}
 		clear_all();

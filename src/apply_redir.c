@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/05 20:14:34 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:29:13 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,25 @@ char	**get_heredoc(t_scmd *scmd)
 	return (res);
 }
 
-char	**apply_inredir(t_scmd *scmd)
+void	apply_inredir(t_scmd *scmd)
 {
-	char	**tab;
+	int	fd;
 
-	tab = NULL;
-	if (!scmd->redir->in && !scmd->redir->inin)
-	{
-		tab = scmd->tokens;
-		return (tab);
-	}
 	if (scmd->redir->last_in == 1)
 	{
-		tab = scmd->tokens;
-		tab = ft_realloc(tab, scmd->redir->in_args[scmd->redir->in - 1]);
+		fd = open(scmd->redir->in_args[scmd->redir->in - 1], O_RDONLY);
+		if (!fd)
+			clear_exit(1);
+		dup2(fd, STDIN_FILENO);
 	}
-	return (tab);
+	else if (scmd->redir->last_in == 2)
+	{
+		fd = open(scmd->redir->here_name, O_RDONLY);
+		if (!fd)
+			clear_exit(1);
+		else
+			unlink(scmd->redir->here_name);
+		free(scmd->redir->here_name);
+		dup2(fd, STDIN_FILENO);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/06 17:03:13 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:22:16 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_redirection
 	char		**inin_args;
 	int			last_out;
 	int			last_in;
+	char		*here_name;
 }	t_redir;
 
 typedef struct s_single_command
@@ -121,13 +122,14 @@ int		apply_outredir(t_scmd *scmd);
 int		apply_outredir2(t_scmd *scmd, int fd1);
 void	create_redir_file_s(t_scmd *scmd);
 void	create_redir_file_d(t_scmd *scmd);
-char	**apply_inredir(t_scmd *scmd);
+void	apply_inredir(t_scmd *scmd);
 char	**apply_heredoc(t_scmd *scmd);
 char	**get_heredoc(t_scmd *scmd);
 void	apply_hd(t_fcmd *g_fcmd);
 void	ft_unlink(t_scmd *s_cmd);
 int		check_outputs(t_scmd *s_cmd);
 int		check_outputs2(t_scmd *s_cmd);
+void	apply_hd2(void);
 
 // parsing
 int		parse_cmd(void);

@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:28:32 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/05 20:13:21 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:29:47 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ void	execute(t_scmd *s_cmd)
 {
 	char	**args;
 
-	if (s_cmd->redir->last_in == 1 || (!s_cmd->redir->in
-			&& !s_cmd->redir->inin))
-		args = apply_inredir(s_cmd);
-	else
-		args = s_cmd->tokens;
+	args = s_cmd->tokens;
+	if (s_cmd->redir->last_in)
+		apply_inredir(s_cmd);
 	if (g_fcmd->exec_path == NULL)
 	{
 		write(2, s_cmd->tokens[0], ft_strlen(s_cmd->tokens[0]));
@@ -58,6 +56,7 @@ static void	child(int p1[2], size_t index, int readpipe)
 
 static void	parent(int p1[2], size_t index)
 {
+	wait(NULL);
 	close(p1[1]);
 	if (index == g_fcmd->nb_scmd - 1)
 		close(p1[0]);

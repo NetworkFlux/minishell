@@ -6,7 +6,7 @@
 /*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:54:59 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/05 20:22:04 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/06 23:54:40 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	apply_outredir2(t_scmd *scmd, int fd1)
 	fd = 1;
 	if (!scmd->redir->last_out)
 		return (1);
-	create_redir_file_s(scmd);
+	create_redir_file_d(scmd);
 	if (scmd->redir->last_out == 2)
 	{
 		fd = open(scmd->redir->outout_args[scmd->redir->outout - 1], \
