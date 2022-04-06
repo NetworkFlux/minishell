@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 21:06:40 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/05 17:51:41 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:06:05 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,37 @@
 char	*one_tilde(char *str)
 {
 	size_t	i;
-	size_t	t;
 	char	*res;
 
 	i = 0;
-	t = 0;
 	res = str;
-	while (str[i])
+	while (res[i])
 	{
-		if (str[i] == '~')
-			t++;
+		if (res[i] == '~' && ft_isspace(res[i - 1]) && (ft_isspace(res[i + 1]) || res[i + 1] == '/' || !res[i + 1]))
+		{
+			res = tilde(res, i);
+			i = 0;
+			continue;
+		}
 		i++;
 	}
-	if (t == 1)
-		res = tilde(str);
 	return (res);
 }
 
-char	*tilde(char *str)
+char	*tilde(char *str, size_t i)
 {
 	char	*home;
 	char	*temp;
 	char	*temp2;
-	size_t	i;
 
 	home = getenv("HOME");
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '~')
-		{
-			temp = ft_substr(str, 0, i);
-			temp2 = ft_strcat(temp, home);
-			free(temp);
-			temp = ft_substr(str, i + 1, ft_strlen(str));
-			home = ft_strcat(temp2, temp);
-			free(temp);
-			free(temp2);
-			free(str);
-			return (home);
-		}
-		i++;
-	}
-	return (str);
+	temp = ft_substr(str, 0, i);
+	temp2 = ft_strcat(temp, home);
+	free(temp);
+	temp = ft_substr(str, i + 1, ft_strlen(str));
+	home = ft_strcat(temp2, temp);
+	free(temp);
+	free(temp2);
+	free(str);
+	return (home);
 }

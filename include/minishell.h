@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npinheir <npinheir@student.42.be>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/05 19:56:50 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:03:13 by npinheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char	*parse_param(char *str, size_t *start);
 size_t	find_param_end(char *input, size_t position);
 int		is_block_start(char c);
 size_t	find_block_end(char *input, size_t position);
-char	*tilde(char *str);
+char	*tilde(char *str, size_t i);
 char	*one_tilde(char *str);
 
 // exec
