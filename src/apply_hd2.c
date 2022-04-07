@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_hd2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:21:06 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/07 00:45:47 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:54:36 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,35 +51,37 @@ static void	write_heredoc(t_scmd *scmd, char *file_name)
 static char	*heredoc_secret(char *name)
 {
 	char	*secret_name;
+	char	*tmp;
 
 	secret_name = ft_strcat(".", name);
-	secret_name = ft_strcat(secret_name, ".ms");
-	return (secret_name);
+	tmp = ft_strcat(secret_name, ".ms");
+	free(secret_name);
+	return (tmp);
 }
 
 static char	*create_heredoc(t_scmd *s_cmd)
 {
-	pid_t	pid;
 	int		fd;
-	char	*file_name;
+	int		wstatus;
 
 	fd = 0;
-	file_name = NULL;
-	g_fcmd->active_heredoc = 1;
-	file_name = heredoc_secret(s_cmd->redir->inin_args \
+	g_fcmd->active_heredoc = s_cmd->index;
+	s_cmd->redir->here_name = heredoc_secret(s_cmd->redir->inin_args \
 			[s_cmd->redir->inin - 1]);
-	pid = fork();
-	if (!pid)
+	s_cmd->pid = fork();
+	if (s_cmd->pid == 0)
 	{
-		write_heredoc(s_cmd, file_name);
+		write_heredoc(s_cmd, s_cmd->redir->here_name);
 		exit(0);
 	}
 	else
 	{
-		wait(NULL);
-		g_fcmd->active_heredoc = 0;
+		waitpid(s_cmd->pid, &wstatus, 0);
+		g_fcmd->exitcode = exitstatus(wstatus);
+		g_fcmd->active_heredoc = -1;
+		s_cmd->pid = -1;
 	}
-	return (file_name);
+	return (s_cmd->redir->here_name);
 }
 
 void	apply_hd2(void)
@@ -90,8 +92,7 @@ void	apply_hd2(void)
 	while (i < g_fcmd->nb_scmd)
 	{
 		if (g_fcmd->s_cmd[i]->redir->inin)
-			g_fcmd->s_cmd[i]->redir->here_name = \
-				create_heredoc(g_fcmd->s_cmd[i]);
+			create_heredoc(g_fcmd->s_cmd[i]);
 		i++;
 	}
 }

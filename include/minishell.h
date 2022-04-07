@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 22:19:45 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/07 00:22:16 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:54:24 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ char	*one_tilde(char *str);
 // exec
 void	__exec_full(size_t index, char **args, int piperead);
 char	*find_path(t_scmd *scmd);
+int		exitstatus(int wstatus);
 
 // pipeline
 void	execute(t_scmd *s_cmd);

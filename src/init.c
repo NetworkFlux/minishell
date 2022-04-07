@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 07:55:12 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/06 22:38:58 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 10:55:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_global(char **envp)
 		error_malloc(1);
 	g_fcmd->env = NULL;
 	g_fcmd->f_cmd = NULL;
-	g_fcmd->active_heredoc = 0;
+	g_fcmd->active_heredoc = -1;
 	g_fcmd->s_cmd = NULL;
 	g_fcmd->exitcode = 0;
 	g_fcmd->exec_path = NULL;

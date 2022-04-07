@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:04:50 by npinheir          #+#    #+#             */
-/*   Updated: 2022/04/07 00:29:13 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:15:46 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	apply_inredir(t_scmd *scmd)
 	else if (scmd->redir->last_in == 2)
 	{
 		fd = open(scmd->redir->here_name, O_RDONLY);
-		if (!fd)
+		if (fd < 0)
 			clear_exit(1);
 		else
 			unlink(scmd->redir->here_name);

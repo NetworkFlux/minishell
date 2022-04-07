@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:28:32 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/07 00:29:47 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 11:42:23 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	child(int p1[2], size_t index, int readpipe)
 
 static void	parent(int p1[2], size_t index)
 {
-	wait(NULL);
 	close(p1[1]);
 	if (index == g_fcmd->nb_scmd - 1)
 		close(p1[0]);

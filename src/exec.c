@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+        */
+/*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:32:20 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/03 15:43:09 by npinheir         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:56:18 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	exec_prepare(size_t index)
 	g_fcmd->exec_path = find_path(g_fcmd->s_cmd[index]);
 }
 
-static int	exitstatus(int wstatus)
+int	exitstatus(int wstatus)
 {
 	int	res;
 

@@ -6,7 +6,7 @@
 /*   By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 15:06:25 by fcaquard          #+#    #+#             */
-/*   Updated: 2022/04/01 18:56:09 by fcaquard         ###   ########.fr       */
+/*   Updated: 2022/04/07 12:48:58 by fcaquard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@ void	ctrlc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		if (g_fcmd->active_heredoc == 1)
+		if (g_fcmd->active_heredoc != -1)
 		{
-			write(1, "\b\b", 2);
-			write(1, "  ", 2);
-			write(1, "\b\b", 2);
-			g_fcmd->active_heredoc = 0;
-			clear_exit(130);
+			if (g_fcmd->s_cmd[g_fcmd->active_heredoc]->pid == 0)
+			{
+				close(0);
+				exit(130);
+			}
+			else
+			{
+				unlink(g_fcmd->s_cmd[g_fcmd->active_heredoc]->redir->here_name);
+				free(g_fcmd->s_cmd[g_fcmd->active_heredoc]->redir->here_name);
+				g_fcmd->s_cmd[g_fcmd->active_heredoc]->redir->here_name = NULL;
+			}
 			return ;
 		}
 		write(1, "\n", 1);
