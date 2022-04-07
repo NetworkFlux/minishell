@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: npinheir <npinheir@student.s19.be>         +#+  +:+       +#+         #
+#    By: fcaquard <fcaquard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 13:59:16 by npinheir          #+#    #+#              #
-#    Updated: 2022/04/06 22:41:38 by npinheir         ###   ########.fr        #
+#    Updated: 2022/04/07 09:54:41 by fcaquard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
 # Libft and Minilibx linkers
-LNK = -L $(LIBFT_DIR) -lft -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
+LNK = -L $(LIBFT_DIR) -lft -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
 
 # Colors
 RED = \033[0;31m
