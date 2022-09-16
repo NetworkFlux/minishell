@@ -54,7 +54,7 @@ This project is about creating a simple shell.
 
   
 
-This program is supposed to mimic a functioning terminal and able to execute practically every command. This terminal should handel piping aswell as file redirections.
+This program is supposed to mimic a functioning terminal and be able to execute practically every command. This terminal should handel piping aswell as file redirections.
 
 - Extensive parsing
 - Piping
@@ -78,13 +78,14 @@ This is what this shell does :
 -   Implement pipes.
 -   Handle environment variables.
 -   Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
--   Your shell must implement the following builtins:
-    ◦ echo with option -n  
-    ◦ cd with only a relative or absolute path ◦ pwd with no options  
-    ◦ export with no options  
-    ◦ unset with no options  
-    ◦ env with no options or arguments  
-    ◦ exit with no options
+-   This shell must implement the following builtins:
+
+    ◦ echo
+    ◦ cd
+    ◦ export 
+    ◦ unset
+    ◦ env
+    ◦ exit
   
   
 
