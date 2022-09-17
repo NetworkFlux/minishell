@@ -87,6 +87,11 @@ This is what this shell does :
     ◦ env
     ◦ exit
   
-  
+
+## Help -- ⏳
+
+You might get this error at compilation :
+
+<img src="https://github.com/NetworkFlux/push_swap/blob/master/imgs/perf100.gif" width="400" height="250">
 
 👍 Thanks to [fcaquard](https://github.com/fqrd "fcaquard GitHub") for his help, we did this together ! 👍
