@@ -92,6 +92,6 @@ This is what this shell does :
 
 You might get this error at compilation :
 
-<img src="https://github.com/NetworkFlux/minishell/blob/main/imgs/compile_error.png" width="250" height="100">
+<img src="https://github.com/NetworkFlux/minishell/blob/main/imgs/compile_error.png">
 
 👍 Thanks to [fcaquard](https://github.com/fqrd "fcaquard GitHub") for his help, we did this together ! 👍
