@@ -15,7 +15,7 @@ git clone https://github.com/NetworkFlux/minishell.git && cd minishell && make &
 This project is about creating a simple shell.
 
 ## Objectives -- ✅
-This program is supposed to mimic a functioning terminal and be able to execute practically every command. This terminal should handel piping aswell as file redirections.
+This program is supposed to mimic a functioning terminal and be able to execute practically every command. This terminal should handle piping as well as file redirections.
 - Extensive parsing
 - Piping
 - Redirections
@@ -45,7 +45,7 @@ You might get this error at compilation :
 
 <img src="https://github.com/NetworkFlux/minishell/blob/main/imgs/compile_error.png">
 
-For this program to work you need to have readline on you computer. I personally use [brew](https://brew.sh/index_fr "Brew Site") as packet manager. In order to install readline with brew use the following command :
+For this program to work, you need to have readline on your computer. I personally use [brew](https://brew.sh/index_fr "Brew Site") as packet manager. In order to install readline with brew use the following command :
 
 ```bash
 brew install readline
@@ -57,6 +57,6 @@ Now readline installed, you will need to find the path to readline which will be
 brew info readline
 ```
 
-With readline finally working copy LDFLAGS and CPPFLAGS and paste it in the makefile at line 75 (2 lasts links).
+With readline finally working, copy LDFLAGS and CPPFLAGS and paste it in the makefile at line 75 (2 lasts links).
 
 👍 Thanks to [fcaquard](https://github.com/fqrd "fcaquard GitHub") for his help, we did this together ! 👍
